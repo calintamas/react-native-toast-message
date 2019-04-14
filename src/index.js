@@ -10,12 +10,34 @@ const FRICTION = 8;
 const VISBILITY_TIME = 4000; // ms
 
 class Toast extends Component {
+  static _ref = null;
+
+  static setRef(ref = {}) {
+    this._ref = ref;
+  }
+
+  static clearRef() {
+    this._ref = null;
+  }
+
+  static show(options = {}) {
+    this._ref.show(options);
+  }
+
+  static hide() {
+    this._ref.hide();
+  }
+
   constructor(props) {
     super(props);
+
+    this._setState = this._setState.bind(this);
+    this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
 
     this.state = {
+      inProgress: false,
       isVisible: false,
       animation: new Animated.Value(0),
       position: 'bottom',
@@ -25,52 +47,60 @@ class Toast extends Component {
     }
   }
 
-  show(options = {}) {
-    const newState = {
-      position: options.position || 'bottom',
-      type: options.type || 'success',
-      text1: options.text1 || '',
-      text2: options.text2 || ''
-    }
-
-    this.setState(newState, async () => {
-      if (this.state.isVisible) {
-        // hide the previous toast first
-        await this.hide();
-      }
-      // then perform the animation
-      this._showAnimation(options);
-    })
+  _setState(newState = {}) {
+    return new Promise((resolve) => this.setState(newState, () => resolve()));
   }
 
-  _showAnimation(options) {
-    Animated
-      .spring(this.state.animation, {
-        toValue: 1,
-        friction: FRICTION
-      })
-      .start(() => {
-        this.setState({ isVisible: true })
-      });
+  async show(options = {}) {
+    const state = this.state;
+    if (state.inProgress || state.isVisible) {
+      await this.hide();
+    }
+
+    await this._setState({ inProgress: true });
+
+    const {
+      position = 'bottom',
+      type = 'success',
+      text1 = '',
+      text2 = '',
+      autoHide = false
+    } = options;
+    await this._setState({ position, type, text1, text2 });
+
+    await this.animateShow();
+    await this._setState({ isVisible: true });
 
     this.clearTimer();
-    if (options.autoHide) {
+    if (autoHide) {
       this.startTimer();
     }
   }
 
-  hide() {
+  async hide() {
+    await this.setState({ inProgress: true });
+    await this.animateHide();
+    await this._setState({ isVisible: true });
+    this.clearTimer();
+    this._setState({ isVisible: false, inProgress: false });
+  }
+
+  animateShow() {
+    return this.animate({ toValue: 1 });
+  }
+
+  animateHide() {
+    return this.animate({ toValue: 0 });
+  }
+
+  animate({ toValue }) {
     return new Promise((resolve) => {
       Animated
         .spring(this.state.animation, {
-          toValue: 0,
+          toValue,
           friction: FRICTION
         })
-        .start(() => {
-          resolve();
-          this.clearTimer();
-          this.setState({ isVisible: false })
-        });
+        .start(() => resolve())
     })
   }
 
