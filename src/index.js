@@ -32,11 +32,13 @@ class Toast extends Component {
     super(props);
 
     this._setState = this._setState.bind(this);
+    this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
 
     this.state = {
+      visibilityTime: VISBILITY_TIME,
       inProgress: false,
       isVisible: false,
       animation: new Animated.Value(0),
@@ -64,9 +66,10 @@ class Toast extends Component {
       type = 'success',
       text1 = '',
       text2 = '',
-      autoHide = false
+      autoHide = false,
+      visibilityTime = VISBILITY_TIME
     } = options;
-    await this._setState({ position, type, text1, text2 });
+    await this._setState({ position, type, text1, text2, visibilityTime });
 
     await this.animateShow();
     await this._setState({ isVisible: true });
@@ -105,7 +108,7 @@ class Toast extends Component {
   }
 
   startTimer() {
-    this.timer = setTimeout(() => this.hide(), VISBILITY_TIME)
+    this.timer = setTimeout(() => this.hide(), this.state.visibilityTime)
   }
 
   clearTimer() {
