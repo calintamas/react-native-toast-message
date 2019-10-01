@@ -43,7 +43,6 @@ class Toast extends Component {
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
-    this.onLayoutChange = this.onLayoutChange.bind(this);
 
     this.state = {
       // offsets
