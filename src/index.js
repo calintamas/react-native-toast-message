@@ -46,8 +46,8 @@ class Toast extends Component {
 
     this.state = {
       // offsets
-      top: TOP_OFFSET,
-      bottom: BOTTOM_OFFSET,
+      top: TOP_OFFSET || props.topOffset,
+      bottom: BOTTOM_OFFSET || props.bottomOffset,
 
       // toast height
       height: HEIGHT || props.height,
@@ -80,8 +80,8 @@ class Toast extends Component {
     await this._setState({ inProgress: true });
 
     const {
-      top = TOP_OFFSET,
-      bottom = BOTTOM_OFFSET,
+      topOffset = TOP_OFFSET,
+      bottomOffset = BOTTOM_OFFSET,
       position = 'top',
       type = 'success',
       text1 = '',
@@ -90,8 +90,8 @@ class Toast extends Component {
       visibilityTime = VISBILITY_TIME
     } = options;
     await this._setState({
-      top,
-      bottom,
+      top: topOffset,
+      bottom: bottomOffset,
       visibilityTime,
       position,
       type,
