@@ -4,7 +4,8 @@
   "description": "Toast message component for React Native",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "keywords": [
     "react-native",
@@ -12,8 +13,12 @@
   ],
   "author": "Calin Tamas <calinntamas@gmail.com>",
   "license": "ISC",
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/calintamas/react-native-toast-message.git"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^0.0.5",
+    "eslint": "^6.5.1"
   }
 }
