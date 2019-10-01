@@ -190,7 +190,7 @@ class Toast extends Component {
   }
 
   renderErrorToast(props) {
-    if (props.renderSuccessToast) {
+    if (props.renderErrorToast) {
       return props.renderErrorToast(this.state)
     }
 
