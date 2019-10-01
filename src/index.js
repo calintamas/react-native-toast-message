@@ -23,6 +23,10 @@ class Toast extends Component {
     this._ref = ref;
   }
 
+  static getRef() {
+    return this._ref;
+  }
+
   static clearRef() {
     this._ref = null;
   }
