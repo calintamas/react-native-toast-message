@@ -50,11 +50,11 @@ class Toast extends Component {
 
     this.state = {
       // offsets
-      top: TOP_OFFSET || props.topOffset,
-      bottom: BOTTOM_OFFSET || props.bottomOffset,
+      top: props.topOffset || TOP_OFFSET,
+      bottom: props.bottomOffset || BOTTOM_OFFSET,
 
       // toast height
-      height: HEIGHT || props.height,
+      height: props.height || HEIGHT,
 
       // in ms
       visibilityTime: VISBILITY_TIME,
