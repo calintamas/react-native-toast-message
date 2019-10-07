@@ -84,8 +84,8 @@ class Toast extends Component {
     await this._setState({ inProgress: true });
 
     const {
-      topOffset = TOP_OFFSET,
-      bottomOffset = BOTTOM_OFFSET,
+      topOffset = this.state.top,
+      bottomOffset = this.state.bottom,
       position = 'top',
       type = 'success',
       text1 = '',
