@@ -1,6 +1,6 @@
 {
   "name": "react-native-toast-message",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Toast message component for React Native",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "toast"
   ],
   "author": "Calin Tamas <calinntamas@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/calintamas/react-native-toast-message.git"
