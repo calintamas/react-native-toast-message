@@ -8,6 +8,7 @@ This is an animated toast message component for React Native that can be called 
 ```
 yarn add react-native-toast-message
 ```
+![ToastSuccess](success-toast.gif)
 
 ## Example
 ```js
