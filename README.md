@@ -55,3 +55,16 @@ If you display the toast top of screen, you can set the distance with this prope
 ### bottomOffset `int`
 Margin to bottom. If `position` is `bottom`.
 If you display the message bottom of screen, you can set the distance with this property. 
+
+## Render custom components
+If you want to render you own custom components for `success` and `error` toast messages, add this to you render method:
+```js
+render() {
+  return (
+    <Toast
+      ref={(ref) => Toast.setRef(ref)}
+      renderSuccessToast={() => <View />}
+      renderErrorToast={() => <View />} />
+  )
+}
+```
