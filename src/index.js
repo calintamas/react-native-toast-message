@@ -65,10 +65,25 @@ class Toast extends Component {
       inProgress: false,
       isVisible: false,
       animation: new Animated.Value(0),
-
+      hideElevation: false,
       text1: '',
       text2: ''
     }
+  }
+
+  componentDidMount() {
+    this.state.animation.addListener(({value}) => {
+      if (value === 1 && this.state.isVisible === true) {
+        this.setState({hideElevation: false});
+      }
+      if (value === 0 && this.state.isVisible === false) {
+        this.setState({hideElevation: true});
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.animation.removeAllListeners();
   }
 
   _setState(newState = {}) {
@@ -187,6 +202,7 @@ class Toast extends Component {
     return (
       <SuccessToast
         onClose={this.hide}
+        hideElevation={this.state.hideElevation}
         text1={this.state.text1}
         text2={this.state.text2} />
     )
@@ -200,6 +216,7 @@ class Toast extends Component {
     return (
       <ErrorToast
         onClose={this.hide}
+        hideElevation={this.state.hideElevation}
         text1={this.state.text1}
         text2={this.state.text2} />
     )
