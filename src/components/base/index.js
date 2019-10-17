@@ -9,7 +9,8 @@ const BaseToast = (props) => {
   const baseStyle = [
     styles.base,
     styles.borderLeft,
-    { borderLeftColor: props.color || undefined }
+    { borderLeftColor: props.color || undefined },
+    {elevation: props.hideElevation ? 3 : 0},
   ];
 
   return (
