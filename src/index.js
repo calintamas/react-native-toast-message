@@ -17,28 +17,6 @@ const _complement = (arr) => {
 }
 
 class Toast extends Component {
-  static _ref = null;
-
-  static setRef(ref = {}) {
-    this._ref = ref;
-  }
-
-  static getRef() {
-    return this._ref;
-  }
-
-  static clearRef() {
-    this._ref = null;
-  }
-
-  static show(options = {}) {
-    this._ref.show(options);
-  }
-
-  static hide() {
-    this._ref.hide();
-  }
-
   constructor(props) {
     super(props);
 
