@@ -13,7 +13,7 @@ yarn add react-native-toast-message
 ## Example
 ```js
 // Import the component
-import Toast, { ToastController } from './react-native-toast-message'
+import Toast, { ToastController } from 'react-native-toast-message'
 
 // Add it to your Root render method
 render() {
