@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Animated } from 'react-native'
+import { Animated, PanResponder } from 'react-native'
 
 import SuccessToast from './components/success'
 import ErrorToast from './components/error'
@@ -43,6 +43,8 @@ class Toast extends Component {
     super(props);
 
     this._setState = this._setState.bind(this);
+    this._animateMovement = this._animateMovement.bind(this);
+    this._animateRelease = this._animateRelease.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
@@ -68,11 +70,57 @@ class Toast extends Component {
 
       text1: '',
       text2: ''
-    }
+    };
+
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gesture) => {
+        this._animateMovement(gesture);
+      },
+      onPanResponderRelease: (event, gesture) => {
+        this._animateRelease(gesture);
+      },
+    });
   }
 
   _setState(newState = {}) {
     return new Promise((resolve) => this.setState(newState, () => resolve()));
+  }
+
+  _animateMovement(gesture) {
+    const { dy } = gesture;
+    let value = 1 + (dy / 100);
+
+    if (this.state.position === 'bottom') {
+      value = 1 - (dy / 100);
+    }
+
+    if (value < 1) {
+      this.state.animation.setValue(value)
+    }
+  }
+
+  _animateRelease(gesture) {
+    const { dy, vy } = gesture;
+    let value = 1 + (dy / 100);
+
+    if (this.state.position === 'bottom') {
+      value = 1 - (dy / 100);
+    }
+
+    if (value < 0.65) {
+      Animated.spring(this.state.animation, {
+        toValue: -2,
+        speed: -vy,
+        useNativeDriver: true
+      }).start();
+    } else if (value < 0.95) {
+      Animated.spring(this.state.animation, {
+        toValue: 1,
+        velocity: vy,
+        useNativeDriver: true
+      }).start();
+    }
   }
 
   async show(options = {}) {
@@ -223,7 +271,7 @@ class Toast extends Component {
     const baseStyle = this.getBaseStyle(this.state.position);
 
     return (
-      <Animated.View style={baseStyle}>
+      <Animated.View style={baseStyle} {...this.panResponder.panHandlers}>
         {this.renderContent(props)}
       </Animated.View>
     );
