@@ -1,3 +1,3 @@
-import Toast from './src'
+import Toast from './src';
 
-export default Toast
+export default Toast;

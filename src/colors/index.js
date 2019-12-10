@@ -4,6 +4,6 @@ const colors = {
   mantis: '#69C779',
   alto: '#D8D8D8',
   dustyGray: '#979797'
-}
+};
 
-export default colors
+export default colors;

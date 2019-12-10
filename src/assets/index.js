@@ -4,12 +4,10 @@ const assets = {
     error: require('./icons/error.png'),
     close: require('./icons/close.png')
   }
-}
+};
 
 const icons = assets.icons;
 
-export {
-  icons
-}
+export { icons };
 
-export default assets
+export default assets;

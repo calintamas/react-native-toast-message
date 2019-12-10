@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import colors from '../../colors'
+import { StyleSheet } from 'react-native';
+import colors from '../../colors';
 
 export const HEIGHT = 60;
 
@@ -49,4 +49,4 @@ export default StyleSheet.create({
     fontSize: 10,
     color: colors.dustyGray
   }
-})
+});

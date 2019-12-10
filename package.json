@@ -4,8 +4,21 @@
   "description": "Toast message component for React Native",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "hooks:install": "node ./node_modules/husky/bin/install",
+    "lint": "eslint .",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "keywords": [
     "react-native",
@@ -19,6 +32,10 @@
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^0.0.5",
-    "eslint": "^6.5.1"
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.7.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "1.19.1"
   }
 }
