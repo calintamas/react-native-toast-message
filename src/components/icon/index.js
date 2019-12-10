@@ -1,19 +1,20 @@
-import React from 'react'
-import { Image } from 'react-native'
+import React from 'react';
+import { Image } from 'react-native';
 
-import styles from './styles'
+import styles from './styles';
 
 const Icon = (props) => {
   if (!props.source) {
-    return null
+    return null;
   }
 
   return (
     <Image
       source={props.source}
       style={[styles.base, props.style]}
-      resizeMode='contain' />
-  )
+      resizeMode='contain'
+    />
+  );
 };
 
-export default Icon
+export default Icon;

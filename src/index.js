@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Animated, PanResponder } from 'react-native'
+import React, { Component } from 'react';
+import { Animated, PanResponder } from 'react-native';
 
-import SuccessToast from './components/success'
-import ErrorToast from './components/error'
-import styles from './styles'
+import SuccessToast from './components/success';
+import ErrorToast from './components/error';
+import styles from './styles';
 
 const FRICTION = 8;
 
@@ -13,8 +13,8 @@ const BOTTOM_OFFSET = 40;
 const HEIGHT = 60;
 
 const _complement = (arr) => {
-  return arr.map(i => -i)
-}
+  return arr.map((i) => -i);
+};
 
 class Toast extends Component {
   static _ref = null;
@@ -79,7 +79,7 @@ class Toast extends Component {
       },
       onPanResponderRelease: (event, gesture) => {
         this._animateRelease(gesture);
-      },
+      }
     });
   }
 
@@ -89,23 +89,23 @@ class Toast extends Component {
 
   _animateMovement(gesture) {
     const { dy } = gesture;
-    let value = 1 + (dy / 100);
+    let value = 1 + dy / 100;
 
     if (this.state.position === 'bottom') {
-      value = 1 - (dy / 100);
+      value = 1 - dy / 100;
     }
 
     if (value < 1) {
-      this.state.animation.setValue(value)
+      this.state.animation.setValue(value);
     }
   }
 
   _animateRelease(gesture) {
     const { dy, vy } = gesture;
-    let value = 1 + (dy / 100);
+    let value = 1 + dy / 100;
 
     if (this.state.position === 'bottom') {
-      value = 1 - (dy / 100);
+      value = 1 - dy / 100;
     }
 
     if (value < 0.65) {
@@ -186,18 +186,16 @@ class Toast extends Component {
 
   animate({ toValue }) {
     return new Promise((resolve) => {
-      Animated
-        .spring(this.state.animation, {
-          toValue,
-          friction: FRICTION,
-          useNativeDriver: true
-        })
-        .start(() => resolve())
-    })
+      Animated.spring(this.state.animation, {
+        toValue,
+        friction: FRICTION,
+        useNativeDriver: true
+      }).start(() => resolve());
+    });
   }
 
   startTimer() {
-    this.timer = setTimeout(() => this.hide(), this.state.visibilityTime)
+    this.timer = setTimeout(() => this.hide(), this.state.visibilityTime);
   }
 
   clearTimer() {
@@ -214,55 +212,55 @@ class Toast extends Component {
     const value = this.state.animation.interpolate({
       inputRange: [0, 1],
       outputRange
-    })
+    });
 
     return [
       styles.base,
       styles[position],
       {
-        transform: [
-          { translateY: value }
-        ]
+        transform: [{ translateY: value }]
       }
-    ]
+    ];
   }
 
   renderSuccessToast(props) {
     if (props.renderSuccessToast) {
-      return props.renderSuccessToast(this.state)
+      return props.renderSuccessToast(this.state);
     }
 
     return (
       <SuccessToast
         onClose={this.hide}
         text1={this.state.text1}
-        text2={this.state.text2} />
-    )
+        text2={this.state.text2}
+      />
+    );
   }
 
   renderErrorToast(props) {
     if (props.renderErrorToast) {
-      return props.renderErrorToast(this.state)
+      return props.renderErrorToast(this.state);
     }
 
     return (
       <ErrorToast
         onClose={this.hide}
         text1={this.state.text1}
-        text2={this.state.text2} />
-    )
+        text2={this.state.text2}
+      />
+    );
   }
 
   renderContent(props) {
     switch (this.state.type) {
       case 'success':
-        return this.renderSuccessToast(props)
+        return this.renderSuccessToast(props);
 
       case 'error':
-        return this.renderErrorToast(props)
+        return this.renderErrorToast(props);
 
       default:
-        return null
+        return null;
     }
   }
 
@@ -278,4 +276,4 @@ class Toast extends Component {
   }
 }
 
-export default Toast
+export default Toast;

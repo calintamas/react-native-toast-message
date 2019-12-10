@@ -1,19 +1,18 @@
-import { StyleSheet } from 'react-native'
-import colors from '../../colors'
+import { StyleSheet } from 'react-native';
+import colors from '../../colors';
 
 export const HEIGHT = 60;
 
 export default StyleSheet.create({
   base: {
+    flexDirection: 'row',
     height: HEIGHT,
     width: '90%',
     borderRadius: 6,
     backgroundColor: colors.white,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-    flexDirection: 'row'
+    shadowRadius: 6
   },
   borderLeft: {
     borderLeftWidth: 5,
@@ -50,4 +49,4 @@ export default StyleSheet.create({
     fontSize: 10,
     color: colors.dustyGray
   }
-})
+});
