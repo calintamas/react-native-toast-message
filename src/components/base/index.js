@@ -18,8 +18,8 @@ const BaseToast = (props) => {
         {props.icon ? (
           <Icon style={styles.icon} source={props.icon} />
         ) : (
-          <View style={styles.icon} />
-        )}
+            <View style={styles.icon} />
+          )}
       </View>
 
       <View style={styles.contentContainer}>
@@ -37,11 +37,11 @@ const BaseToast = (props) => {
         </View>
       </View>
 
-      <TouchableOpacity
+      {props.hasClose && <TouchableOpacity
         style={styles.closeButtonContainer}
         onPress={props.onClose}>
         <Icon style={styles.closeIcon} source={icons.close} />
-      </TouchableOpacity>
+      </TouchableOpacity>}
     </View>
   );
 };

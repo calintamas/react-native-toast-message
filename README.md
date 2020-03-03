@@ -8,6 +8,10 @@ This is an animated toast message component for React Native that can be called 
 ```
 yarn add react-native-toast-message
 ```
+or
+```
+npm i --save react-native-toast-message
+```
 ![ToastSuccess](success-toast.gif)
 
 ## Example
@@ -18,7 +22,7 @@ import Toast from './react-native-toast-message'
 // Add it to your Root render method
 render() {
   return (
-    <Toast ref={(ref) => Toast.setRef(ref)} />
+    <Toast ref={(ref) => Toast.setRef(ref)} hasClose/>
   )
 }
 
@@ -56,15 +60,35 @@ If you display the toast top of screen, you can set the distance with this prope
 Margin to bottom. If `position` is `bottom`.
 If you display the message bottom of screen, you can set the distance with this property. 
 
+### hasClose `bool` - component prop
+Default is `true`. But you can choose to set it to `false` and use the onPress property to manage the user touch (onPress with close button is not avaible yet, sorry). 
+
+### onPress `func` - component prop
+Function to be executed on user touch. Not work's if close button is showed. 
+
+### color `string` - component prop
+The color of left border. It will overwrite border color of both toast types. 
+
 ## Render custom components
 If you want to render you own custom components for `success` and `error` toast messages, add this to you render method:
 ```js
 render() {
   return (
-    <Toast
-      ref={(ref) => Toast.setRef(ref)}
+    <Toast ref={(ref) => Toast.setRef(ref)}
       renderSuccessToast={() => <View />}
       renderErrorToast={() => <View />} />
+  )
+}
+```
+
+Another custom example:
+```js
+render() {
+  return (
+    <Toast ref={(ref) => Toast.setRef(ref)}
+      color={'#ff0000'} 
+      hasClose={false}
+      onPress={() => console.log('Toasty!')}/>
   )
 }
 ```

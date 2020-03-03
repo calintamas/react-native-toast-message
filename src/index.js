@@ -55,6 +55,12 @@ class Toast extends Component {
       top: props.topOffset || TOP_OFFSET,
       bottom: props.bottomOffset || BOTTOM_OFFSET,
 
+      // border
+      color: props.color,
+
+      // close button
+      hasClose: props.hasClose == false ? false : true,
+
       // toast height
       height: props.height || HEIGHT,
 
@@ -231,6 +237,8 @@ class Toast extends Component {
     return (
       <SuccessToast
         onClose={this.hide}
+        hasClose={this.state.hasClose}
+        color={this.state.color}
         text1={this.state.text1}
         text2={this.state.text2}
       />
@@ -245,6 +253,8 @@ class Toast extends Component {
     return (
       <ErrorToast
         onClose={this.hide}
+        hasClose={this.state.hasClose}
+        color={this.state.color}
         text1={this.state.text1}
         text2={this.state.text2}
       />
@@ -269,7 +279,7 @@ class Toast extends Component {
     const baseStyle = this.getBaseStyle(this.state.position);
 
     return (
-      <Animated.View style={baseStyle} {...this.panResponder.panHandlers}>
+      <Animated.View style={baseStyle} onTouchEndCapture={() => { !this.state.hasClose ? props.onPress() : null }} {...this.panResponder.panHandlers}>
         {this.renderContent(props)}
       </Animated.View>
     );

@@ -10,9 +10,14 @@ export default StyleSheet.create({
     width: '90%',
     borderRadius: 6,
     backgroundColor: colors.white,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6
+    shadowColor: "#343434",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 10.00,
+    elevation: 6
   },
   borderLeft: {
     borderLeftWidth: 5,
