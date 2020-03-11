@@ -6,17 +6,19 @@ import { icons } from '../../assets';
 import styles, { HEIGHT } from './styles';
 
 const BaseToast = (props) => {
+  const { color, icon, text1, text2, onClose } = props;
+
   const baseStyle = [
     styles.base,
     styles.borderLeft,
-    { borderLeftColor: props.color || undefined }
+    { borderLeftColor: color }
   ];
 
   return (
     <View style={baseStyle}>
       <View style={styles.iconContainer}>
-        {props.icon ? (
-          <Icon style={styles.icon} source={props.icon} />
+        {icon ? (
+          <Icon style={styles.icon} source={icon} />
         ) : (
           <View style={styles.icon} />
         )}
@@ -26,12 +28,12 @@ const BaseToast = (props) => {
         <View style={styles.body}>
           <View>
             <Text style={styles.text1} numberOfLines={1}>
-              {props.text1}
+              {text1}
             </Text>
           </View>
           <View>
             <Text style={styles.text2} numberOfLines={2}>
-              {props.text2}
+              {text2}
             </Text>
           </View>
         </View>
@@ -39,7 +41,7 @@ const BaseToast = (props) => {
 
       <TouchableOpacity
         style={styles.closeButtonContainer}
-        onPress={props.onClose}>
+        onPress={onClose}>
         <Icon style={styles.closeIcon} source={icons.close} />
       </TouchableOpacity>
     </View>

@@ -6,8 +6,7 @@ const assets = {
   }
 };
 
-const icons = assets.icons;
+const { icons } = assets;
 
 export { icons };
-
 export default assets;
