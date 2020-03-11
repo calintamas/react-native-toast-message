@@ -1,0 +1,4 @@
+__tests__
+coverage
+.eslintrc.js
+.prettierrc.js

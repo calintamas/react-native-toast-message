@@ -1,8 +1,10 @@
 # react-native-toast-message
-![npm version](https://img.shields.io/npm/v/react-native-toast-message)
-![npm downloads](https://img.shields.io/npm/dt/react-native-toast-message)
 
-This is an animated toast message component for React Native that can be called imperatively. 
+[![npm version](https://img.shields.io/npm/v/react-native-toast-message)](https://www.npmjs.com/package/react-native-toast-message)
+[![npm downloads](https://img.shields.io/npm/dw/react-native-toast-message)](https://www.npmjs.com/package/react-native-toast-message)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+An animated toast message component for React Native that can be called imperatively.
 
 ## Install
 ```
@@ -10,19 +12,25 @@ yarn add react-native-toast-message
 ```
 ![ToastSuccess](success-toast.gif)
 
-## Example
+## Usage
 ```js
-// Import the component
-import Toast from './react-native-toast-message'
+// root.jsx
+// Add the component your app root
+import Toast from 'react-native-toast-message'
 
-// Add it to your Root render method
-render() {
+const Root = () => {
   return (
     <Toast ref={(ref) => Toast.setRef(ref)} />
   )
 }
 
-// Then use it anywhere in your app like this
+export default Root
+```
+
+Then use it anywhere in your app like this
+```js
+import Toast from 'react-native-toast-message'
+
 Toast.show({
   text1: 'Hello',
   text2: 'This is some something 👋'
@@ -30,41 +38,67 @@ Toast.show({
 ```
 
 ## API
-### text1 `string`
-This is what you see in the headline of the message. 
+### `show(options = {})`
+When calling the `show` method, you can use the following `options` to suit your needs. Everything is optional, unless specified otherwise.
 
-### text2 `string`
-This is the main content of the toast message. 
+The usage of `|` below, means that only one of the values show should be used.
+If only one value is shown, that's the default.
 
-### type `string`
-Toast message can be displayed either upon `success` or `error`. Default is `success`. If `error` is the case, the green success icon turns into a red error icon.
-
-### position `string`
-Can be either `top` or `bottom`. Default is `top`.
-
-### autoHide `bool`
-Default is `false`. But you can choose to set it to `true` and use the visibilityTime property to manage the hide time.
-
-### visibilityTime `int`
-Number of miliseconds for which the toast is visible on screen. Default is `4000` ms.
-
-### topOffset `int`
-Margin to top. If `position` is `top`.
-If you display the toast top of screen, you can set the distance with this property. 
-
-### bottomOffset `int`
-Margin to bottom. If `position` is `bottom`.
-If you display the message bottom of screen, you can set the distance with this property. 
-
-## Render custom components
-If you want to render you own custom components for `success` and `error` toast messages, add this to you render method:
 ```js
-render() {
+Toast.show({
+  type: 'success | error | info',
+  position: 'top | bottom',
+  text1: 'Hello',
+  text2: 'This is some something 👋',
+  visibilityTime: 4000,
+  autoHide: true,
+  topOffset: 30,
+  bottomOffset: 40,
+  onShow: () => {},
+  onHide: () => {}
+})
+```
+
+### `hide(options = {})`
+```js
+Toast.hide({
+  onHide: () => {}
+})
+```
+
+## Customizing the toast types
+
+If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
+
+```js
+// root.jsx
+import Toast from 'react-native-toast-message'
+
+const toastConfig = {
+  'success': (internalState) => (
+    <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
+      <Text>{internalState.text1}</Text>
+    </View>  
+  ),
+  'error': () => {},
+  'info': () => {},
+  'any_custom_type': () => {}
+}
+
+const Root = () => {
   return (
-    <Toast
-      ref={(ref) => Toast.setRef(ref)}
-      renderSuccessToast={() => <View />}
-      renderErrorToast={() => <View />} />
+    <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
   )
 }
+
+export default Root
 ```
+
+Then just use the library as before
+
+```js
+Toast.show({ type: 'any_custom_type' })
+```
+
+## Credits
+The icons for the default `success`, `error` and `info` types are made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [flaticon.com](www.flaticon.com).

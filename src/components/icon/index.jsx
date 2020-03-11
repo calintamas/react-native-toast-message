@@ -4,14 +4,15 @@ import { Image } from 'react-native';
 import styles from './styles';
 
 const Icon = (props) => {
-  if (!props.source) {
+  const { source, style } = props;
+  if (!source) {
     return null;
   }
 
   return (
     <Image
-      source={props.source}
-      style={[styles.base, props.style]}
+      source={source}
+      style={[styles.base, style]}
       resizeMode='contain'
     />
   );
