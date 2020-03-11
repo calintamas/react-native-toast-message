@@ -22,8 +22,6 @@ Headers are one of:
 ## Fixed
 - `onHide` is called when the toast is dismissed by a swipe gesture
 
-## Changed
-
 ## [1.2.3]
 ### Fixed
 - #6 Android status bar has bottom shadow
