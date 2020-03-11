@@ -99,3 +99,6 @@ Then just use the library as before
 ```js
 Toast.show({ type: 'any_custom_type' })
 ```
+
+## Credits
+The icons for the default `success`, `error` and `info` types are made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [flaticon.com](www.flaticon.com).
