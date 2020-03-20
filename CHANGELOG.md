@@ -8,18 +8,18 @@ Headers are one of:
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
 ## [1.3.0]
-## Added
+### Added
 - Render custom toast types using a `config` prop
 - A default `info` type toast
 - `onShow` and `onHide` callbacks when using `Toast.show({ onShow, onHide })`
 
-## Changed
+### Changed
 - `autoHide` is now `true` by default
 
-## Removed
+### Removed
 - `renderSuccessToast` and `renderErrorToast` props are no longer relevant, so they were removed
 
-## Fixed
+### Fixed
 - `onHide` is called when the toast is dismissed by a swipe gesture
 
 ## [1.2.3]
