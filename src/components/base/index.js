@@ -39,9 +39,7 @@ const BaseToast = (props) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        style={styles.closeButtonContainer}
-        onPress={onClose}>
+      <TouchableOpacity style={styles.closeButtonContainer} onPress={onClose}>
         <Icon style={styles.closeIcon} source={icons.close} />
       </TouchableOpacity>
     </View>
