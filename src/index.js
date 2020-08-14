@@ -162,6 +162,15 @@ class Toast extends Component {
     await this._setState((prevState) => ({
       ...prevState,
       ...getInitialState(this.props), // Reset layout
+      /*
+          Preserve the previously computed height (via onLayout).
+          If the height of the component corresponding to this `show` call is different, 
+          onLayout will be called again and `height` state will adjust.
+
+          This fixes an issue where a succession of calls to components with custom heights (custom Toast types)
+          fails to hide them completely due to always resetting to the default component height
+      */
+      height: prevState.height,
       inProgress: true,
       ...options
     }));
@@ -243,7 +252,7 @@ class Toast extends Component {
 
     if (!toastComponent) {
       console.error(
-        `Type '${type}' does not exist. Make sure to add it to your 'config'. You can read the documentation here: `
+        `Type '${type}' does not exist. Make sure to add it to your 'config'. You can read the documentation here: https://github.com/calintamas/react-native-toast-message/blob/master/README.md`
       );
       return null;
     }
