@@ -9,6 +9,16 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.3.2]
+
+### Changed
+
+- Given texts `text1` and `text2` are rendered conditionally now ([sardok](https://github.com/sardok) in [#40](https://github.com/calintamas/react-native-toast-message/pull/40))
+
+### Fixed
+
+- Custom toast does not hide completely if its `height` is greater than the default 60 ([#35](https://github.com/calintamas/react-native-toast-message/issues/35))
+
 ## [1.3.1]
 
 ### Fixed
