@@ -44,8 +44,8 @@ const getInitialState = (props) => {
     autoHide: true,
 
     // content
-    text1: '',
-    text2: '',
+    text1: undefined,
+    text2: undefined,
 
     onShow,
     onHide
