@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.3.3]
+
+### Fixed
+
+- `position: bottom`, damping value must be grater than 0 error [#41](https://github.com/calintamas/react-native-toast-message/issues/41) ([juliancwirko](https://github.com/juliancwirko) in [#48](https://github.com/calintamas/react-native-toast-message/pull/48))
+
 ## [1.3.2]
 
 ### Changed
