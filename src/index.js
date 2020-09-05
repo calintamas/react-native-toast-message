@@ -136,7 +136,7 @@ class Toast extends Component {
     if (value < 0.65) {
       Animated.spring(animation, {
         toValue: -2,
-        speed: -vy,
+        speed: position === 'bottom' ? vy : -vy,
         useNativeDriver: true
       }).start(() => {
         const { onHide } = this.state;
@@ -164,7 +164,7 @@ class Toast extends Component {
       ...getInitialState(this.props), // Reset layout
       /*
           Preserve the previously computed height (via onLayout).
-          If the height of the component corresponding to this `show` call is different, 
+          If the height of the component corresponding to this `show` call is different,
           onLayout will be called again and `height` state will adjust.
 
           This fixes an issue where a succession of calls to components with custom heights (custom Toast types)
