@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform} from 'react-native';
 import colors from '../../colors';
 
 export const HEIGHT = 60;
@@ -12,7 +12,18 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
-    shadowRadius: 6
+    shadowRadius: 6,
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   borderLeft: {
     borderLeftWidth: 5,
