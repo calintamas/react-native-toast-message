@@ -7,38 +7,42 @@
 An animated toast message component for React Native that can be called imperatively.
 
 ## Install
+
 ```
 yarn add react-native-toast-message
 ```
+
 ![ToastSuccess](success-toast.gif)
 
 ## Usage
+
 ```js
 // root.jsx
 // Add the component your app root
-import Toast from 'react-native-toast-message'
+import Toast from 'react-native-toast-message';
 
 const Root = () => {
-  return (
-    <Toast ref={(ref) => Toast.setRef(ref)} />
-  )
-}
+  return <Toast ref={(ref) => Toast.setRef(ref)} />;
+};
 
-export default Root
+export default Root;
 ```
 
 Then use it anywhere in your app like this
+
 ```js
-import Toast from 'react-native-toast-message'
+import Toast from 'react-native-toast-message';
 
 Toast.show({
   text1: 'Hello',
   text2: 'This is some something 👋'
-})
+});
 ```
 
 ## API
+
 ### `show(options = {})`
+
 When calling the `show` method, you can use the following `options` to suit your needs. Everything is optional, unless specified otherwise.
 
 The usage of `|` below, means that only one of the values show should be used.
@@ -56,14 +60,15 @@ Toast.show({
   bottomOffset: 40,
   onShow: () => {},
   onHide: () => {}
-})
+});
 ```
 
 ### `hide(options = {})`
+
 ```js
 Toast.hide({
   onHide: () => {}
-})
+});
 ```
 
 ## Customizing the toast types
@@ -72,33 +77,32 @@ If you want to add custom types - or overwrite the existing ones - you can add a
 
 ```js
 // root.jsx
-import Toast from 'react-native-toast-message'
+import Toast from 'react-native-toast-message';
 
 const toastConfig = {
-  'success': (internalState) => (
+  success: (internalState) => (
     <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
       <Text>{internalState.text1}</Text>
-    </View>  
+    </View>
   ),
-  'error': () => {},
-  'info': () => {},
-  'any_custom_type': () => {}
-}
+  error: () => {},
+  info: () => {},
+  any_custom_type: () => {}
+};
 
 const Root = () => {
-  return (
-    <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
-  )
-}
+  return <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />;
+};
 
-export default Root
+export default Root;
 ```
 
 Then just use the library as before
 
 ```js
-Toast.show({ type: 'any_custom_type' })
+Toast.show({ type: 'any_custom_type' });
 ```
 
 ## Credits
+
 The icons for the default `success`, `error` and `info` types are made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [flaticon.com](www.flaticon.com).

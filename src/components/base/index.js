@@ -26,20 +26,20 @@ const BaseToast = (props) => {
 
       <View style={styles.contentContainer}>
         <View style={styles.body}>
-          {text1 !== undefined &&
+          {text1 !== undefined && (
             <View>
               <Text style={styles.text1} numberOfLines={1}>
                 {text1}
               </Text>
             </View>
-          }
-          {text2 !== undefined &&
+          )}
+          {text2 !== undefined && (
             <View>
               <Text style={styles.text2} numberOfLines={2}>
                 {text2}
               </Text>
             </View>
-          }
+          )}
         </View>
       </View>
 

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "hooks:install": "node ./node_modules/husky/bin/install",
-    "lint": "eslint . --ext=jsx --ext=js",
-    "lint-staged": "lint-staged"
+    "lint": "./node_modules/.bin/eslint . --ext=jsx --ext=js",
+    "lint-staged": "./node_modules/.bin/lint-staged",
+    "prettier": "./node_modules/.bin/prettier . --write"
   },
   "lint-staged": {
     "**/*.js": [
