@@ -279,7 +279,9 @@ class Toast extends Component {
   getBaseStyle(position = 'bottom') {
     const { topOffset, bottomOffset, height, animation } = this.state;
     const offset = position === 'bottom' ? bottomOffset : topOffset;
-    const range = [height, -offset];
+
+    // +5 px to completely hide the toast under StatusBar (on Android)
+    const range = [height + 5, -offset];
     const outputRange = position === 'bottom' ? range : complement(range);
 
     const translateY = animation.interpolate({
