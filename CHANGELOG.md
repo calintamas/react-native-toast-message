@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.3.4]
+
+### Fixed
+
+- Shadows not visible on Android [#43](https://github.com/calintamas/react-native-toast-message/issues/43) ([DerekFei](https://github.com/DerekFei) in [#51](https://github.com/calintamas/react-native-toast-message/pull/51))
+
 ## [1.3.3]
 
 ### Fixed
