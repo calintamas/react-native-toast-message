@@ -12,7 +12,8 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
-    shadowRadius: 6
+    shadowRadius: 6,
+    elevation: 2
   },
   borderLeft: {
     borderLeftWidth: 5,
