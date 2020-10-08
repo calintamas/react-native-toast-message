@@ -16,19 +16,27 @@ yarn add react-native-toast-message
 
 ## Usage
 
+Render the `Toast` component in your app entry file (along with everything that might be rendered there) and set a ref to it.
+
 ```js
-// root.jsx
-// Add the component your app root
+// App.jsx
+import React from 'react';
 import Toast from 'react-native-toast-message';
 
-const Root = () => {
-  return <Toast ref={(ref) => Toast.setRef(ref)} />;
-};
+function App(props) {
+  return (
+    <>
+      {/* ... */}
+      <Toast ref={(ref) => Toast.setRef(ref)} />
+    </>
+  );
+}
 
-export default Root;
+export default App;
+
 ```
 
-Then use it anywhere in your app like this
+Then use it anywhere in your app, by calling any `Toast` method directly:
 
 ```js
 import Toast from 'react-native-toast-message';
