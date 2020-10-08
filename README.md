@@ -33,7 +33,6 @@ function App(props) {
 }
 
 export default App;
-
 ```
 
 Then use it anywhere in your app, by calling any `Toast` method directly:
@@ -84,7 +83,8 @@ Toast.hide({
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
 
 ```js
-// root.jsx
+// App.jsx
+import React from 'react';
 import Toast from 'react-native-toast-message';
 
 const toastConfig = {
@@ -98,11 +98,16 @@ const toastConfig = {
   any_custom_type: () => {}
 };
 
-const Root = () => {
-  return <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />;
-};
+function App(props) {
+  return (
+    <>
+      {/* ... */}
+      <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+    </>
+  );
+}
 
-export default Root;
+export default App;
 ```
 
 Then just use the library as before
