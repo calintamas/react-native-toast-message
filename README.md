@@ -91,6 +91,7 @@ const toastConfig = {
   success: (internalState) => (
     <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
       <Text>{internalState.text1}</Text>
+      <Text>{internalState.props.guid}</Text>
     </View>
   ),
   error: () => {},
@@ -113,7 +114,10 @@ export default App;
 Then just use the library as before
 
 ```js
-Toast.show({ type: 'any_custom_type' });
+Toast.show({
+  type: 'any_custom_type',
+  props: { onPress: () => {}, guid: 'guid-id' }
+});
 ```
 
 ## Credits
