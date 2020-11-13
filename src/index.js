@@ -269,7 +269,7 @@ class Toast extends Component {
           'text2',
           'hide',
           'show',
-          'customOptions'
+          'props'
         ]
       }),
       hide: this.hide,
