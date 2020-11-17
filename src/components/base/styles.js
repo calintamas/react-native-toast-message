@@ -30,7 +30,8 @@ export default StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'flex-start', // in case of rtl the text will start from the right
   },
   closeButtonContainer: {
     paddingHorizontal: 14,
