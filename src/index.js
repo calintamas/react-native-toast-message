@@ -56,23 +56,23 @@ class Toast extends Component {
   static _ref = null;
 
   static setRef(ref = {}) {
-    this._ref = ref;
+    Toast._ref = ref;
   }
 
   static getRef() {
-    return this._ref;
+    return Toast._ref;
   }
 
   static clearRef() {
-    this._ref = null;
+    Toast._ref = null;
   }
 
   static show(options = {}) {
-    this._ref.show(options);
+    Toast._ref.show(options);
   }
 
   static hide() {
-    this._ref.hide();
+    Toast._ref.hide();
   }
 
   constructor(props) {
