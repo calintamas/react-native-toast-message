@@ -2,3 +2,4 @@ __tests__
 coverage
 .eslintrc.js
 .prettierrc.js
+success-toast.gif
