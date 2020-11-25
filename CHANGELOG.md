@@ -13,7 +13,7 @@ Headers are one of:
 
 ### Fixed
 
-- Custom render props are now part of the initial state. This removes the need to use optional chaining when defining the a custom toast `config`
+- Custom render props are now part of the initial state. This removes the need to use optional chaining when defining a custom toast `config`
 
 ## [1.3.5]
 
