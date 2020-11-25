@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.3.6]
+
+### Fixed
+
+- Custom render props are now part of the initial state. This removes the need to use optional chaining when defining the a custom toast `config`
+
 ## [1.3.5]
 
 ### Added
