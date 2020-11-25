@@ -92,7 +92,9 @@ class Toast extends Component {
 
       inProgress: false,
       isVisible: false,
-      animation: new Animated.Value(0)
+      animation: new Animated.Value(0),
+
+      customProps: {}
     };
 
     this.panResponder = PanResponder.create({
@@ -172,7 +174,8 @@ class Toast extends Component {
       */
       height: prevState.height,
       inProgress: true,
-      ...options
+      ...options,
+      ...(options?.props ? { customProps: options.props } : {})
     }));
     await this.animateShow();
     await this._setState((prevState) => ({
@@ -247,7 +250,7 @@ class Toast extends Component {
       ...config
     };
 
-    const { type } = this.state;
+    const { type, customProps } = this.state;
     const toastComponent = componentsConfig[type];
 
     if (!toastComponent) {
@@ -268,10 +271,10 @@ class Toast extends Component {
           'text1',
           'text2',
           'hide',
-          'show',
-          'props'
+          'show'
         ]
       }),
+      props: { ...customProps },
       hide: this.hide,
       show: this.show
     });
