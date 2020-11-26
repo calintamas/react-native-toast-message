@@ -28,7 +28,7 @@ const getInitialState = (props) => {
     bottomOffset = 40,
     visibilityTime = 4000,
     onShow,
-    onHide,
+    onHide
   } = props;
 
   return {
