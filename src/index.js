@@ -28,7 +28,7 @@ const getInitialState = (props) => {
     bottomOffset = 40,
     visibilityTime = 4000,
     onShow,
-    onHide
+    onHide,
   } = props;
 
   return {
@@ -313,7 +313,7 @@ class Toast extends Component {
     return (
       <Animated.View
         onLayout={this.onLayout}
-        style={baseStyle}
+        style={[...baseStyle,this.props.baseStyle || {}]}
         {...this.panResponder.panHandlers}>
         {this.renderContent(this.props)}
       </Animated.View>
