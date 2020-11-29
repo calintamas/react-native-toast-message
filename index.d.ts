@@ -10,9 +10,11 @@ declare module 'react-native-toast-message' {
       autoHide?: boolean;
       topOffset?: number;
       bottomOffset?: number;
+      props: { onPress: () => any; guid: string };
       onShow?: () => {};
       onHide?: () => {};
     });
+    hide: (options: { onHide: () => any }) => void;
     setRef: (ref: any) => any;
   } & React.ComponentType<{
     ref: (ref: any) => any;
