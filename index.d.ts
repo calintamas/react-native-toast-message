@@ -7,8 +7,8 @@ declare module 'react-native-toast-message' {
     show(options: {
       type: 'success' | 'error' | 'info';
       position?: 'top' | 'bottom';
-      text1: string;
-      text2: string;
+      text1?: string;
+      text2?: string;
       visibilityTime?: number;
       autoHide?: boolean;
       topOffset?: number;
