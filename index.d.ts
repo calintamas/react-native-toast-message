@@ -1,5 +1,8 @@
 declare module 'react-native-toast-message' {
   import React from 'react';
+  interface ObjectLiteral {
+    [key: string]: any;
+  }
   const Toast: {
     show(options: {
       type: 'success' | 'error' | 'info';
