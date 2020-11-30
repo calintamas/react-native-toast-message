@@ -78,6 +78,16 @@ Toast.hide({
 });
 ```
 
+## props
+
+### `style`
+
+Default `Animated.View` styles can be found in [styles.js](https://github.com/calintamas/react-native-toast-message/blob/master/src/styles.js#L4). They can be extended using the `style` prop.
+
+### `config`
+
+Allows you to add/overwrite Toast types. Explained below.
+
 ## Customizing the toast types
 
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.

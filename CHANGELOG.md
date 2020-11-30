@@ -9,6 +9,16 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.3.7]
+
+### Added
+
+- Add Typescript declaration file, fixes [#83](https://github.com/calintamas/react-native-toast-message/issues/83) ([spidi123q](https://github.com/spidi123q) in [#94](https://github.com/calintamas/react-native-toast-message/pull/94))
+
+### Fixed
+
+- Allow style prop to style the base component, fixes [#92](https://github.com/calintamas/react-native-toast-message/issues/92) ([akmjenkins](https://github.com/akmjenkins) in [#93](https://github.com/calintamas/react-native-toast-message/pull/93))
+
 ## [1.3.6]
 
 ### Fixed
