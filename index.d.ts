@@ -14,7 +14,7 @@ declare module 'react-native-toast-message' {
       onShow?: () => {};
       onHide?: () => {};
     });
-    hide: (options: { onHide: () => any }) => void;
+    hide: (options?: { onHide: () => any }) => void;
     setRef: (ref: any) => any;
   } & React.ComponentType<{
     ref: (ref: any) => any;
