@@ -6,9 +6,9 @@
 
 Animated toast message component for React Native.
 
-- Imperative API 🚀
-- Keyboard aware ⌨️
-- Flexible config ✏️
+- Imperative API
+- Keyboard aware
+- Flexible config
 
 ## Install
 
@@ -103,7 +103,7 @@ const props = {
   autoHide: Boolean,
   height: Number,
   position: 'top' | 'bottom',
-  type: 'success'
+  type: String
 };
 ```
 
