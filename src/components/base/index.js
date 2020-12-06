@@ -28,12 +28,12 @@ function BaseToast({
     <TouchableOpacity
       style={[styles.base, styles.borderLeft, style]}
       onPress={onPress}
-      activeOpacity={activeOpacity}>
+      activeOpacity={onPress ? activeOpacity : 1}>
       {leadingIcon && (
         <TouchableOpacity
           style={[styles.leadingIconContainer, leadingIconContainerStyle]}
           onPress={onLeadingIconPress}
-          activeOpacity={activeOpacity}>
+          activeOpacity={onLeadingIconPress ? activeOpacity : 1}>
           <Icon
             style={[styles.leadingIcon, leadingIconStyle]}
             source={leadingIcon}
@@ -62,7 +62,7 @@ function BaseToast({
         <TouchableOpacity
           style={[styles.trailingIconContainer, trailingIconContainerStyle]}
           onPress={onTrailingIconPress}
-          activeOpacity={activeOpacity}>
+          activeOpacity={onTrailingIconPress ? activeOpacity : 1}>
           <Icon
             style={[styles.trailingIcon, trailingIconStyle]}
             source={trailingIcon}

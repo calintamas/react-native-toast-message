@@ -4,7 +4,11 @@
 [![npm downloads](https://img.shields.io/npm/dw/react-native-toast-message)](https://www.npmjs.com/package/react-native-toast-message)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-An animated toast message component for React Native that can be called imperatively.
+Animated toast message component for React Native.
+
+- Imperative API 🚀
+- Keyboard aware ⌨️
+- Flexible config ✏️
 
 ## Install
 
@@ -94,6 +98,7 @@ const props = {
   style: ViewStyle,
   topOffset: Number,
   bottomOffset: Number,
+  keyboardOffset: Number,
   visibilityTime: Number,
   autoHide: Boolean,
   height: Number,
