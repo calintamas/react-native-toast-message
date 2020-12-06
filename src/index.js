@@ -11,14 +11,14 @@ import styles from './styles';
 const FRICTION = 8;
 
 const defaultComponentsConfig = {
-  success: ({ hide, text1, text2 }) => (
-    <SuccessToast onTrailingIconPress={hide} text1={text1} text2={text2} />
+  success: ({ hide, ...rest }) => (
+    <SuccessToast {...rest} onTrailingIconPress={hide} />
   ),
-  error: ({ hide, text1, text2 }) => (
-    <ErrorToast onTrailingIconPress={hide} text1={text1} text2={text2} />
+  error: ({ hide, ...rest }) => (
+    <ErrorToast {...rest} onTrailingIconPress={hide} />
   ),
-  info: ({ hide, text1, text2 }) => (
-    <InfoToast onTrailingIconPress={hide} text1={text1} text2={text2} />
+  info: ({ hide, ...rest }) => (
+    <InfoToast {...rest} onTrailingIconPress={hide} />
   )
 };
 
@@ -47,6 +47,7 @@ const getInitialState = (props) => {
     text1: undefined,
     text2: undefined,
 
+    onPress: undefined,
     onShow,
     onHide
   };
@@ -98,7 +99,7 @@ class Toast extends Component {
     };
 
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         this._animateMovement(gesture);
       },
@@ -272,7 +273,8 @@ class Toast extends Component {
           'text1',
           'text2',
           'hide',
-          'show'
+          'show',
+          'onPress'
         ]
       }),
       props: { ...customProps },

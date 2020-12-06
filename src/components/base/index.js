@@ -11,6 +11,7 @@ function BaseToast({
   trailingIcon,
   text1,
   text2,
+  onPress,
   onLeadingIconPress,
   onTrailingIconPress,
   style,
@@ -20,15 +21,19 @@ function BaseToast({
   trailingIconStyle,
   contentContainerStyle,
   text1Style,
-  text2Style
+  text2Style,
+  activeOpacity
 }) {
   return (
-    <View style={[styles.base, styles.borderLeft, style]}>
+    <TouchableOpacity
+      style={[styles.base, styles.borderLeft, style]}
+      onPress={onPress}
+      activeOpacity={activeOpacity}>
       {leadingIcon && (
         <TouchableOpacity
           style={[styles.leadingIconContainer, leadingIconContainerStyle]}
           onPress={onLeadingIconPress}
-          activeOpacity={1}>
+          activeOpacity={activeOpacity}>
           <Icon
             style={[styles.leadingIcon, leadingIconStyle]}
             source={leadingIcon}
@@ -57,14 +62,14 @@ function BaseToast({
         <TouchableOpacity
           style={[styles.trailingIconContainer, trailingIconContainerStyle]}
           onPress={onTrailingIconPress}
-          activeOpacity={1}>
+          activeOpacity={activeOpacity}>
           <Icon
             style={[styles.trailingIcon, trailingIconStyle]}
             source={trailingIcon}
           />
         </TouchableOpacity>
       )}
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -75,6 +80,7 @@ BaseToast.propTypes = {
   trailingIcon: Icon.propTypes.source,
   text1: PropTypes.string,
   text2: PropTypes.string,
+  onPress: PropTypes.func,
   onTrailingIconPress: PropTypes.func,
   onLeadingIconPress: PropTypes.func,
   style: ViewPropTypes.style,
@@ -84,7 +90,8 @@ BaseToast.propTypes = {
   trailingIconStyle: ViewPropTypes.style,
   contentContainerStyle: ViewPropTypes.style,
   text1Style: ViewPropTypes.style,
-  text2Style: ViewPropTypes.style
+  text2Style: ViewPropTypes.style,
+  activeOpacity: PropTypes.number
 };
 
 BaseToast.defaultProps = {
@@ -92,6 +99,7 @@ BaseToast.defaultProps = {
   trailingIcon: icons.close,
   text1: undefined,
   text2: undefined,
+  onPress: undefined,
   onLeadingIconPress: undefined,
   onTrailingIconPress: undefined,
   style: undefined,
@@ -101,7 +109,8 @@ BaseToast.defaultProps = {
   trailingIconStyle: undefined,
   contentContainerStyle: undefined,
   text1Style: undefined,
-  text2Style: undefined
+  text2Style: undefined,
+  activeOpacity: 0.8
 };
 
 export default BaseToast;
