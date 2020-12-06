@@ -86,13 +86,19 @@ Toast.hide({
 
 ## props
 
-### `style`
+Props that can be set on the `Toast` instance. They act as defaults for all Toasts that are shown.
 
-Default `Animated.View` styles can be found in [styles.js](https://github.com/calintamas/react-native-toast-message/blob/master/src/styles.js#L4). They can be extended using the `style` prop.
+```js
+const props = {
+  config: Object,
+  style: ViewStyle,
+  topOffset: Number,
+  bottomOffset: Number,
+  visibilityTime: Number
+};
+```
 
-### `config`
-
-Allows you to add/overwrite Toast types. Explained below.
+> Default `Animated.View` styles can be found in [styles.js](https://github.com/calintamas/react-native-toast-message/blob/master/src/styles.js#L4). They can be extended using the `style` prop.
 
 ## Customize Toast types
 
@@ -173,22 +179,26 @@ export default App;
 
 Available `props` on `BaseToast`:
 
-| prop                         | type        | default       |
-| ---------------------------- | ----------- | ------------- |
-| `leadingIcon`                | ImageSource |               |
-| `trailingIcon`               | ImageSource | `icons.close` |
-| `text1`                      | String      |               |
-| `text2`                      | String      |               |
-| `onLeadingIconPress`         | Func        |               |
-| `onTrailingIconPress`        | Func        |               |
-| `style`                      | ViewStyle   |               |
-| `leadingIconContainerStyle`  | ViewStyle   |               |
-| `trailingIconContainerStyle` | ViewStyle   |               |
-| `leadingIconStyle`           | ViewStyle   |               |
-| `trailingIconStyle`          | ViewStyle   |               |
-| `contentContainerStyle`      | ViewStyle   |               |
-| `text1Style`                 | ViewStyle   |               |
-| `text2Style`                 | ViewStyle   |               |
+```js
+const baseToastProps = {
+  leadingIcon: ImageSource,
+  trailingIcon: ImageSource,
+  text1: String,
+  text2: String,
+  onPress: Function,
+  onLeadingIconPress: Function,
+  onTrailingIconPress: Function,
+  style: ViewStyle,
+  leadingIconContainerStyle: ViewStyle,
+  trailingIconContainerStyle: ViewStyle,
+  leadingIconStyle: ViewStyle,
+  trailingIconStyle: ViewStyle,
+  contentContainerStyle: ViewStyle,
+  text1Style: ViewStyle,
+  text2Style: ViewStyle,
+  activeOpacity: Number
+};
+```
 
 ## Credits
 
