@@ -94,7 +94,11 @@ const props = {
   style: ViewStyle,
   topOffset: Number,
   bottomOffset: Number,
-  visibilityTime: Number
+  visibilityTime: Number,
+  autoHide: Boolean,
+  height: Number,
+  position: 'top' | 'bottom',
+  type: 'success'
 };
 ```
 
