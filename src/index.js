@@ -12,13 +12,13 @@ const FRICTION = 8;
 
 const defaultComponentsConfig = {
   success: ({ hide, text1, text2 }) => (
-    <SuccessToast onClose={hide} text1={text1} text2={text2} />
+    <SuccessToast onTrailingIconPress={hide} text1={text1} text2={text2} />
   ),
   error: ({ hide, text1, text2 }) => (
-    <ErrorToast onClose={hide} text1={text1} text2={text2} />
+    <ErrorToast onTrailingIconPress={hide} text1={text1} text2={text2} />
   ),
   info: ({ hide, text1, text2 }) => (
-    <InfoToast onClose={hide} text1={text1} text2={text2} />
+    <InfoToast onTrailingIconPress={hide} text1={text1} text2={text2} />
   )
 };
 
@@ -254,6 +254,7 @@ class Toast extends Component {
     const toastComponent = componentsConfig[type];
 
     if (!toastComponent) {
+      // eslint-disable-next-line no-console
       console.error(
         `Type '${type}' does not exist. Make sure to add it to your 'config'. You can read the documentation here: https://github.com/calintamas/react-native-toast-message/blob/master/README.md`
       );
@@ -307,13 +308,14 @@ class Toast extends Component {
   }
 
   render() {
+    const { style } = this.props;
     const { position } = this.state;
     const baseStyle = this.getBaseStyle(position);
 
     return (
       <Animated.View
         onLayout={this.onLayout}
-        style={[...baseStyle,this.props.style || {}]}
+        style={[baseStyle, style]}
         {...this.panResponder.panHandlers}>
         {this.renderContent(this.props)}
       </Animated.View>

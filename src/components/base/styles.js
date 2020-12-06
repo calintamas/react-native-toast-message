@@ -19,26 +19,26 @@ export default StyleSheet.create({
     borderLeftWidth: 5,
     borderLeftColor: colors.alto
   },
-  iconContainer: {
-    paddingHorizontal: 14,
+  leadingIconContainer: {
+    width: 50,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  icon: {
-    width: 20,
-    height: 20
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'flex-start', // in case of rtl the text will start from the right
+    alignItems: 'flex-start' // in case of rtl the text will start from the right
   },
-  closeButtonContainer: {
-    paddingHorizontal: 14,
-    alignItems: 'center',
-    justifyContent: 'center'
+  trailingIconContainer: {
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  closeIcon: {
+  leadingIcon: {
+    width: 20,
+    height: 20
+  },
+  trailingIcon: {
     width: 9,
     height: 9
   },

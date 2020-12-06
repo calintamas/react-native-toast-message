@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, ViewPropTypes } from 'react-native';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-const Icon = (props) => {
-  const { source, style } = props;
+function Icon({ source, style }) {
   if (!source) {
     return null;
   }
@@ -12,6 +12,23 @@ const Icon = (props) => {
   return (
     <Image source={source} style={[styles.base, style]} resizeMode='contain' />
   );
+}
+
+const imageSourcePropType = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.shape({
+    uri: PropTypes.string
+  })
+]);
+
+Icon.propTypes = {
+  source: imageSourcePropType,
+  style: ViewPropTypes.style
+};
+
+Icon.defaultProps = {
+  source: undefined,
+  style: undefined
 };
 
 export default Icon;
