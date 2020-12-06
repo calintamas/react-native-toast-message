@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, PanResponder } from 'react-native';
+import { Animated, PanResponder, ViewPropTypes } from 'react-native';
+import PropTypes from 'prop-types';
 
 import SuccessToast from './components/success';
 import ErrorToast from './components/error';
@@ -22,36 +23,26 @@ const defaultComponentsConfig = {
   )
 };
 
-const getInitialState = (props) => {
-  const {
-    topOffset = 30,
-    bottomOffset = 40,
-    visibilityTime = 4000,
-    onShow,
-    onHide
-  } = props;
+const getInitialState = ({ topOffset, bottomOffset, visibilityTime }) => ({
+  // layout
+  topOffset,
+  bottomOffset,
+  height: 60,
+  position: 'top',
+  type: 'success',
 
-  return {
-    // layout
-    topOffset,
-    bottomOffset,
-    height: 60,
-    position: 'top',
-    type: 'success',
+  // timing (in ms)
+  visibilityTime,
+  autoHide: true,
 
-    // timing (in ms)
-    visibilityTime,
-    autoHide: true,
+  // content
+  text1: undefined,
+  text2: undefined,
 
-    // content
-    text1: undefined,
-    text2: undefined,
-
-    onPress: undefined,
-    onShow,
-    onHide
-  };
-};
+  onPress: undefined,
+  onShow: undefined,
+  onHide: undefined
+});
 
 class Toast extends Component {
   static _ref = null;
@@ -324,5 +315,21 @@ class Toast extends Component {
     );
   }
 }
+
+Toast.propTypes = {
+  config: PropTypes.objectOf(PropTypes.func),
+  style: ViewPropTypes.style,
+  topOffset: PropTypes.number,
+  bottomOffset: PropTypes.number,
+  visibilityTime: PropTypes.number
+};
+
+Toast.defaultProps = {
+  config: {},
+  style: undefined,
+  topOffset: 30,
+  bottomOffset: 40,
+  visibilityTime: 4000
+};
 
 export default Toast;
