@@ -9,6 +9,13 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [next]
+
+### Added
+
+- Add `onPress` to `Toast.show` method
+- Export `BaseToast` component to allow styling
+
 ## [1.3.7]
 
 ### Added

@@ -71,7 +71,8 @@ Toast.show({
   topOffset: 30,
   bottomOffset: 40,
   onShow: () => {},
-  onHide: () => {}
+  onHide: () => {},
+  onPress: () => {}
 });
 ```
 
