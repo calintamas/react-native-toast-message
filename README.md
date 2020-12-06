@@ -20,7 +20,6 @@ Render the `Toast` component in your app entry file (along with everything that 
 
 ```js
 // App.jsx
-import React from 'react';
 import Toast from 'react-native-toast-message';
 
 function App(props) {
@@ -35,15 +34,21 @@ function App(props) {
 export default App;
 ```
 
-Then use it anywhere in your app, by calling any `Toast` method directly:
+Then use it anywhere in your app (even outside React components), by calling any `Toast` method directly:
 
 ```js
 import Toast from 'react-native-toast-message';
 
-Toast.show({
-  text1: 'Hello',
-  text2: 'This is some something 👋'
-});
+function SomeComponent() {
+  React.useEffect(() => {
+    Toast.show({
+      text1: 'Hello',
+      text2: 'This is some something 👋'
+    });
+  }, []);
+
+  return <View />;
+}
 ```
 
 ## API
@@ -88,20 +93,19 @@ Default `Animated.View` styles can be found in [styles.js](https://github.com/ca
 
 Allows you to add/overwrite Toast types. Explained below.
 
-## Customizing the toast types
+## Customize Toast types
 
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
 
 ```js
 // App.jsx
-import React from 'react';
 import Toast from 'react-native-toast-message';
 
 const toastConfig = {
-  success: (internalState) => (
+  success: ({ text1, props, ...rest }) => (
     <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
-      <Text>{internalState.text1}</Text>
-      <Text>{internalState.props.guid}</Text>
+      <Text>{text1}</Text>
+      <Text>{props.guid}</Text>
     </View>
   ),
   error: () => {},
@@ -129,6 +133,61 @@ Toast.show({
   props: { onPress: () => {}, guid: 'guid-id' }
 });
 ```
+
+## Change default Toast style
+
+In addition to creating Toast styles from scratch (shown above), you can use the default `BaseToast` style and adjust its layout.
+
+```js
+// App.jsx
+import Toast, { BaseToast } from 'react-native-toast-message';
+
+const toastConfig = {
+  success: ({ text1, ...rest }) => (
+    <BaseToast
+      {...rest}
+      style={{ borderLeftColor: 'pink' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 15,
+        fontWeight: 'semibold'
+      }}
+      text1={text1}
+      text2={null}
+    />
+  )
+};
+
+function App(props) {
+  return (
+    <>
+      {/* ... */}
+      <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+    </>
+  );
+}
+
+export default App;
+```
+
+Available `props` on `BaseToast`:
+
+| prop                         | type        | default       |
+| ---------------------------- | ----------- | ------------- |
+| `leadingIcon`                | ImageSource |               |
+| `trailingIcon`               | ImageSource | `icons.close` |
+| `text1`                      | String      |               |
+| `text2`                      | String      |               |
+| `onLeadingIconPress`         | Func        |               |
+| `onTrailingIconPress`        | Func        |               |
+| `style`                      | ViewStyle   |               |
+| `leadingIconContainerStyle`  | ViewStyle   |               |
+| `trailingIconContainerStyle` | ViewStyle   |               |
+| `leadingIconStyle`           | ViewStyle   |               |
+| `trailingIconStyle`          | ViewStyle   |               |
+| `contentContainerStyle`      | ViewStyle   |               |
+| `text1Style`                 | ViewStyle   |               |
+| `text2Style`                 | ViewStyle   |               |
 
 ## Credits
 
