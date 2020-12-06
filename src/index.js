@@ -155,15 +155,16 @@ class Toast extends Component {
   }
 
   _animateMovement(gesture) {
-    const { position, animation } = this.state;
+    const { position, animation, keyboardVisible } = this.state;
     const { dy } = gesture;
     let value = 1 + dy / 100;
+    const start = keyboardVisible && position === 'bottom' ? 2 : 1;
 
     if (position === 'bottom') {
-      value = 1 - dy / 100;
+      value = start - dy / 100;
     }
 
-    if (value < 1) {
+    if (value <= start) {
       animation.setValue(value);
     }
   }
@@ -179,15 +180,12 @@ class Toast extends Component {
       value = 1 - dy / 100;
     }
 
-    if (value < 0.65) {
-      Animated.spring(animation, {
-        toValue: 0,
-        speed: isBottom ? vy : -vy,
-        useNativeDriver: true
-      }).start(() => {
-        this.hide();
+    const treshold = 0.65;
+    if (value <= treshold || Math.abs(vy) >= treshold) {
+      this.hide({
+        speed: Math.abs(vy) * 3
       });
-    } else if (value < 0.95) {
+    } else {
       Animated.spring(animation, {
         toValue: keyboardVisible && isBottom ? 2 : 1,
         velocity: vy,
@@ -237,12 +235,14 @@ class Toast extends Component {
     }
   }
 
-  async hide() {
+  async hide({ speed } = {}) {
     await this._setState((prevState) => ({
       ...prevState,
       inProgress: true
     }));
-    await this.animateHide();
+    await this.animateHide({
+      speed
+    });
     this.clearTimer();
     await this._setState((prevState) => ({
       ...prevState,
@@ -262,18 +262,19 @@ class Toast extends Component {
     return this.animate({ toValue });
   };
 
-  animateHide() {
-    return this.animate({ toValue: 0 });
+  animateHide({ speed } = {}) {
+    return this.animate({ toValue: 0, speed });
   }
 
-  animate({ toValue }) {
+  animate({ toValue, speed = 0 }) {
     const { animation } = this.state;
     return new Promise((resolve) => {
-      Animated.spring(animation, {
+      const config = {
         toValue,
-        friction: FRICTION,
-        useNativeDriver: true
-      }).start(() => resolve());
+        useNativeDriver: true,
+        ...(speed > 0 ? { speed } : { friction: FRICTION })
+      };
+      Animated.spring(animation, config).start(() => resolve());
     });
   }
 
