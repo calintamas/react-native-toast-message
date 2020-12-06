@@ -23,17 +23,25 @@ const defaultComponentsConfig = {
   )
 };
 
-const getInitialState = ({ topOffset, bottomOffset, visibilityTime }) => ({
+const getInitialState = ({
+  topOffset,
+  bottomOffset,
+  visibilityTime,
+  height,
+  autoHide,
+  position,
+  type
+}) => ({
   // layout
   topOffset,
   bottomOffset,
-  height: 60,
-  position: 'top',
-  type: 'success',
+  height,
+  position,
+  type,
 
   // timing (in ms)
   visibilityTime,
-  autoHide: true,
+  autoHide,
 
   // content
   text1: undefined,
@@ -321,7 +329,11 @@ Toast.propTypes = {
   style: ViewPropTypes.style,
   topOffset: PropTypes.number,
   bottomOffset: PropTypes.number,
-  visibilityTime: PropTypes.number
+  visibilityTime: PropTypes.number,
+  autoHide: PropTypes.bool,
+  height: PropTypes.number,
+  position: PropTypes.oneOf(['top', 'bottom']),
+  type: PropTypes.string
 };
 
 Toast.defaultProps = {
@@ -329,7 +341,11 @@ Toast.defaultProps = {
   style: undefined,
   topOffset: 30,
   bottomOffset: 40,
-  visibilityTime: 4000
+  visibilityTime: 4000,
+  autoHide: true,
+  height: 60,
+  position: 'top',
+  type: 'success'
 };
 
 export default Toast;
