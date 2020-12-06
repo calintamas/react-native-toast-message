@@ -13,8 +13,9 @@ Headers are one of:
 
 ### Added
 
-- Add `onPress` to `Toast.show` method
-- Export `BaseToast` component to allow styling
+- Add `onPress` to `Toast.show` method, fixes [#86](https://github.com/calintamas/react-native-toast-message/issues/98)
+- Export `BaseToast` component to allow styling, fixes [#50](https://github.com/calintamas/react-native-toast-message/issues/50), [#68](<(https://github.com/calintamas/react-native-toast-message/issues/68)>), [#87](<(https://github.com/calintamas/react-native-toast-message/issues/87)>), [#97](<(https://github.com/calintamas/react-native-toast-message/issues/97)>)
+- Add `topOffset`, `bottomOffset` and `visibilityTime` as instance props, fixes [#98](https://github.com/calintamas/react-native-toast-message/issues/98)
 
 ## [1.3.7]
 
