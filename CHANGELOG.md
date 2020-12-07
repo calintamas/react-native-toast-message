@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.1]
+
+### Fixed
+
+- Fix type declaration file, fixes [#109](https://github.com/calintamas/react-native-toast-message/issues/109)
+
 ## [1.4.0]
 
 ### Added
