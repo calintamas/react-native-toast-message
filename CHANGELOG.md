@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.2]
+
+### Fixed
+
+- Fix `onPress` handler for custom components, fixes [#113](https://github.com/calintamas/react-native-toast-message/issues/113)
+
 ## [1.4.1]
 
 ### Fixed
