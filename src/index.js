@@ -102,7 +102,11 @@ class Toast extends Component {
     };
 
     this.panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (event, gestureState) => {
+        const { dx, dy } = gestureState;
+        // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
+        return Math.abs(dx) > 1 || Math.abs(dy) > 1;
+      },
       onPanResponderMove: (event, gesture) => {
         this._animateMovement(gesture);
       },
