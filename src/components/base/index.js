@@ -22,7 +22,9 @@ function BaseToast({
   contentContainerStyle,
   text1Style,
   text2Style,
-  activeOpacity
+  activeOpacity,
+  text1NumberOfLines,
+  text2NumberOfLines
 }) {
   return (
     <TouchableOpacity
@@ -44,14 +46,14 @@ function BaseToast({
       <View style={[styles.contentContainer, contentContainerStyle]}>
         {text1?.length > 0 && (
           <View>
-            <Text style={[styles.text1, text1Style]} numberOfLines={1}>
+            <Text style={[styles.text1, text1Style]} numberOfLines={text1NumberOfLines}>
               {text1}
             </Text>
           </View>
         )}
         {text2?.length > 0 && (
           <View>
-            <Text style={[styles.text2, text2Style]} numberOfLines={2}>
+            <Text style={[styles.text2, text2Style]} numberOfLines={text2NumberOfLines}>
               {text2}
             </Text>
           </View>
@@ -91,7 +93,9 @@ BaseToast.propTypes = {
   contentContainerStyle: ViewPropTypes.style,
   text1Style: ViewPropTypes.style,
   text2Style: ViewPropTypes.style,
-  activeOpacity: PropTypes.number
+  activeOpacity: PropTypes.number,
+  text1NumberOfLines: PropTypes.number,
+  text2NumberOfLines: PropTypes.number
 };
 
 BaseToast.defaultProps = {
@@ -110,7 +114,9 @@ BaseToast.defaultProps = {
   contentContainerStyle: undefined,
   text1Style: undefined,
   text2Style: undefined,
-  activeOpacity: 0.8
+  activeOpacity: 0.8,
+  text1NumberOfLines: 1,
+  text2NumberOfLines: 2
 };
 
 export default BaseToast;
