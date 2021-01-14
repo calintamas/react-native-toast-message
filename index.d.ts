@@ -7,6 +7,13 @@ declare module 'react-native-toast-message' {
   }
 
   export type ToastPosition = 'top' | 'bottom'
+  export type ToastType = 'success' | 'error' | 'info'
+
+  export interface ToastTextStyle {
+    color: string,
+    fontSize: number,
+    fontWeight: string | number
+  }
 
   export interface BaseToastProps {
     leadingIcon?: ImageSourcePropType,
@@ -22,8 +29,8 @@ declare module 'react-native-toast-message' {
     leadingIconStyle?: ViewStyle,
     trailingIconStyle?: ViewStyle,
     contentContainerStyle?: ViewStyle,
-    text1Style?: ViewStyle,
-    text2Style?: ViewStyle,
+    text1Style?: ViewStyle | ToastTextStyle,
+    text2Style?: ViewStyle | ToastTextStyle,
     activeOpacity?: number
   }
   export const BaseToast: React.FC<BaseToastProps>
@@ -44,7 +51,7 @@ declare module 'react-native-toast-message' {
 
   export default class Toast extends React.Component<ToastProps> {
     static show(options: {
-      type: string,
+      type: ToastType,
       position?: ToastPosition,
       text1?: string,
       text2?: string,
