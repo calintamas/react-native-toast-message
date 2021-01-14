@@ -10,9 +10,9 @@ declare module 'react-native-toast-message' {
   export type ToastType = 'success' | 'error' | 'info'
 
   export interface ToastTextStyle {
-    color: string,
-    fontSize: number,
-    fontWeight: string | number
+    color?: string,
+    fontSize?: number,
+    fontWeight?: string | number
   }
 
   export interface BaseToastProps {
