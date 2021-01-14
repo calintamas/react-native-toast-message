@@ -218,7 +218,7 @@ class Toast extends Component {
       height: prevState.height,
       inProgress: true,
       ...options,
-      ...(options?.props ? { customProps: options.props } : {})
+      ...(options?.props ? { customProps: options.props } : { customProps: {} })
     }));
     await this.animateShow();
     await this._setState((prevState) => ({
