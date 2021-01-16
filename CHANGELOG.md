@@ -9,6 +9,13 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.3]
+
+### Fixed
+
+- Fix type definitions ([sapieneptus](https://github.com/sapieneptus) in [#127](https://github.com/calintamas/react-native-toast-message/pull/127))
+- Reset customProps every time show is called ([puuuudding](https://github.com/puuuudding) in [#128](https://github.com/calintamas/react-native-toast-message/pull/128))
+
 ## [1.4.2]
 
 ### Fixed
