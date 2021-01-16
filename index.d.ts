@@ -6,8 +6,9 @@ declare module 'react-native-toast-message' {
     [key: string]: any;
   }
 
+  export interface ToastConfig extends AnyObject {}
   export type ToastPosition = 'top' | 'bottom'
-  export type ToastType = 'success' | 'error' | 'info'
+  export type ToastType = keyof ToastConfig
 
   export interface BaseToastProps {
     leadingIcon?: ImageSourcePropType,
@@ -31,7 +32,7 @@ declare module 'react-native-toast-message' {
 
   export interface ToastProps {
     ref: (ref: any) => any;
-    config?: AnyObject,
+    config?: ToastConfig,
     style?: ViewStyle,
     topOffset?: number,
     bottomOffset?: number,
@@ -40,7 +41,7 @@ declare module 'react-native-toast-message' {
     autoHide?: boolean,
     height?: number,
     position?: ToastPosition,
-    type?: string
+    type?: ToastType
   }
 
   export default class Toast extends React.Component<ToastProps> {
