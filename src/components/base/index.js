@@ -91,8 +91,8 @@ BaseToast.propTypes = {
   leadingIconStyle: ViewPropTypes.style,
   trailingIconStyle: ViewPropTypes.style,
   contentContainerStyle: ViewPropTypes.style,
-  text1Style: ViewPropTypes.style,
-  text2Style: ViewPropTypes.style,
+  text1Style: Text.propTypes.style,
+  text2Style: Text.propTypes.style,
   activeOpacity: PropTypes.number,
   text1NumberOfLines: PropTypes.number,
   text2NumberOfLines: PropTypes.number

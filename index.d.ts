@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewStyle, ImageSourcePropType } from 'react-native'
+import { ViewStyle, TextStyle, ImageSourcePropType } from 'react-native'
 
 declare module 'react-native-toast-message' {
   interface AnyObject {
@@ -22,8 +22,8 @@ declare module 'react-native-toast-message' {
     leadingIconStyle?: ViewStyle,
     trailingIconStyle?: ViewStyle,
     contentContainerStyle?: ViewStyle,
-    text1Style?: ViewStyle,
-    text2Style?: ViewStyle,
+    text1Style?: TextStyle,
+    text2Style?: TextStyle,
     activeOpacity?: number
   }
   export const BaseToast: React.FC<BaseToastProps>
