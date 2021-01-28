@@ -37,6 +37,7 @@
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "husky": "^3.1.0",
@@ -44,7 +45,6 @@
     "prettier": "2.2.1"
   },
   "dependencies": {
-    "eslint-plugin-prettier": "^3.2.0",
     "prop-types": "^15.7.2"
   }
 }
