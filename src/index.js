@@ -83,6 +83,7 @@ class Toast extends Component {
     this._setState = this._setState.bind(this);
     this._animateMovement = this._animateMovement.bind(this);
     this._animateRelease = this._animateRelease.bind(this);
+    this._shouldSetPanResponder = this._shouldSetPanResponder.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
@@ -102,16 +103,10 @@ class Toast extends Component {
     };
 
     this.panResponder = PanResponder.create({
-      onMoveShouldSetPanResponder: (event, gestureState) => {
-        const { dx, dy } = gestureState;
-        // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
-        return Math.abs(dx) > 2 || Math.abs(dy) > 2;
-      },
-      onMoveShouldSetPanResponderCapture: (event, gestureState) => {
-        const { dx, dy } = gestureState;
-        // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
-        return Math.abs(dx) > 2 || Math.abs(dy) > 2;
-      },
+      onMoveShouldSetPanResponder: (event, gesture) =>
+        this._shouldSetPanResponder(gesture),
+      onMoveShouldSetPanResponderCapture: (event, gesture) =>
+        this._shouldSetPanResponder(gesture),
       onPanResponderMove: (event, gesture) => {
         this._animateMovement(gesture);
       },
@@ -161,6 +156,12 @@ class Toast extends Component {
 
   _setState(reducer) {
     return new Promise((resolve) => this.setState(reducer, () => resolve()));
+  }
+
+  _shouldSetPanResponder(gesture) {
+    const { dx, dy } = gesture;
+    // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
+    return Math.abs(dx) > 2 || Math.abs(dy) > 2;
   }
 
   _animateMovement(gesture) {
