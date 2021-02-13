@@ -1,0 +1,27 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn
+      - name: Setup React Native environment
+        run: |
+          yarn add react-native@0.63.4
+          yarn add react@16.13.1
+      - name: Run tests
+        run: yarn test --coverage
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
