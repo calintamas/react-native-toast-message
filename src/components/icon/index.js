@@ -10,7 +10,12 @@ function Icon({ source, style }) {
   }
 
   return (
-    <Image source={source} style={[styles.base, style]} resizeMode='contain' />
+    <Image
+      testID='icon'
+      source={source}
+      style={[styles.base, style]}
+      resizeMode='contain'
+    />
   );
 }
 

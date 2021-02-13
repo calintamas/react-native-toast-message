@@ -12,16 +12,25 @@ import styles from './styles';
 const FRICTION = 8;
 
 const defaultComponentsConfig = {
+  // eslint-disable-next-line react/prop-types
   success: ({ hide, ...rest }) => (
     <SuccessToast {...rest} onTrailingIconPress={hide} />
   ),
+  // eslint-disable-next-line react/prop-types
   error: ({ hide, ...rest }) => (
     <ErrorToast {...rest} onTrailingIconPress={hide} />
   ),
+  // eslint-disable-next-line react/prop-types
   info: ({ hide, ...rest }) => (
     <InfoToast {...rest} onTrailingIconPress={hide} />
   )
 };
+
+function shouldSetPanResponder(gesture) {
+  const { dx, dy } = gesture;
+  // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
+  return Math.abs(dx) > 2 || Math.abs(dy) > 2;
+}
 
 const getInitialState = ({
   topOffset,
@@ -83,7 +92,6 @@ class Toast extends Component {
     this._setState = this._setState.bind(this);
     this._animateMovement = this._animateMovement.bind(this);
     this._animateRelease = this._animateRelease.bind(this);
-    this._shouldSetPanResponder = this._shouldSetPanResponder.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
@@ -104,9 +112,9 @@ class Toast extends Component {
 
     this.panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: (event, gesture) =>
-        this._shouldSetPanResponder(gesture),
+        shouldSetPanResponder(gesture),
       onMoveShouldSetPanResponderCapture: (event, gesture) =>
-        this._shouldSetPanResponder(gesture),
+        shouldSetPanResponder(gesture),
       onPanResponderMove: (event, gesture) => {
         this._animateMovement(gesture);
       },
@@ -130,6 +138,7 @@ class Toast extends Component {
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListner.remove();
+    clearTimeout(this.timer);
   }
 
   keyboardDidShow = (e) => {
@@ -156,12 +165,6 @@ class Toast extends Component {
 
   _setState(reducer) {
     return new Promise((resolve) => this.setState(reducer, () => resolve()));
-  }
-
-  _shouldSetPanResponder(gesture) {
-    const { dx, dy } = gesture;
-    // Fixes onPress handler https://github.com/calintamas/react-native-toast-message/issues/113
-    return Math.abs(dx) > 2 || Math.abs(dy) > 2;
   }
 
   _animateMovement(gesture) {
@@ -375,6 +378,7 @@ class Toast extends Component {
 
     return (
       <Animated.View
+        testID='animatedView'
         onLayout={this.onLayout}
         style={[baseStyle, style]}
         {...this.panResponder.panHandlers}>

@@ -1,24 +1,28 @@
 module.exports = {
-  root: true,
   parser: 'babel-eslint',
-  extends: ['airbnb', 'prettier', 'prettier/react'],
-  plugins: ['react-hooks', 'prettier'],
+  root: true,
   globals: {
     __DEV__: false,
     fetch: false
   },
+  extends: [
+    'airbnb',
+    'prettier',
+    'prettier/react',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:react-native-a11y/basic',
+    'plugin:react-hooks/recommended'
+  ],
+  plugins: ['react-hooks', 'prettier'],
   rules: {
-    'import/no-extraneous-dependencies': 0,
-    'global-require': 0,
-    'react/prop-types': 'warn',
-    'react/jsx-closing-bracket-location': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react-hooks/rules-of-hooks': 2,
-    'react-hooks/exhaustive-deps': 1,
-    'no-underscore-dangle': 0,
-    'import/prefer-default-export': 0,
-    'class-methods-use-this': 0,
-    'react/jsx-filename-extension': 0,
-    'react/sort-comp': 0
+    'react/jsx-filename-extension': 'off',
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': 'off',
+    'react/sort-comp': 'off',
+    'import/no-cycle': 'error',
+    'react/prop-types': ['error', { ignore: ['children'] }]
   }
 };
