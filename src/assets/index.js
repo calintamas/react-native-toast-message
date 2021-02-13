@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 const assets = {
   icons: {
     success: require('./icons/success.png'),
