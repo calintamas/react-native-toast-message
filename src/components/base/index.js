@@ -28,11 +28,13 @@ function BaseToast({
 }) {
   return (
     <TouchableOpacity
+      testID='rootView'
       style={[styles.base, styles.borderLeft, style]}
       onPress={onPress}
       activeOpacity={onPress ? activeOpacity : 1}>
       {leadingIcon && (
         <TouchableOpacity
+          testID='leadingIcon'
           style={[styles.leadingIconContainer, leadingIconContainerStyle]}
           onPress={onLeadingIconPress}
           activeOpacity={onLeadingIconPress ? activeOpacity : 1}>
@@ -43,17 +45,25 @@ function BaseToast({
         </TouchableOpacity>
       )}
 
-      <View style={[styles.contentContainer, contentContainerStyle]}>
+      <View
+        testID='contentContainer'
+        style={[styles.contentContainer, contentContainerStyle]}>
         {text1?.length > 0 && (
           <View>
-            <Text style={[styles.text1, text1Style]} numberOfLines={text1NumberOfLines}>
+            <Text
+              testID='text1'
+              style={[styles.text1, text1Style]}
+              numberOfLines={text1NumberOfLines}>
               {text1}
             </Text>
           </View>
         )}
         {text2?.length > 0 && (
           <View>
-            <Text style={[styles.text2, text2Style]} numberOfLines={text2NumberOfLines}>
+            <Text
+              testID='text2'
+              style={[styles.text2, text2Style]}
+              numberOfLines={text2NumberOfLines}>
               {text2}
             </Text>
           </View>
@@ -62,6 +72,7 @@ function BaseToast({
 
       {trailingIcon && (
         <TouchableOpacity
+          testID='trailingIcon'
           style={[styles.trailingIconContainer, trailingIconContainerStyle]}
           onPress={onTrailingIconPress}
           activeOpacity={onTrailingIconPress ? activeOpacity : 1}>

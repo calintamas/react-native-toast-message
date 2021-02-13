@@ -7,7 +7,8 @@
     "hooks:install": "node ./node_modules/husky/bin/install",
     "lint": "./node_modules/.bin/eslint . --ext=jsx --ext=js",
     "lint-staged": "./node_modules/.bin/lint-staged",
-    "prettier": "./node_modules/.bin/prettier . --write"
+    "prettier": "./node_modules/.bin/prettier . --write",
+    "test": "./node_modules/.bin/jest"
   },
   "lint-staged": {
     "**/*.js": [
@@ -31,6 +32,9 @@
     "url": "git+https://github.com/calintamas/react-native-toast-message.git"
   },
   "devDependencies": {
+    "@testing-library/jest-native": "^3.4.3",
+    "@testing-library/react-native": "^7.1.0",
+    "@types/jest": "^26.0.20",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.10.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -42,8 +46,11 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "eslint-plugin-react-native-a11y": "^2.0.4",
     "husky": "^3.1.0",
+    "jest": "^26.6.3",
     "lint-staged": "^10.2.2",
-    "prettier": "2.2.1"
+    "metro-react-native-babel-preset": "^0.65.0",
+    "prettier": "2.2.1",
+    "react-test-renderer": "^17.0.1"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
