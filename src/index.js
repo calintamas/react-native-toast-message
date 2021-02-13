@@ -138,6 +138,7 @@ class Toast extends Component {
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListner.remove();
+    clearTimeout(this.timer);
   }
 
   keyboardDidShow = (e) => {
@@ -377,6 +378,7 @@ class Toast extends Component {
 
     return (
       <Animated.View
+        testID='animatedView'
         onLayout={this.onLayout}
         style={[baseStyle, style]}
         {...this.panResponder.panHandlers}>
