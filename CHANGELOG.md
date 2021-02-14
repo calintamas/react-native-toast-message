@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.5]
+
+### Fixed
+
+- Remove dependency on ViewPropTypes ([#147](https://github.com/calintamas/react-native-toast-message/pull/147))
+
 ## [1.4.4]
 
 ### Changed
