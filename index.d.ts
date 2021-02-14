@@ -58,9 +58,7 @@ declare module 'react-native-toast-message' {
       onPress?: () => void
     }): void;
 
-    static hide(options?: {
-      onHide?: () => void
-    }): void;
+    static hide(): void;
 
     static setRef(ref: any): any;
   }
