@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, ViewPropTypes } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Icon from '../icon';
 import { icons } from '../../assets';
+import { stylePropType } from '../../utils/prop-types';
 import styles, { HEIGHT } from './styles';
 
 function BaseToast({
@@ -96,14 +97,14 @@ BaseToast.propTypes = {
   onPress: PropTypes.func,
   onTrailingIconPress: PropTypes.func,
   onLeadingIconPress: PropTypes.func,
-  style: ViewPropTypes.style,
-  leadingIconContainerStyle: ViewPropTypes.style,
-  trailingIconContainerStyle: ViewPropTypes.style,
-  leadingIconStyle: ViewPropTypes.style,
-  trailingIconStyle: ViewPropTypes.style,
-  contentContainerStyle: ViewPropTypes.style,
-  text1Style: Text.propTypes.style,
-  text2Style: Text.propTypes.style,
+  style: stylePropType,
+  leadingIconContainerStyle: stylePropType,
+  trailingIconContainerStyle: stylePropType,
+  leadingIconStyle: stylePropType,
+  trailingIconStyle: stylePropType,
+  contentContainerStyle: stylePropType,
+  text1Style: stylePropType,
+  text2Style: stylePropType,
   activeOpacity: PropTypes.number,
   text1NumberOfLines: PropTypes.number,
   text2NumberOfLines: PropTypes.number
