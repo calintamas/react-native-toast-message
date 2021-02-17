@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.7]
+
+### Fixed
+
+- Fix proptype regression ([#151](https://github.com/calintamas/react-native-toast-message/pull/151))
+
 ## [1.4.6]
 
 ### Fixed
