@@ -81,12 +81,10 @@ Toast.show({
 });
 ```
 
-### `hide(options = {})`
+### `hide()`
 
 ```js
-Toast.hide({
-  onHide: () => {}
-});
+Toast.hide();
 ```
 
 ## props
