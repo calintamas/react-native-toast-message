@@ -40,7 +40,7 @@ function BaseToast({
           onPress={onLeadingIconPress}
           activeOpacity={onLeadingIconPress ? activeOpacity : 1}>
           <Icon
-            style={[styles.leadingIcon, leadingIconStyle]}
+            style={{ ...styles.leadingIcon, ...leadingIconStyle }}
             source={leadingIcon}
           />
         </TouchableOpacity>
@@ -78,7 +78,7 @@ function BaseToast({
           onPress={onTrailingIconPress}
           activeOpacity={onTrailingIconPress ? activeOpacity : 1}>
           <Icon
-            style={[styles.trailingIcon, trailingIconStyle]}
+            style={{ ...styles.trailingIcon, ...trailingIconStyle }}
             source={trailingIcon}
           />
         </TouchableOpacity>
