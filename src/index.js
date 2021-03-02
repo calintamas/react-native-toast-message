@@ -8,6 +8,7 @@ import InfoToast from './components/info';
 import { complement } from './utils/arr';
 import { includeKeys } from './utils/obj';
 import { stylePropType } from './utils/prop-types';
+import { isIOS } from './utils/platform';
 import styles from './styles';
 
 const FRICTION = 8;
@@ -126,14 +127,15 @@ class Toast extends Component {
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this.keyboardDidShow
-    );
-    this.keyboardDidHideListner = Keyboard.addListener(
-      'keyboardDidHide',
-      this.keyboardDidHide
-    );
+    const noop = {
+      remove: () => {}
+    };
+    this.keyboardDidShowListener = isIOS
+      ? Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+      : noop;
+    this.keyboardDidHideListner = isIOS
+      ? Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+      : noop;
   }
 
   componentWillUnmount() {
