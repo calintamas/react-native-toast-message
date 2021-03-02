@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.8]
+
+### Added
+
+- Add types for `text1NumberOfLines` and `text2NumberOfLines` ([#152](https://github.com/calintamas/react-native-toast-message/pull/152))
+
 ## [1.4.7]
 
 ### Fixed
