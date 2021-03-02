@@ -16,8 +16,6 @@ jobs:
       - run: npm install -g yarn
       - name: Install dependencies
         run: yarn
-      # - name: Run tests
-      #   run: yarn test
       - id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
