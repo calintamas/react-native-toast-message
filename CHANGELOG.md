@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.4.9]
+
+### Fixed
+
+- Fix Keyboard pushing Toast too much on Android when displayed with position `bottom` ([#161](https://github.com/calintamas/react-native-toast-message/pull/161))
+
 ## [1.4.8]
 
 ### Added
