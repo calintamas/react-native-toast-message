@@ -76,8 +76,9 @@ Toast.show({
   topOffset: 30,
   bottomOffset: 40,
   onShow: () => {},
-  onHide: () => {},
-  onPress: () => {}
+  onHide: () => {}, // called when Toast hides (if `autoHide` was set to `true`)
+  onPress: () => {},
+  props: {} // any custom props passed to the Toast component
 });
 ```
 
@@ -93,45 +94,63 @@ Props that can be set on the `Toast` instance. They act as defaults for all Toas
 
 ```js
 const props = {
-  config: Object,
-  style: ViewStyle,
+  type: 'success | error | info',
+  position: 'top' | 'bottom',
+  visibilityTime: Number,
+  autoHide: Boolean,
   topOffset: Number,
   bottomOffset: Number,
   keyboardOffset: Number,
-  visibilityTime: Number,
-  autoHide: Boolean,
-  height: Number,
-  position: 'top' | 'bottom',
-  type: String
+  config: Object,
+  style: ViewStyle,
+  height: Number
 };
 ```
 
 > Default `Animated.View` styles can be found in [styles.js](https://github.com/calintamas/react-native-toast-message/blob/master/src/styles.js#L4). They can be extended using the `style` prop.
 
-## Customize Toast types
+## Customize layout
 
-If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
+If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. You can either use the default `BaseToast` style and adjust its layout, or create Toast layouts from scratch.
 
 ```js
 // App.jsx
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast }  from 'react-native-toast-message';
 
 const toastConfig = {
+  /* 
+    overwrite 'success' type, 
+    modifying the existing `BaseToast` component
+  */
   success: ({ text1, props, ...rest }) => (
-    <View style={{ height: 60, width: '100%', backgroundColor: 'pink' }}>
-      <Text>{text1}</Text>
-      <Text>{props.guid}</Text>
-    </View>
+    <BaseToast
+      {...rest}
+      style={{ borderLeftColor: 'pink' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 15,
+        fontWeight: '400'
+      }}
+      text1={text1}
+      text2={props.uuid}
+    />
   ),
-  error: () => {},
-  info: () => {},
-  any_custom_type: () => {}
+  
+  /* 
+    or create a completely new type - `my_custom_type`,
+    building the layout from scratch
+  */
+  my_custom_type: ({ text1, props, ...rest }) => (
+    <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
+      <Text>{text1}</Text>
+    </View>
+  )
 };
 
 function App(props) {
   return (
     <>
-      {/* ... */}
+      // pass the config to the Toast instance
       <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
     </>
   );
@@ -144,45 +163,9 @@ Then just use the library as before
 
 ```js
 Toast.show({
-  type: 'any_custom_type',
-  props: { onPress: () => {}, guid: 'guid-id' }
+  type: 'my_custom_type',
+  props: { uuid: 'bba1a7d0-6ab2-4a0a-a76e-ebbe05ae6d70' }
 });
-```
-
-## Change default Toast style
-
-In addition to creating Toast styles from scratch (shown above), you can use the default `BaseToast` style and adjust its layout.
-
-```js
-// App.jsx
-import Toast, { BaseToast } from 'react-native-toast-message';
-
-const toastConfig = {
-  success: ({ text1, ...rest }) => (
-    <BaseToast
-      {...rest}
-      style={{ borderLeftColor: 'pink' }}
-      contentContainerStyle={{ paddingHorizontal: 15 }}
-      text1Style={{
-        fontSize: 15,
-        fontWeight: 'semibold'
-      }}
-      text1={text1}
-      text2={null}
-    />
-  )
-};
-
-function App(props) {
-  return (
-    <>
-      {/* ... */}
-      <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
-    </>
-  );
-}
-
-export default App;
 ```
 
 Available `props` on `BaseToast`:
@@ -206,6 +189,26 @@ const baseToastProps = {
   text2Style: ViewStyle,
   activeOpacity: Number
 };
+```
+
+## FAQ
+
+### How to render the Toast when using [react-navigation](https://reactnavigation.org)?
+
+To have the toast visible on top of the navigation `View` hierarchy, simply render it inside the `NavigationContainer`.
+
+```js
+import Toast from 'react-native-toast-message'
+import { NavigationContainer } from '@react-navigation/native';
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      {...}
+      <Toast ref={(ref) => Toast.setRef(ref)} />
+    </NavigationContainer>
+  );
+}
 ```
 
 ## Credits
