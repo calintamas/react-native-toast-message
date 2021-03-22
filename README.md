@@ -213,6 +213,38 @@ export default function App() {
 }
 ```
 
+### How to mock the library for testing with [jest](https://jestjs.io)?
+
+```js
+jest.mock('react-native-toast-message', () => ({
+  show: jest.fn(),
+  hide: jest.fn()
+}));
+```
+
+### How to show the Toast inside a Modal?
+
+When a `Modal` is visible, the Toast gets rendered behind it. This is due to [the way `Modal` is implemented](https://stackoverflow.com/a/57402783). As a workaround, you can have 2 separate Toast instances: one inside the Modal (let's call it a "modal toast") and a normal one outside.
+
+For the one outside, set the ref on the Toast object (like usual)
+```js
+<Toast ref={ref => Toast.setRef(ref) />
+```
+
+And for the "modal toast", use another ref
+```js
+function ScreenWithModal() {
+  const modalToastRef = React.useRef();
+
+  return (
+    <Modal>
+      <Toast ref={modalToastRef} />
+    </Modal>
+  );
+}
+```
+Then, when you want to show the "modal toast", call it using `modalToastRef.current.show()`.
+
 ## Credits
 
 The icons for the default `success`, `error` and `info` types are made by [Pixel perfect](https://www.flaticon.com/authors/pixel-perfect) from [flaticon.com](www.flaticon.com).
