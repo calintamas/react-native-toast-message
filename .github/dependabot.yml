@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "03:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - calintamas
+  ignore:
+  - dependency-name: husky
+    versions:
+    - "> 3.1.0"
+  - dependency-name: husky
+    versions:
+    - ">= 4.a, < 5"
