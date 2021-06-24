@@ -197,7 +197,7 @@ const baseToastProps = {
 
 ### How to render the Toast when using [react-navigation](https://reactnavigation.org)?
 
-To have the toast visible on top of the navigation `View` hierarchy, simply render it inside the `NavigationContainer`.
+To have the toast visible on top of the navigation `View` hierarchy, render it as the **last child** inside `NavigationContainer`.
 
 ```js
 import Toast from 'react-native-toast-message'
