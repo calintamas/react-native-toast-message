@@ -196,6 +196,66 @@ describe('test Toast behavior', () => {
     });
   });
 
+  describe('textXNumberOfLines props', async () => {
+    it('accepts text1NumberOfLines prop', async () => {
+      const { ref, getText1 } = setup();
+
+      await act(async () => {
+        await ref.current.show({
+          type: 'info',
+          text1: 'test',
+          text1NumberOfLines: 5
+        });
+      });
+
+      await waitFor(() => getText1());
+
+      const { numberOfLines } = getText1().props;
+
+      expect(numberOfLines).toBe(5);
+    });
+
+    it('accepts text2NumberOfLines prop', async () => {
+      const { ref, getText2 } = setup();
+
+      await act(async () => {
+        await ref.current.show({
+          type: 'info',
+          text1: 'test',
+          text2: 'test',
+          text2NumberOfLines: 4
+        });
+      });
+
+      await waitFor(() => getText2());
+
+      const { numberOfLines } = getText2().props;
+
+      expect(numberOfLines).toBe(4);
+    });
+
+    it('default number of lines should be 1 and 2', async () => {
+      const { ref, getText1, getText2 } = setup();
+
+      await act(async () => {
+        await ref.current.show({
+          type: 'info',
+          text1: 'test',
+          text2: 'test'
+        });
+      });
+
+      await waitFor(() => getText1());
+      await waitFor(() => getText2());
+
+      const { numberOfLines: text1Lines } = getText1().props;
+      const { numberOfLines: text2Lines } = getText2().props;
+
+      expect(text1Lines).toBe(1);
+      expect(text2Lines).toBe(2);
+    });
+  });
+
   describe('test props', () => {
     it('shows Toast from custom config', async () => {
       const testID = 'testView';
