@@ -333,7 +333,9 @@ class Toast extends Component {
           'text2',
           'hide',
           'show',
-          'onPress'
+          'onPress',
+          'text1NumberOfLines',
+          'text2NumberOfLines'
         ]
       }),
       props: { ...customProps },
@@ -401,7 +403,9 @@ Toast.propTypes = {
   autoHide: PropTypes.bool,
   height: PropTypes.number,
   position: PropTypes.oneOf(['top', 'bottom']),
-  type: PropTypes.string
+  type: PropTypes.string,
+  text1NumberOfLines: PropTypes.number,
+  text2NumberOfLines: PropTypes.number
 };
 
 Toast.defaultProps = {
@@ -414,7 +418,9 @@ Toast.defaultProps = {
   autoHide: true,
   height: 60,
   position: 'top',
-  type: 'success'
+  type: 'success',
+  text1NumberOfLines: 1,
+  text2NumberOfLines: 2
 };
 
 export default Toast;
