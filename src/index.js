@@ -336,7 +336,7 @@ class Toast extends Component {
           'onPress'
         ]
       }),
-      props: { ...customProps },
+      ...customProps,
       hide: this.hide,
       show: this.show
     });
