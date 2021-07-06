@@ -7,9 +7,9 @@ import colors from '../colors';
 function SuccessToast(props) {
   return (
     <BaseToast
-      {...props}
       style={{ borderLeftColor: colors.mantis }}
       leadingIcon={icons.success}
+      {...props}
     />
   );
 }

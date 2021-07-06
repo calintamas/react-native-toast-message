@@ -7,9 +7,9 @@ import colors from '../colors';
 function InfoToast(props) {
   return (
     <BaseToast
-      {...props}
       style={{ borderLeftColor: colors.lightSkyBlue }}
       leadingIcon={icons.info}
+      {...props}
     />
   );
 }
