@@ -109,6 +109,27 @@ const props = {
 
 > Default `Animated.View` styles can be found in [styles.js](https://github.com/calintamas/react-native-toast-message/blob/master/src/styles.js#L4). They can be extended using the `style` prop.
 
+## Customize show
+You can Customize the default components by overwrite BaseToast props
+```js
+Toast.show({
+    type:'error',
+    text1: 'Error',
+    text2: 'some error msg',
+    props:{
+        text1Style:{
+            fontSize: 18,
+        },
+        text2Style:{
+            fontSize: 14,
+        }
+    }
+});
+```
+
+### 
+
+
 ## Customize layout
 
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. 
@@ -124,7 +145,7 @@ const toastConfig = {
     overwrite 'success' type, 
     modifying the existing `BaseToast` component
   */
-  success: ({ text1, props, ...rest }) => (
+  success: ({ text1, uuid, ...rest }) => (
     <BaseToast
       {...rest}
       style={{ borderLeftColor: 'pink' }}
@@ -134,7 +155,7 @@ const toastConfig = {
         fontWeight: '400'
       }}
       text1={text1}
-      text2={props.uuid}
+      text2={uuid}
     />
   ),
   
