@@ -97,6 +97,7 @@ class Toast extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
+    this.displayToast = this.displayToast.bind(this);
     this.hide = this.hide.bind(this);
     this.onLayout = this.onLayout.bind(this);
 
@@ -132,9 +133,10 @@ class Toast extends Component {
     const { inProgress: prevInProgress, isVisible: prevIsVisible } = prevState;
 
     if (!inProgress && !isVisible && prevInProgress && prevIsVisible && toastQueue.length > 0) {
+      const toastQueueUpdated = [...toastQueue].slice(0,-1);
+
       toastQueue[toastQueue.length - 1]();
-      const toastQueueCopy = [...toastQueue].slice(0,-1);
-      this.setState({toastQueue: toastQueueCopy})
+      this.setState({toastQueue: toastQueueUpdated})
     }
   }
 
@@ -226,7 +228,7 @@ class Toast extends Component {
     const { inProgress, isVisible } = this.state;
 
     if (inProgress || isVisible) {
-        this.setState({toastQueue: [...this.state.toastQueue, () => this.displayToast(options)]})
+      this.setState({toastQueue: [...this.state.toastQueue, () => this.displayToast(options)]})
     } else {
       this.displayToast(options)
     }
@@ -327,7 +329,7 @@ class Toast extends Component {
       ...config
     };
 
-    const { type, customProps, inProgress, isVisible } = this.state;
+    const { type, customProps} = this.state;
     const toastComponent = componentsConfig[type];
 
     if (!toastComponent) {
@@ -337,7 +339,6 @@ class Toast extends Component {
       );
       return null;
     }
-
 
     return toastComponent({
       ...includeKeys({
