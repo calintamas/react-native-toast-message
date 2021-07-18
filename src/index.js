@@ -97,6 +97,7 @@ class Toast extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.animate = this.animate.bind(this);
     this.show = this.show.bind(this);
+    this.displayToast = this.displayToast.bind(this);
     this.hide = this.hide.bind(this);
     this.onLayout = this.onLayout.bind(this);
 
@@ -109,7 +110,8 @@ class Toast extends Component {
       keyboardHeight: 0,
       keyboardVisible: false,
 
-      customProps: {}
+      customProps: {},
+      toastQueue: []
     };
 
     this.panResponder = PanResponder.create({
@@ -124,6 +126,18 @@ class Toast extends Component {
         this._animateRelease(gesture);
       }
     });
+  }
+  
+  componentDidUpdate(_, prevState) {
+    const { inProgress, isVisible, toastQueue } = this.state;
+    const { inProgress: prevInProgress, isVisible: prevIsVisible } = prevState;
+
+    if (!inProgress && !isVisible && prevInProgress && prevIsVisible && toastQueue.length > 0) {
+      const toastQueueUpdated = [...toastQueue].slice(0,-1);
+
+      toastQueue[toastQueue.length - 1]();
+      this.setState({toastQueue: toastQueueUpdated})
+    }
   }
 
   componentDidMount() {
@@ -212,10 +226,15 @@ class Toast extends Component {
 
   async show(options = {}) {
     const { inProgress, isVisible } = this.state;
-    if (inProgress || isVisible) {
-      await this.hide();
-    }
 
+    if (inProgress || isVisible) {
+      this.setState({toastQueue: [...this.state.toastQueue, () => this.displayToast(options)]})
+    } else {
+      this.displayToast(options)
+    }
+  }
+
+  async displayToast(options = {}) {
     await this._setState((prevState) => ({
       ...prevState,
       ...getInitialState(this.props), // Reset layout
@@ -310,7 +329,7 @@ class Toast extends Component {
       ...config
     };
 
-    const { type, customProps } = this.state;
+    const { type, customProps} = this.state;
     const toastComponent = componentsConfig[type];
 
     if (!toastComponent) {
