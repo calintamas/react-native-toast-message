@@ -46,7 +46,7 @@ declare module 'react-native-toast-message' {
 
   export default class Toast extends React.Component<ToastProps> {
     static show(options: {
-      type: string,
+      type: 'success | error | info',
       position?: ToastPosition,
       text1?: string,
       text2?: string,
