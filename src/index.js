@@ -145,23 +145,23 @@ class Toast extends Component {
   }
 
   keyboardDidShow = (e) => {
-    const { isVisible, position } = this.state;
+    const { isVisible, position, inProgress } = this.state;
     this.setState({
       keyboardHeight: e.endCoordinates.height,
       keyboardVisible: true
     });
 
-    if (isVisible && position === 'bottom') {
+    if (isVisible && position === 'bottom' && !inProgress) {
       this.animate({ toValue: 2 });
     }
   };
 
   keyboardDidHide = () => {
-    const { isVisible, position } = this.state;
+    const { isVisible, position, inProgress } = this.state;
     this.setState({
       keyboardVisible: false
     });
-    if (isVisible && position === 'bottom') {
+    if (isVisible && position === 'bottom' && !inProgress) {
       this.animate({ toValue: 1 });
     }
   };
