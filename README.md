@@ -114,11 +114,11 @@ const props = {
 
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. 
 
-You can either use the default `BaseToast` style and adjust its layout, or create Toast layouts from scratch.
+You can either use the default `BaseToast` style and adjust its layout, or create Toast layouts from scratch or reuse the default layout
 
 ```js
 // App.jsx
-import Toast, { BaseToast }  from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast }  from 'react-native-toast-message';
 
 const toastConfig = {
   /* 
@@ -138,6 +138,20 @@ const toastConfig = {
       text2={props.uuid}
     />
   ),
+  
+  /*
+    Reuse the default toast with custom props.
+  */
+  error: ({ hide, ...rest }) => (
+        <ErrorToast {...rest} onTrailingIconPress={hide} 
+            text1Style={{
+                fontSize: 17
+            }}
+            text2Style={{
+                fontSize: 15
+            }}
+        />
+    ),
   
   /* 
     or create a completely new type - `my_custom_type`,
