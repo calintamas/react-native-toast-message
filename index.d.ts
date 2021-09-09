@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewStyle, TextStyle, ImageSourcePropType } from 'react-native'
+import { StyleProp, ViewStyle, TextStyle, ImageSourcePropType } from 'react-native'
 
 declare module 'react-native-toast-message' {
   interface AnyObject {
@@ -16,14 +16,14 @@ declare module 'react-native-toast-message' {
     onPress?: () => void,
     onTrailingIconPress?: () => void,
     onLeadingIconPress?: () => void,
-    style?: ViewStyle,
-    leadingIconContainerStyle?: ViewStyle,
-    trailingIconContainerStyle?: ViewStyle,
-    leadingIconStyle?: ViewStyle,
-    trailingIconStyle?: ViewStyle,
-    contentContainerStyle?: ViewStyle,
-    text1Style?: TextStyle,
-    text2Style?: TextStyle,
+    style?: StyleProp<ViewStyle>,
+    leadingIconContainerStyle?: StyleProp<ViewStyle>,
+    trailingIconContainerStyle?: StyleProp<ViewStyle>,
+    leadingIconStyle?: StyleProp<ViewStyle>,
+    trailingIconStyle?: StyleProp<ViewStyle>,
+    contentContainerStyle?: StyleProp<ViewStyle>,
+    text1Style?: StyleProp<TextStyle>,
+    text2Style?: StyleProp<TextStyle>,
     activeOpacity?: number,
     text1NumberOfLines: number,
     text2NumberOfLines: number,
@@ -33,7 +33,7 @@ declare module 'react-native-toast-message' {
   export interface ToastProps {
     ref: (ref: any) => any;
     config?: AnyObject,
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
     topOffset?: number,
     bottomOffset?: number,
     keyboardOffset?: number,
