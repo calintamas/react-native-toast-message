@@ -114,7 +114,7 @@ const props = {
 
 If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. 
 
-You can either use the default `BaseToast` style and adjust its layout, or create Toast layouts from scratch or reuse the default layout
+You can either use any of the default `BaseToast`, `SuccessToast`, `ErrorToast` or `InfoToast` components and adjust their layout, or create Toast layouts from scratch.
 
 ```js
 // App.jsx
