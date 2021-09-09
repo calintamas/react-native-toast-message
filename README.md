@@ -139,20 +139,20 @@ const toastConfig = {
     />
   ),
   
-  /*
-    Reuse the default toast with custom props.
+   /*
+    Reuse the default ErrorToast toast component
   */
-  error: ({ hide, ...rest }) => (
-        <ErrorToast {...rest} onTrailingIconPress={hide} 
-            text1Style={{
-                fontSize: 17
-            }}
-            text2Style={{
-                fontSize: 15
-            }}
-        />
-    ),
-  
+  error: (props) => (
+    <ErrorToast 
+      {...props}
+      text1Style={{
+        fontSize: 17
+      }}
+      text2Style={{
+        fontSize: 15
+      }}
+    />
+  ),
   /* 
     or create a completely new type - `my_custom_type`,
     building the layout from scratch
