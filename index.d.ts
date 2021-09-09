@@ -44,21 +44,23 @@ declare module 'react-native-toast-message' {
     type?: string
   }
 
+  export interface ToastShowOptions {
+    type: string,
+    position?: ToastPosition,
+    text1?: string,
+    text2?: string,
+    visibilityTime?: number,
+    autoHide?: boolean,
+    topOffset?: number,
+    bottomOffset?: number,
+    props?: AnyObject,
+    onShow?: () => void,
+    onHide?: () => void,
+    onPress?: () => void
+  }
+
   export default class Toast extends React.Component<ToastProps> {
-    static show(options: {
-      type: string,
-      position?: ToastPosition,
-      text1?: string,
-      text2?: string,
-      visibilityTime?: number,
-      autoHide?: boolean,
-      topOffset?: number,
-      bottomOffset?: number,
-      props?: AnyObject,
-      onShow?: () => void,
-      onHide?: () => void,
-      onPress?: () => void
-    }): void;
+    static show(options: ToastShowOptions): void;
 
     static hide(): void;
 
