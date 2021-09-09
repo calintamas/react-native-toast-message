@@ -14,7 +14,7 @@ Headers are one of:
 ### Changed
 
 - Move `show` method options to separate `ToastShowOptions` interface ([#242](https://github.com/calintamas/react-native-toast-message/pull/242))
-- Use `StyleProp` in type definition file, to allow different types of style to be used (eg. `style={[styles.one, styles.two]}`) ([#243](https://github.com/calintamas/react-native-toast-message/pull/242))
+- Use `StyleProp` in type definition file, to allow different types of style to be used (eg. `style={[styles.one, styles.two]}`) ([#243](https://github.com/calintamas/react-native-toast-message/pull/243))
 
 ## [1.4.9]
 
