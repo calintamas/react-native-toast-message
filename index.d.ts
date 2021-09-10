@@ -29,6 +29,9 @@ declare module 'react-native-toast-message' {
     text2NumberOfLines: number,
   }
   export const BaseToast: React.FC<BaseToastProps>
+  export const SuccessToast: React.FC<BaseToastProps>
+  export const ErrorToast: React.FC<BaseToastProps>
+  export const InfoToast: React.FC<BaseToastProps>
 
   export interface ToastProps {
     ref: (ref: any) => any;
