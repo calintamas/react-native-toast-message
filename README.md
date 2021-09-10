@@ -47,7 +47,7 @@ import Toast from 'react-native-toast-message';
 function SomeComponent() {
   React.useEffect(() => {
     Toast.show({
-      type:  'success',
+      type: 'success',
       text1: 'Hello',
       text2: 'This is some something 👋'
     });
@@ -112,13 +112,13 @@ const props = {
 
 ## Customize layout
 
-If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`. 
+If you want to add custom types - or overwrite the existing ones - you can add a `config` prop when rendering the `Toast` in your app `root`.
 
 You can either use any of the default `BaseToast`, `SuccessToast`, `ErrorToast` or `InfoToast` components and adjust their layout, or create Toast layouts from scratch.
 
 ```js
 // App.jsx
-import Toast, { BaseToast, ErrorToast }  from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 const toastConfig = {
   /* 
@@ -138,12 +138,12 @@ const toastConfig = {
       text2={props.uuid}
     />
   ),
-  
-   /*
+
+  /*
     Reuse the default ErrorToast toast component
   */
   error: (props) => (
-    <ErrorToast 
+    <ErrorToast
       {...props}
       text1Style={{
         fontSize: 17
@@ -242,11 +242,13 @@ jest.mock('react-native-toast-message', () => ({
 When a `Modal` is visible, the Toast gets rendered behind it. This is due to [the way `Modal` is implemented](https://stackoverflow.com/a/57402783). As a workaround, you can have 2 separate Toast instances: one inside the Modal (let's call it a "modal toast") and a normal one outside.
 
 For the one outside, set the ref on the Toast object (like usual)
+
 ```js
 <Toast ref={ref => Toast.setRef(ref) />
 ```
 
 And for the "modal toast", use another ref
+
 ```js
 function ScreenWithModal() {
   const modalToastRef = React.useRef();
@@ -258,6 +260,7 @@ function ScreenWithModal() {
   );
 }
 ```
+
 Then, when you want to show the "modal toast", call it using `modalToastRef.current.show()`.
 
 ## Credits

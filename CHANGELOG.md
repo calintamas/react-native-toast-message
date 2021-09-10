@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed` or `Fixed`.
 
+## [1.6.0]
+
+### Added
+
+- Export all default Toast components (`BaseToast`, `SuccessToast`, `InfoToast`, `ErrorToast`) to be able to reuse them with custom props
+
 ## [1.5.0]
 
 ### Changed
