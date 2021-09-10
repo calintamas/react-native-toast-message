@@ -13,7 +13,7 @@ Headers are one of:
 
 ### Added
 
-- Export all default Toast components (`BaseToast`, `SuccessToast`, `InfoToast`, `ErrorToast`) to be able to reuse them with custom props
+- Export all default Toast components (`BaseToast`, `SuccessToast`, `InfoToast`, `ErrorToast`) to be able to reuse them with custom props ([#225](https://github.com/calintamas/react-native-toast-message/pull/225))
 
 ## [1.5.0]
 
