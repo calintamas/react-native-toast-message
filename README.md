@@ -51,6 +51,7 @@ function SomeComponent() {
       text1: 'Hello',
       text2: 'This is some something 👋'
     });
+    return Toast.hide(); // this line is important, because if you change screen without calling this you could have the error: "Warning: Can't perform a React state update on an unmounted component"
   }, []);
 
   return <View />;
