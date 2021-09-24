@@ -52,8 +52,8 @@ function SomeComponent() {
       text2: 'This is some something 👋'
     });
     return () => {
-      if (Toast !== null) {
-          Toast.hide(); // this line is important, because if you change screen without calling this you could have the error: "Warning: Can't perform a React state update on an unmounted component"
+      if (Toast.prototype.refs !== undefined) {
+        Toast.hide(); // this line is important, because if you change screen without calling this you could have the error: "Warning: Can't perform a React state update on an unmounted component"
       }
     };
   }, []);
