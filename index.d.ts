@@ -48,7 +48,7 @@ declare module 'react-native-toast-message' {
   }
 
   export interface ToastShowOptions {
-    type: string,
+    type: 'success' | 'error' | 'info',
     position?: ToastPosition,
     text1?: string,
     text2?: string,
