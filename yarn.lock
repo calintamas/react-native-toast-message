@@ -2222,10 +2222,10 @@ eslint-config-airbnb@^18.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-backpacker-react@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react/-/eslint-config-backpacker-react-0.5.0.tgz#d7e3af7323d590c55b0eab093eba7e57efbfeb96"
-  integrity sha512-CtkrAVx2hS8MnG3c7pty06wNJwgweiDVqcLn/fXKCUcOXtxYyKjGKrHOJ4wU7nw2Y60gNSzrw0lQtdH1WdbMQg==
+eslint-config-backpacker-react@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react/-/eslint-config-backpacker-react-0.6.0.tgz#a18657beb18b04643f9f3cd3732200c0b24730bd"
+  integrity sha512-pAPN3n0BjRXQFLUOEu8GmRhU/erZ/6gILBaa9gr+S5cYgAR9U/BJduFVHV5w5C3yqbfAdGL0p10IuVpvwsW9+Q==
   dependencies:
     "@babel/core" "^7.14.0"
     "@babel/eslint-parser" "^7.13.14"
@@ -2234,7 +2234,7 @@ eslint-config-backpacker-react@^0.5.0:
     eslint-config-prettier "^8.3.0"
     eslint-plugin-import "^2.22.1"
     eslint-plugin-jsx-a11y "^6.4.1"
-    eslint-plugin-prettier "^3.4.0"
+    eslint-plugin-prettier "^4.0.0"
     eslint-plugin-react "^7.23.2"
     eslint-plugin-react-hooks "^4.2.0"
 
@@ -2295,10 +2295,10 @@ eslint-plugin-jsx-a11y@^6.4.1:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-prettier@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.4.0.tgz#cdbad3bf1dbd2b177e9825737fe63b476a08f0c7"
-  integrity sha512-UDK6rJT6INSfcOo545jiaOwB701uAIt2/dR7WnFQoGCVl1/EMqdANBmwUaqqQ45aXprsTGzSa39LI1PyuRBxxw==
+eslint-plugin-prettier@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-4.0.0.tgz#8b99d1e4b8b24a762472b4567992023619cb98e0"
+  integrity sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
