@@ -231,10 +231,24 @@ export default function App() {
 ### How to mock the library for testing with [jest](https://jestjs.io)?
 
 ```js
-jest.mock('react-native-toast-message', () => ({
-  show: jest.fn(),
-  hide: jest.fn()
-}));
+jest.mock('react-native-toast-message', () => {
+  const RealComponent = jest.requireActual('react-native-toast-message');
+  const ReactInternal = require('react');
+  class Toast extends ReactInternal.Component {
+    static show = jest.fn();
+    static hide = jest.fn();
+
+    render() {
+      return ReactInternal.createElement(
+        'Toast',
+        this.props,
+        this.props.children,
+      );
+    }
+  }
+  Toast.propTypes = RealComponent.propTypes;
+  return Toast;
+});
 ```
 
 ### How to show the Toast inside a Modal?
