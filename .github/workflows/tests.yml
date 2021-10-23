@@ -32,8 +32,8 @@ jobs:
 
       - name: Setup React Native environment
         run: |
-          yarn add react-native@0.63.4
-          yarn add react@16.13.1
+          yarn add react@17.0.1
+          yarn add react-native@0.64.2
 
       - name: Run tests
         run: yarn test --coverage

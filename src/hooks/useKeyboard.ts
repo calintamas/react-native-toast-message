@@ -19,7 +19,7 @@ export function useKeyboard() {
   }, []);
 
   React.useEffect(() => {
-    if (!isIOS) {
+    if (!isIOS()) {
       return () => {};
     }
     const didShowListener = Keyboard.addListener('keyboardDidShow', onShow);

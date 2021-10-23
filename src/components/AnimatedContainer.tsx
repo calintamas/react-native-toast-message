@@ -8,10 +8,12 @@ import {
   useViewDimensions
 } from '../hooks';
 import { ReactChildren, ToastPosition } from '../types';
+import { noop } from '../utils/func';
 import { bound } from '../utils/number';
+import { getTestId } from '../utils/test-id';
 import { styles } from './AnimatedContainer.styles';
 
-type AnimatedContainerProps = {
+export type AnimatedContainerProps = {
   children: ReactChildren;
   isVisible: boolean;
   position: ToastPosition;
@@ -19,9 +21,10 @@ type AnimatedContainerProps = {
   bottomOffset: number;
   keyboardOffset: number;
   onHide: () => void;
+  onRestorePosition?: () => void;
 };
 
-function dampingFor(
+export function dampingFor(
   gesture: PanResponderGestureState,
   position: ToastPosition
 ) {
@@ -39,7 +42,7 @@ function dampingFor(
   }
 }
 
-function animatedValueFor(
+export function animatedValueFor(
   gesture: PanResponderGestureState,
   position: ToastPosition,
   damping: number
@@ -64,7 +67,8 @@ export function AnimatedContainer({
   topOffset,
   bottomOffset,
   keyboardOffset,
-  onHide
+  onHide,
+  onRestorePosition = noop
 }: AnimatedContainerProps) {
   const { log } = useLogger();
 
@@ -87,7 +91,8 @@ export function AnimatedContainer({
   const onRestore = React.useCallback(() => {
     log('Swipe, restoring to original position');
     animate(1);
-  }, [animate, log]);
+    onRestorePosition();
+  }, [animate, log, onRestorePosition]);
 
   const computeNewAnimatedValueForGesture = React.useCallback(
     (gesture: PanResponderGestureState) => {
@@ -111,6 +116,7 @@ export function AnimatedContainer({
 
   return (
     <Animated.View
+      testID={getTestId('AnimatedContainer')}
       onLayout={computeViewDimensions}
       style={[styles.base, styles[position], animationStyles]}
       {...panResponder.panHandlers}>

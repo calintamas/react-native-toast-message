@@ -2,12 +2,9 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import { BaseToastProps } from '../types';
+import { getTestId } from '../utils/test-id';
 import { styles } from './BaseToast.styles';
 import { Touchable } from './Touchable';
-
-function getTestId(elementName: string) {
-  return `toast${elementName}`;
-}
 
 export function BaseToast({
   text1,

@@ -1,6 +1,11 @@
 import React from 'react';
 import { LayoutChangeEvent } from 'react-native';
 
+export type UseViewDimensionsParams = {
+  heightOffset?: number;
+  widthOffset?: number;
+};
+
 const getLayoutValue =
   (key: 'height' | 'width') => (event: LayoutChangeEvent) =>
     event?.nativeEvent?.layout?.[key] ?? 0;
@@ -8,7 +13,10 @@ const getLayoutValue =
 /**
  * Retrieves View dimensions (height, width) from a LayoutChangeEvent and sets them on state
  */
-export function useViewDimensions({ heightOffset = 0, widthOffset = 0 } = {}) {
+export function useViewDimensions({
+  heightOffset = 0,
+  widthOffset = 0
+}: UseViewDimensionsParams = {}) {
   const [height, setHeight] = React.useState(0);
   const [width, setWidth] = React.useState(0);
 

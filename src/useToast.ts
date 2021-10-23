@@ -4,28 +4,14 @@ import { useLogger } from './contexts';
 import { useTimeout } from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
 import { noop } from './utils/func';
+import { mergeIfDefined } from './utils/obj';
 
-function mergeIfDefined(
-  obj1: Record<string, unknown>,
-  obj2: Record<string, unknown>
-) {
-  const newObj = {
-    ...obj1
-  };
-  Object.entries(obj2).forEach(([key, value]) => {
-    if (value !== null && value !== undefined) {
-      newObj[key] = value;
-    }
-  });
-  return newObj;
-}
-
-const DEFAULT_DATA: ToastData = {
+export const DEFAULT_DATA: ToastData = {
   text1: undefined,
   text2: undefined
 };
 
-const DEFAULT_OPTIONS: Required<ToastOptions> = {
+export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   type: 'success',
   position: 'top',
   autoHide: true,
@@ -39,7 +25,7 @@ const DEFAULT_OPTIONS: Required<ToastOptions> = {
   props: {}
 };
 
-type UseToastParams = {
+export type UseToastParams = {
   defaultOptions: Omit<ToastProps, 'config'>;
 };
 

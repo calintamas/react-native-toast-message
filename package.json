@@ -11,18 +11,25 @@
     "type": "git",
     "url": "git+https://github.com/calintamas/react-native-toast-message.git"
   },
+  "keywords": [
+    "react-native",
+    "toast"
+  ],
   "scripts": {
     "prepare": "husky install",
     "build": "rm -rf ./lib && tsc",
     "prettier": "./node_modules/.bin/prettier --write",
     "lint": "./node_modules/.bin/eslint --fix",
-    "lint-staged": "./node_modules/.bin/lint-staged"
+    "lint-staged": "./node_modules/.bin/lint-staged",
+    "test": "./node_modules/.bin/jest"
   },
   "author": "Calin Tamas <calintamas2@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.15.8",
     "@testing-library/jest-native": "^4.0.2",
-    "@testing-library/react-native": "^7.2.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^27.0.1",
     "eslint-config-backpacker-react-ts": "^0.1.0",
     "husky": "^7.0.2",

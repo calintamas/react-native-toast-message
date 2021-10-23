@@ -6,7 +6,7 @@ import {
   PanResponderGestureState
 } from 'react-native';
 
-function shouldSetPanResponder(
+export function shouldSetPanResponder(
   _event: GestureResponderEvent,
   gesture: PanResponderGestureState
 ) {
@@ -17,7 +17,19 @@ function shouldSetPanResponder(
   return Math.abs(dx) > offset || Math.abs(dy) > offset;
 }
 
-type UsePanResponderParams = {
+export function shouldDismissView(
+  newAnimatedValue: number,
+  gesture: PanResponderGestureState
+) {
+  const dismissThreshold = 0.65;
+  const { vy, dy } = gesture;
+  return (
+    newAnimatedValue <= dismissThreshold ||
+    (Math.abs(vy) >= dismissThreshold && dy < 0)
+  );
+}
+
+export type UsePanResponderParams = {
   animatedValue: RefObject<Animated.Value>;
   computeNewAnimatedValueForGesture: (
     gesture: PanResponderGestureState
@@ -42,14 +54,8 @@ export function usePanResponder({
 
   const onRelease = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
-      const { dy, vy } = gesture;
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
-
-      const dismissThreshold = 0.65;
-      if (
-        newAnimatedValue <= dismissThreshold ||
-        (Math.abs(vy) >= dismissThreshold && dy < 0)
-      ) {
+      if (shouldDismissView(newAnimatedValue, gesture)) {
         onDismiss();
       } else {
         onRestore();
@@ -70,6 +76,8 @@ export function usePanResponder({
   );
 
   return {
-    panResponder
+    panResponder,
+    onMove,
+    onRelease
   };
 }

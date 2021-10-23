@@ -13,7 +13,7 @@ type UseSlideAnimationParams = {
   keyboardOffset: number;
 };
 
-function translateYOutputRangeFor({
+export function translateYOutputRangeFor({
   position,
   height,
   topOffset,
@@ -63,6 +63,7 @@ export function useSlideAnimation({
       keyboardOffset
     })
   });
+
   const opacity = animatedValue.current.interpolate({
     inputRange: [0, 0.7, 1],
     outputRange: [0, 1, 1]
