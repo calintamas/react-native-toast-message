@@ -1,8 +1,8 @@
 module.exports = {
-  extends: ['backpacker-react'],
+  root: true,
+  extends: ['backpacker-react-ts'],
   rules: {
     'import/no-extraneous-dependencies': 'off',
-    'react/sort-comp': 'off',
-    'no-underscore-dangle': 'warn'
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 };
