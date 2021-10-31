@@ -117,7 +117,7 @@ export type ToastConfig = {
  */
 export type ToastProps = {
   /**
-   * Custom Toast types configuration
+   * Layout configuration for custom Toast types
    */
   config?: ToastConfig;
   /**
@@ -131,13 +131,13 @@ export type ToastProps = {
    */
   position?: ToastPosition;
   /**
-   * Number of seconds after which Toast automatically hides.
+   * Number of milliseconds after which Toast automatically hides.
    * Has effect only in conjunction with `autoHide` prop set to `true`.
    * Default value: `4000`
    */
   visibilityTime?: number;
   /**
-   * When `true`, the visible Toast automatically hides after a certain number of seconds,
+   * When `true`, the visible Toast automatically hides after a certain number of milliseconds,
    * specified by the `visibilityTime` prop.
    * Default value: `true`
    */
@@ -156,20 +156,20 @@ export type ToastProps = {
   bottomOffset?: number;
   /**
    * Offset from the Keyboard (in px)
-   * Has effect only when `position` is `bottom` and Keyboard is visible
+   * Has effect only when `position` is `bottom` and Keyboard is visible (iOS only)
    * Default value: `10`
    */
   keyboardOffset?: number;
   /**
-   * Called when Toast is shown
+   * Called when any Toast is shown
    */
   onShow?: () => void;
   /**
-   * Called when Toast hides
+   * Called when any Toast hides
    */
   onHide?: () => void;
   /**
-   * Called on Toast press
+   * Called on any Toast press
    */
   onPress?: () => void;
 };

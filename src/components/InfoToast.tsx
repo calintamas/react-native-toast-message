@@ -4,5 +4,5 @@ import { BaseToastProps } from '../types';
 import { BaseToast } from './BaseToast';
 
 export function InfoToast(props: BaseToastProps) {
-  return <BaseToast {...props} style={{ borderLeftColor: '#87CEFA' }} />;
+  return <BaseToast style={{ borderLeftColor: '#87CEFA' }} {...props} />;
 }
