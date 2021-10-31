@@ -7,3 +7,25 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 Animated toast message component for React Native.
+
+## Features
+
+- 🚀 Imperative API
+- 📦 Very lightweight (~40 kB)
+- ⌨️ Keyboard-aware
+- 🎨 Customizable layouts
+- 🔧 Flexible config
+
+## Documentation
+
+- [Quick start](./docs/quick-start.md)
+- [API](./docs/api.md)
+- [Create custom layouts](./docs/custom-layouts.md)
+- FAQ
+  - [How to show the Toast inside a Modal?](./docs/modal-usage.md)
+  - [How to render the Toast when using a Navigation library?](./docs/navigation-usage.md)
+  - [How to mock the library for testing with jest?](./docs/jest-testing.md)
+
+## License
+
+MIT
