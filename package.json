@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-native": "^4.0.1",
-    "@testing-library/react-native": "^7.1.0",
+    "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^27.0.1",
     "eslint-config-backpacker-react": "^0.6.0",
     "husky": "^3.1.0",
