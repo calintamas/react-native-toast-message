@@ -9,6 +9,84 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.0.0]
+
+### Breaking
+
+- Setting the `ref` is no longer required when rendering the `Toast` component in your app's entry point. Ref storage is now handled internally using [React.createRef](https://reactjs.org/docs/react-api.html#reactcreateref). This should improve ref access reliability at runtime.
+
+  ```js
+    // App.jsx
+    import Toast from 'react-native-toast-message';
+
+    export function App(props) {
+      return (
+        <>
+          {/* ... */}
+          <Toast />
+        </>
+      );
+    }
+  ```
+
+- When you want to have the Toast visible inside a Modal, you no longer need to set a separate `ref`.
+
+  Simply render the `Toast` component inside the Modal, as well as in your app's entry point. When the Modal is visible, the `ref` from inside the Modal will be automatically used.
+
+- `onHide` callback is now always called when the Toast hides (does not matter if `autoHide` was `true` / `false`).
+
+- `inProgress` state has been removed and can no longer be relied upon in a custom Toast config.
+
+- `style` and `height` props from the Toast component were removed; with the purpose of achieving a cleaner API design. The only way to change the style / layout of different Toast types is through the `config` prop (fixes [#204](https://github.com/calintamas/react-native-toast-message/issues/204)).
+
+### Added
+
+- on the `BaseToast` component, the following props were added: `touchableContainerProps`, `contentContainerProps`, `text1Props`, `text2Props` , `text1NumberOfLines`, `text2NumberOfLines` (fixes [#112](https://github.com/calintamas/react-native-toast-message/issues/112), [#133](https://github.com/calintamas/react-native-toast-message/issues/133)).
+
+- on the `Toast` component, the following callbacks were added as props: `onShow` , `onHide` and `onPress` (fixes [#143](https://github.com/calintamas/react-native-toast-message/issues/143)).
+
+- A new `ToastShowParams` type is exported (fixes [#192](https://github.com/calintamas/react-native-toast-message/issues/192)).
+
+### Changed
+
+- `topOffset` and `bottomOffset` are now by default `40px`
+- New test ids on `BaseToast` component: `toastTouchableContainer`, `toastContentContainer`, `toastText1` and `toastText2`.
+
+### Removed
+
+- Success, error and info leading icons were removed from the package (to make it as lightweight as possible).
+
+  It's now possible to pass them via render functions (for more flexibility, see issues regarding svg support, using components as icons, etc) on `BaseToast` component, example below:
+
+  ```js
+  const toastConfig = {
+    success: (props) => (
+      <BaseToast
+        {...props}
+        renderLeadingIcon={() => <Image />}
+        renderTrailingIcon={() => <Image />}
+      />
+    )
+  }
+  ```
+
+  Fixes [#188](https://github.com/calintamas/react-native-toast-message/issues/188), [#203](https://github.com/calintamas/react-native-toast-message/issues/203), [#245](https://github.com/calintamas/react-native-toast-message/issues/245), [#250](https://github.com/calintamas/react-native-toast-message/issues/250).
+
+- Trailing close icon has been removed from default components `BaseToast`, `SuccessToast`, `ErrorToast` and `InfoToast`. Fixes [#167](https://github.com/calintamas/react-native-toast-message/issues/167).
+
+### Fixed
+
+- Failed prop type: Invalid props.text2Style key fontSize supplied to BaseToast [#174](https://github.com/calintamas/react-native-toast-message/issues/174).
+- Changing Font Family does not work [#176](https://github.com/calintamas/react-native-toast-message/issues/176)
+- Text1 not showing on Android [#194](https://github.com/calintamas/react-native-toast-message/issues/194)
+- Toast background is Transparent [#219](https://github.com/calintamas/react-native-toast-message/issues/219)
+- TypeError: Cannot read property 'show' of null [#232](https://github.com/calintamas/react-native-toast-message/issues/232)
+- textStyle1 styles not been applied [#233](https://github.com/calintamas/react-native-toast-message/issues/233)
+- Typescript-class component toast message in modal usage [#172](https://github.com/calintamas/react-native-toast-message/issues/172)
+- Getting last toast along with native prompt [#149](https://github.com/calintamas/react-native-toast-message/issues/149)
+- When modal request permission appear then the modal toast on the previous screen also appears -> android [#226](https://github.com/calintamas/react-native-toast-message/issues/226)
+- autoHide: false crashes on android [#256](https://github.com/calintamas/react-native-toast-message/issues/256)
+
 ## [1.6.0]
 
 ### Added
