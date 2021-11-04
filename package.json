@@ -31,6 +31,7 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^27.0.1",
+    "@types/react-native": "^0.66.2",
     "eslint-config-backpacker-react-ts": "^0.1.0",
     "husky": "^7.0.2",
     "import-sort-style-module": "^6.0.0",
