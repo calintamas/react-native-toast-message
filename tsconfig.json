@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    "allowJs": true,
+    "jsx": "react-native",
+    "declaration": true, 
+    "outDir": "./lib",      
+    "rootDir": "./",        
+    "isolatedModules": true,
+    "strict": true, 
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+  },
+  "include": ["src", "index.ts"],
+  "exclude": [
+    "**/__tests__/*",
+    "**/__helpers__/*",
+    "node_modules",
+    "babel.config.js",
+    "jest.config.js",
+    "jest.setup.js",
+    ".eslintrc.js"
+  ]
+}

@@ -1,49 +1,59 @@
 {
   "name": "react-native-toast-message",
-  "version": "1.6.0",
+  "version": "2.0.0-beta.1",
   "description": "Toast message component for React Native",
-  "main": "index.js",
-  "scripts": {
-    "hooks:install": "node ./node_modules/husky/bin/install",
-    "lint": "./node_modules/.bin/eslint . --ext=jsx --ext=js",
-    "lint-staged": "./node_modules/.bin/lint-staged",
-    "prettier": "./node_modules/.bin/prettier . --write",
-    "test": "./node_modules/.bin/jest"
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier --write",
-      "eslint"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "files": [
+    "/lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calintamas/react-native-toast-message.git"
   },
   "keywords": [
     "react-native",
     "toast"
   ],
-  "author": "Calin Tamas <calinntamas@gmail.com>",
+  "scripts": {
+    "prepare": "husky install",
+    "build": "rm -rf ./lib && tsc",
+    "prettier": "./node_modules/.bin/prettier --write",
+    "lint": "./node_modules/.bin/eslint --fix",
+    "lint-staged": "./node_modules/.bin/lint-staged",
+    "test": "./node_modules/.bin/jest"
+  },
+  "author": "Calin Tamas <calintamas2@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/calintamas/react-native-toast-message.git"
-  },
   "devDependencies": {
-    "@testing-library/jest-native": "^4.0.1",
-    "@testing-library/react-native": "^7.1.0",
+    "@babel/core": "^7.15.8",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^27.0.1",
-    "eslint-config-backpacker-react": "^0.6.0",
-    "husky": "^3.1.0",
-    "jest": "^26.6.3",
-    "lint-staged": "^11.0.0",
-    "metro-react-native-babel-preset": "^0.66.0",
-    "prettier": "2.4.1",
-    "react-test-renderer": "^17.0.1"
+    "eslint-config-backpacker-react-ts": "^0.1.0",
+    "husky": "^7.0.2",
+    "import-sort-style-module": "^6.0.0",
+    "jest": "^27.1.1",
+    "lint-staged": "^11.1.2",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "prettier": "^2.4.1",
+    "prettier-plugin-import-sort": "^0.0.7",
+    "react-test-renderer": "^17.0.2",
+    "typescript": "^4.4.3"
   },
-  "dependencies": {
-    "prop-types": "^15.7.2"
+  "peerDependencies": {
+    "react": ">=17.0.2",
+    "react-native": ">=0.64.2"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md}": "yarn prettier",
+    "*.{js,jsx,ts,tsx}": "yarn lint"
   }
 }

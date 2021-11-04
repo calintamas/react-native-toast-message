@@ -1,4 +1,4 @@
-name: tests
+name: Run tests
 
 on: [push, pull_request]
 
@@ -12,7 +12,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -32,8 +32,8 @@ jobs:
 
       - name: Setup React Native environment
         run: |
-          yarn add react-native@0.63.4
-          yarn add react@16.13.1
+          yarn add react@17.0.2
+          yarn add react-native@0.64.2
 
       - name: Run tests
         run: yarn test --coverage

@@ -1,17 +1,19 @@
-name: Publish a new version
+name: Publish a new beta version
 
 on:
-  push:
-    branches:
-      - master
+  repository_dispatch:
+    types: [publish-beta]
 
 jobs:
-  publish:
+  publish-beta:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
 
-      - uses: actions/setup-node@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
           node-version: 14
 
