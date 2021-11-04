@@ -8,6 +8,8 @@
 
 Animated toast message component for React Native.
 
+![toast gif](./docs/toast.gif)
+
 ## Features
 
 - 🚀 Imperative API
