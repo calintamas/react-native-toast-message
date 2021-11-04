@@ -9,9 +9,9 @@
 # Github repo
 REPO=calintamas/react-native-toast-message
 # Github username of the user triggering the workflow
-USERNAME=github_username
+USERNAME=calintamas
 # Branch from which the workflow will run
-BRANCH=\"master\"
+BRANCH=\"v2-beta.1\"
 
 PAYLOAD="{\"ref\": $BRANCH}"
 
