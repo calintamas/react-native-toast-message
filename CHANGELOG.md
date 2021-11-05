@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.0.1]
+
+### Fixed
+
+- `ansi-regex` vulnerability by upgrading to `@testing-library/jest-native v4.0.4` ([#277](https://github.com/calintamas/react-native-toast-message/pull/277))
+
 ## [2.0.0]
 
 ### Breaking
