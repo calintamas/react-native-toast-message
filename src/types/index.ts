@@ -3,7 +3,7 @@ import { TextStyle, TouchableOpacityProps, ViewStyle } from 'react-native';
 
 export type ReactChildren = React.ReactNode;
 
-export type ToastType = string;
+export type ToastType = 'success' | 'error' | 'info';
 export type ToastPosition = 'top' | 'bottom';
 
 export type ToastOptions = {
