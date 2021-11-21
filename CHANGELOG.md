@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.0.2]
+
+### Fixed
+
+- Fast swipe up re-creates the toast [#280](https://github.com/calintamas/react-native-toast-message/issues/280)
+
 ## [2.0.1]
 
 ### Fixed
