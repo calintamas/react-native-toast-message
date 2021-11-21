@@ -114,8 +114,8 @@ describe('test AnimatedContainer component', () => {
     const panHandler = queryByTestId('toastAnimatedContainer');
     const gesture: PanResponderGestureState = {
       ...mockGestureValues,
-      moveY: -100,
-      dy: 50
+      moveY: 5,
+      dy: -78
     };
     panHandler?.props.onResponderMove(undefined, gesture);
     panHandler?.props.onResponderRelease(undefined, gesture);

@@ -24,6 +24,12 @@ export type AnimatedContainerProps = {
   onRestorePosition?: () => void;
 };
 
+/**
+ * Produces a positive damping value.
+ *
+ * To note: `moveY` becomes negative when going off-screen. By making sure the value
+ * produced is always positive, we avoid issues like: https://github.com/calintamas/react-native-toast-message/issues/280
+ */
 export function dampingFor(
   gesture: PanResponderGestureState,
   position: ToastPosition
@@ -33,10 +39,10 @@ export function dampingFor(
   switch (position) {
     case 'bottom': {
       const { height: screenHeight } = Dimensions.get('screen');
-      return screenHeight - moveY;
+      return Math.abs(screenHeight - moveY);
     }
     case 'top':
-      return moveY;
+      return Math.abs(moveY);
     default:
       throw new Error(`Toast position: ${position} not implemented`);
   }
