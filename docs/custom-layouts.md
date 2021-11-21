@@ -85,4 +85,4 @@ Toast.show({
 });
 ```
 
-All the available props on `BaseToast`, `SuccessToast`, `ErrorToast` or `InfoToast` components can be found [here](../src/types/index.ts).
+All the available props on `BaseToast`, `SuccessToast`, `ErrorToast` or `InfoToast` components can be found here: [BaseToastProps](../src/types/index.ts#L79-L96).
