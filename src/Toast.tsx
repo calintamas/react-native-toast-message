@@ -2,7 +2,12 @@ import React from 'react';
 
 import { LoggerProvider } from './contexts';
 import { ToastUI } from './ToastUI';
-import { ToastHideParams, ToastProps, ToastShowParams } from './types';
+import {
+  ToastHideParams,
+  ToastProps,
+  ToastRef,
+  ToastShowParams
+} from './types';
 import { useToast } from './useToast';
 
 const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
@@ -28,25 +33,55 @@ const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
   );
 });
 
-type ToastRef = {
-  show: (params: ToastShowParams) => void;
-  hide: (params: ToastHideParams) => void;
+type ToastRefObj = {
+  current: ToastRef | null;
 };
 
-const toastRef = React.createRef<ToastRef>();
+const refs: ToastRefObj[] = [];
 
-export function Toast(props: ToastProps) {
+export function Toast({ nestingLevel = 0, ...rest }: ToastProps) {
   return (
     <LoggerProvider enableLogs={false}>
-      <ToastRoot ref={toastRef} {...props} />
+      <ToastRoot
+        ref={(ref: ToastRef) => {
+          refs[nestingLevel] = {
+            current: ref
+          };
+        }}
+        {...rest}
+      />
     </LoggerProvider>
   );
 }
 
+/**
+ * Get the active Toast instance `ref`, by priority.
+ * The "highest" Toast in the `View` hierarchy has the highest priority.
+ *
+ * For example, a Toast inside a `Modal`, would have a higher priority than a Toast inside App's Root
+ * (which has a default `nestingLevel` of 0)
+ * ```js
+ * <>
+ *  <Toast nestingLevel={0} />
+ *  <Modal>
+ *    <Toast nestingLevel={1} />
+ *  </Modal>
+ * </>
+ * ```
+ */
+function getRef() {
+  const reversePriority = [...refs].reverse();
+  const activeRef = reversePriority.find((ref) => ref?.current !== null);
+  if (!activeRef) {
+    return null;
+  }
+  return activeRef.current;
+}
+
 Toast.show = (params: ToastShowParams) => {
-  toastRef.current?.show(params);
+  getRef()?.show(params);
 };
 
 Toast.hide = (params?: ToastHideParams) => {
-  toastRef.current?.hide(params);
+  getRef()?.hide(params);
 };

@@ -111,11 +111,50 @@ export type ToastConfig = {
   [key: string]: (params: ToastConfigParams<any>) => React.ReactNode;
 };
 
+export type ToastRef = {
+  show: (params: ToastShowParams) => void;
+  hide: (params: ToastHideParams) => void;
+};
+
 /**
  * `props` that can be set on the Toast instance.
  * They act as defaults for all Toasts that are shown.
  */
 export type ToastProps = {
+  /**
+   * Nesting level for the Toast instance.
+   * The "higher" a Toast instance is in the `View` hierarchy, the bigger its nesting level value.
+   * Default `nestingLevel = 0`.
+   *
+   * By setting this prop, you can show Toasts inside Modals, no matter how nested they would be.
+   *
+   * For example, a Toast inside a `Modal`, would have a bigger `nestingLevel`
+   * than a Toast inside App's Root (which has the default `nestingLevel` of 0).
+   *
+   * ```js
+   * <>
+   *  <Toast />
+   *  <Modal>
+   *    <Toast nestingLevel={1} />
+   *  </Modal>
+   * </>
+   * ```
+   *
+   * If you have nested Modals, the `nestingLevel` prop needs to be adjusted accordingly:
+   *
+   * ```js
+   * <>
+   *  <Toast />
+   *  <Modal>
+   *    <Toast nestingLevel={1} />
+   *    <Modal>
+   *      <Toast nestingLevel={2} />
+   *    </Modal>
+   *  </Modal>
+   * </>
+   * ```
+   */
+  nestingLevel?: number;
   /**
    * Layout configuration for custom Toast types
    */
