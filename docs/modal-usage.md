@@ -25,13 +25,11 @@ Under the hood, this `ref` is used when you imperatively call `Toast.show()` or 
 
 When you have a [Modal](https://reactnative.dev/docs/modal), things get different. This `Modal` component is [_above_ React's root `View`](https://stackoverflow.com/questions/39766350/bring-view-on-top-of-modal-using-zindex-style-with-react-native), so the only way to show something _on top of the modal_ is to render it inside the `Modal` itself.
 
-> Same behavior when using [react-native-modal](https://github.com/react-native-modal/react-native-modal) or a [NativeStackNavigator](https://reactnavigation.org/docs/native-stack-navigator#presentation) with `presentation: 'modal'`.
-
 This means **you need a new instance** of `<Toast />` rendered inside your `Modal`.
 
-The `ref` will still be tracked automatically, but there's one more thing that needs to be done for this to work properly. **You need to specify how _nested_ is your new `<Toast />` instance**.
+> Same behavior when using [react-native-modal](https://github.com/react-native-modal/react-native-modal) or a [NativeStackNavigator](https://reactnavigation.org/docs/native-stack-navigator#presentation) with `presentation: 'modal'`
 
-This is done via the `nestingLevel` prop.
+The `ref` will still be tracked automatically, but there's one more thing that needs to be done for this to work properly. **You need to specify how _nested_ is your new `<Toast />` instance**: this is done via the `nestingLevel` prop.
 
 By default `nestingLevel` is `0` - this is the _root level_ (the `<Toast />` that is rendered in your App's entry point).
 
