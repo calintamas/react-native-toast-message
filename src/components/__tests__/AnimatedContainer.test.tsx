@@ -44,9 +44,10 @@ const setup = (props?: Omit<Partial<AnimatedContainerProps>, 'children'>) => {
 
 const defaultStyles: ViewStyle = {
   position: 'absolute',
+  left: 0,
+  right: 0,
   alignItems: 'center',
   justifyContent: 'center',
-  alignSelf: 'center',
   top: 0
 };
 
