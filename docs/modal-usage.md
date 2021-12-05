@@ -29,25 +29,30 @@ This means **you need a new instance** of `<Toast />` rendered inside your `Moda
 
 > Same behavior when using [react-native-modal](https://github.com/react-native-modal/react-native-modal) or a [NativeStackNavigator](https://reactnavigation.org/docs/native-stack-navigator#presentation) with `presentation: 'modal'`
 
-The `ref` will still be tracked automatically, but there's one more thing that needs to be done for this to work properly. **You need to specify how _nested_ is your new `<Toast />` instance**: this is done via the `nestingLevel` prop.
-
-By default `nestingLevel` is `0` - this is the _root level_ (the `<Toast />` that is rendered in your App's entry point).
-
-If you go a level "higher", inside a Modal, you get _level 1_ (a Modal is on top of your root, so you can think of it as being "higher" than your root). If you have another modal inside the previous Modal, you get _level 2_, and so on
+The `ref` will still be tracked automatically. Whichever `<Toast />` instance last had its `ref` set will be used when showing/hiding.
 
 ```js
 <>
+
+  {** This `Toast` will show when neither the native stack screen nor `Modal` are presented. *}
   <Toast />
-  <Modal>
-    <Toast nestingLevel={1} />
+
+  <NativeStackNavigator.Screen>
+
+    {** This `Toast` will show when the `NativeStackNavigator.Screen` is visible, but the `Modal` is NOT visible. *}
+    <Toast />
+
     <Modal>
-      <Toast nestingLevel={2} />
+
+      {** This `Toast` will show when both the `NativeStackNavigator.Screen` and the `Modal` are visible. *}
+      <Toast />
+
     </Modal>
-  </Modal>
+  </NativeStackNavigator.Screen>
 </>
 ```
 
-So, when you have a `Modal` (1 level nesting), the implementation looks like this:
+So, when you have a `Modal`, the implementation looks like this:
 
 ```diff
 // App.jsx
@@ -62,11 +67,11 @@ export function App(props) {
       {/* ... */}
       <Toast />
       <Modal visible={isModalVisible}>
-+        <Toast nestingLevel={1} />
++        <Toast />
       </Modal>
     </>
   );
 }
 ```
 
-Everything else works as usual, you can show and hide Toasts using the imperative API: `Toast.show()` or `Toast.hide()`. When the `Modal` is visible, the `ref` from inside the `Modal` will be used, otherwise the one outside.
+Everything else works as usual; you can show and hide Toasts using the imperative API: `Toast.show()` or `Toast.hide()`. When the `Modal` is visible, the `ref` from inside the `Modal` will be used, otherwise the one outside.
