@@ -8,7 +8,7 @@ import { Toast } from '../Toast';
 
 /*
   The Modal component is automatically mocked by RN and apparently contains a bug which makes the Modal 
-  (and it's children) to always be visible in the test tree.
+  (and its children) to always be visible in the test tree.
 
   This fixes the issue:
  */
