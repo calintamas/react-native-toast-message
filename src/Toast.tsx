@@ -41,6 +41,17 @@ type ToastRefObj = {
 let refs: ToastRefObj[] = [];
 
 /**
+ * Adds a ref to the end of the array, which will be used to show the toasts until its ref becomes null.
+ * 
+ * @param newRef the new ref, which must be stable for the life of the Toast instance.
+ */
+function addNewRef(newRef: ToastRef) {
+  refs.push({
+    current: newRef
+  });
+}
+
+/**
  * Removes the passed in ref from the file-level refs array using a strict equality check.
  * 
  * @param oldRef the exact ref object to remove from the refs array.
@@ -61,11 +72,7 @@ export function Toast(props: ToastProps) {
           if (ref) {
             // store the ref in this toast instance to be able to remove it from the array later when the ref becomes null.
             toastRef.current = ref;
-
-            // add it to the end of the array, which will be used to show the toasts until its ref becomes null.
-            refs.push({
-              current: ref
-            });
+            addNewRef(ref);
           } else {
             // remove the this toast's ref, wherever it is in the array.
             removeOldRef(toastRef.current);
