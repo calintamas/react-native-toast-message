@@ -106,10 +106,14 @@ export function useToast({ defaultOptions }: UseToastParams) {
 
   React.useEffect(() => {
     const { autoHide } = options;
-    if (isVisible && autoHide) {
-      startTimer();
+    if (isVisible) {
+      if (autoHide) {
+        startTimer();
+      } else {
+        clearTimer();
+      }
     }
-  }, [isVisible, options, startTimer]);
+  }, [isVisible, options, startTimer, clearTimer]);
 
   return {
     isVisible,
