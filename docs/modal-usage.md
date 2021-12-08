@@ -1,28 +1,8 @@
 # How to show the Toast inside a Modal?
 
-To show the Toast inside a Modal, simply render the Toast instance inside the Modal, **as well as** in your app's entry point.
+## How are `refs` tracked
 
-That's it.
-
-Now when the Modal is visible, the Toast reference from the Modal will be used and the Toast will be visible on top of the Modal.
-
-```js
-// Modal.jsx
-import Toast from 'react-native-toast-message'
-import { Modal } from 'react-native'
-
-function Modal(props) {
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
-
-  return (
-    <Modal visible={isModalVisible}>
-        {/* Modal content */}
-        {/* Toast component instance rendered inside Modal */}
-        <Toast />
-    </Modal>
-  )
-}
-```
+By default, when you render a `<Toast />` instance in your App's entry point (root), a `ref` is created and tracked internally.
 
 ```js
 // App.jsx
@@ -32,9 +12,66 @@ export function App(props) {
   return (
     <>
       {/* ... */}
-      {/* Toast component instance rendered in the app's entry point */}
+      {/* A `ref` pointing to this Toast instance is created */}
       <Toast />
     </>
   );
 }
 ```
+
+Under the hood, this `ref` is used when you imperatively call `Toast.show()` or `Toast.hide()`.
+
+## Showing a Toast inside a Modal
+
+When you have a [Modal](https://reactnative.dev/docs/modal), things get different. This `Modal` component is [_above_ React's root `View`](https://stackoverflow.com/questions/39766350/bring-view-on-top-of-modal-using-zindex-style-with-react-native), so the only way to show something _on top of the modal_ is to render it inside the `Modal` itself.
+
+This means **you need a new instance** of `<Toast />` rendered inside your `Modal`.
+
+> Same behavior when using [react-native-modal](https://github.com/react-native-modal/react-native-modal) or a [NativeStackNavigator](https://reactnavigation.org/docs/native-stack-navigator#presentation) with `presentation: 'modal'`
+
+The `ref` will still be tracked automatically. Whichever `<Toast />` instance last had its `ref` set will be used when showing/hiding.
+
+```js
+<>
+
+  {** This `Toast` will show when neither the native stack screen nor `Modal` are presented. *}
+  <Toast />
+
+  <NativeStackNavigator.Screen>
+
+    {** This `Toast` will show when the `NativeStackNavigator.Screen` is visible, but the `Modal` is NOT visible. *}
+    <Toast />
+
+    <Modal>
+
+      {** This `Toast` will show when both the `NativeStackNavigator.Screen` and the `Modal` are visible. *}
+      <Toast />
+
+    </Modal>
+  </NativeStackNavigator.Screen>
+</>
+```
+
+So, when you have a `Modal`, the implementation looks like this:
+
+```diff
+// App.jsx
+import { Modal } from 'react-native'
+import Toast from 'react-native-toast-message'
+
+export function App(props) {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  return (
+    <>
+      {/* ... */}
+      <Toast />
+      <Modal visible={isModalVisible}>
++        <Toast />
+      </Modal>
+    </>
+  );
+}
+```
+
+Everything else works as usual; you can show and hide Toasts using the imperative API: `Toast.show()` or `Toast.hide()`. When the `Modal` is visible, the `ref` from inside the `Modal` will be used, otherwise the one outside.

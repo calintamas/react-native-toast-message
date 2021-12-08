@@ -1,6 +1,6 @@
 {
   "name": "react-native-toast-message",
-  "version": "2.0.2",
+  "version": "2.1.0-beta.2",
   "description": "Toast message component for React Native",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -21,7 +21,8 @@
     "prettier": "./node_modules/.bin/prettier --write",
     "lint": "./node_modules/.bin/eslint --fix",
     "lint-staged": "./node_modules/.bin/lint-staged",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "yalc:push": "yarn build && yalc publish --push"
   },
   "author": "Calin Tamas <calintamas2@gmail.com>",
   "license": "MIT",
@@ -41,11 +42,12 @@
     "prettier": "^2.4.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react-test-renderer": "^17.0.2",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "react": ">=17.0.2",
-    "react-native": ">=0.64.2"
+    "react": "*",
+    "react-native": "*"
   },
   "importSort": {
     ".js, .jsx, .ts, .tsx": {

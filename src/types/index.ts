@@ -111,6 +111,11 @@ export type ToastConfig = {
   [key: string]: (params: ToastConfigParams<any>) => React.ReactNode;
 };
 
+export type ToastRef = {
+  show: (params: ToastShowParams) => void;
+  hide: (params: ToastHideParams) => void;
+};
+
 /**
  * `props` that can be set on the Toast instance.
  * They act as defaults for all Toasts that are shown.
