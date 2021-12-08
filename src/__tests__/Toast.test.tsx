@@ -41,7 +41,7 @@ describe('test Toast component', () => {
     expect(onHide).toHaveBeenCalled();
   });
 
-  it('shows Toast inside a Modal (nestingLevel = 1)', async () => {
+  it('shows Toast inside a Modal', async () => {
     const onShow = jest.fn();
     const onHide = jest.fn();
 
@@ -59,7 +59,6 @@ describe('test Toast component', () => {
             <Text>Inside modal</Text>
             <Button title='Hide modal' onPress={() => setIsVisible(false)} />
             <Toast
-              nestingLevel={1}
               onShow={onShowInsideModal}
               onHide={onHideInsideModal}
             />
@@ -135,7 +134,7 @@ describe('test Toast component', () => {
       <>
         <Modal visible={false}>
           <Text>Inside modal</Text>
-          <Toast nestingLevel={1} onShow={onShow} onHide={onHide} />
+          <Toast onShow={onShow} onHide={onHide} />
         </Modal>
       </>
     );

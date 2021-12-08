@@ -16,10 +16,17 @@ const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
     defaultOptions
   });
 
-  React.useImperativeHandle(ref, () => ({
-    show,
-    hide
-  }));
+  // This must use useCallback to ensure the ref doesn't get set to null and then a new ref every render.
+  React.useImperativeHandle(
+    ref,
+    React.useCallback(
+      () => ({
+        show,
+        hide
+      }),
+      [hide, show]
+    )
+  );
 
   return (
     <ToastUI
@@ -37,19 +44,51 @@ type ToastRefObj = {
   current: ToastRef | null;
 };
 
-const refs: ToastRefObj[] = [];
+let refs: ToastRefObj[] = [];
 
-export function Toast({ nestingLevel = 0, ...rest }: ToastProps) {
+/**
+ * Adds a ref to the end of the array, which will be used to show the toasts until its ref becomes null.
+ *
+ * @param newRef the new ref, which must be stable for the life of the Toast instance.
+ */
+function addNewRef(newRef: ToastRef) {
+  refs.push({
+    current: newRef
+  });
+}
+
+/**
+ * Removes the passed in ref from the file-level refs array using a strict equality check.
+ *
+ * @param oldRef the exact ref object to remove from the refs array.
+ */
+function removeOldRef(oldRef: ToastRef | null) {
+  refs = refs.filter((r) => r.current !== oldRef);
+}
+
+export function Toast(props: ToastProps) {
+  const toastRef = React.useRef<ToastRef | null>(null);
+
+  /*
+    This must use `useCallback` to ensure the ref doesn't get set to null and then a new ref every render.
+    Failure to do so will cause whichever Toast *renders or re-renders* last to be the instance that is used,
+    rather than being the Toast that was *mounted* last.
+  */
+  const setRef = React.useCallback((ref: ToastRef | null) => {
+    // Since we know there's a ref, we'll update `refs` to use it.
+    if (ref) {
+      // store the ref in this toast instance to be able to remove it from the array later when the ref becomes null.
+      toastRef.current = ref;
+      addNewRef(ref);
+    } else {
+      // remove the this toast's ref, wherever it is in the array.
+      removeOldRef(toastRef.current);
+    }
+  }, []);
+
   return (
     <LoggerProvider enableLogs={false}>
-      <ToastRoot
-        ref={(ref: ToastRef) => {
-          refs[nestingLevel] = {
-            current: ref
-          };
-        }}
-        {...rest}
-      />
+      <ToastRoot ref={setRef} {...props} />
     </LoggerProvider>
   );
 }
@@ -58,13 +97,15 @@ export function Toast({ nestingLevel = 0, ...rest }: ToastProps) {
  * Get the active Toast instance `ref`, by priority.
  * The "highest" Toast in the `View` hierarchy has the highest priority.
  *
- * For example, a Toast inside a `Modal`, would have a higher priority than a Toast inside App's Root
- * (which has a default `nestingLevel` of 0)
+ * For example, a Toast inside a `Modal`, would have had its ref set later than a Toast inside App's Root.
+ * Therefore, the library knows that it is currently visible on top of the App's Root
+ * and will thus use the `Modal`'s Toast when showing/hiding.
+ *
  * ```js
  * <>
- *  <Toast nestingLevel={0} />
+ *  <Toast />
  *  <Modal>
- *    <Toast nestingLevel={1} />
+ *    <Toast />
  *  </Modal>
  * </>
  * ```
