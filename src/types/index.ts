@@ -1,8 +1,10 @@
 import React from 'react';
 import {
   StyleProp,
+  TextProps,
   TextStyle,
   TouchableOpacityProps,
+  ViewProps,
   ViewStyle
 } from 'react-native';
 
@@ -89,13 +91,13 @@ export type BaseToastProps = {
   style?: StyleProp<ViewStyle>;
   touchableContainerProps?: TouchableOpacityProps;
   contentContainerStyle?: StyleProp<ViewStyle>;
-  contentContainerProps?: StyleProp<ViewStyle>;
-  text1Style?: TextStyle;
+  contentContainerProps?: ViewProps;
+  text1Style?: StyleProp<TextStyle>;
   text1NumberOfLines?: number;
-  text1Props?: TextStyle;
-  text2Style?: TextStyle;
+  text1Props?: TextProps;
+  text2Style?: StyleProp<TextStyle>;
   text2NumberOfLines?: number;
-  text2Props?: TextStyle;
+  text2Props?: TextProps;
   renderLeadingIcon?: () => React.ReactNode;
   renderTrailingIcon?: () => React.ReactNode;
 };
