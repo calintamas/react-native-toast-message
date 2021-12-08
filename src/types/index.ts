@@ -1,5 +1,10 @@
 import React from 'react';
-import { TextStyle, TouchableOpacityProps, ViewStyle } from 'react-native';
+import {
+  StyleProp,
+  TextStyle,
+  TouchableOpacityProps,
+  ViewStyle
+} from 'react-native';
 
 export type ReactChildren = React.ReactNode;
 
@@ -81,10 +86,10 @@ export type BaseToastProps = {
   text2?: string;
   onPress?: () => void;
   activeOpacity?: number;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   touchableContainerProps?: TouchableOpacityProps;
-  contentContainerStyle?: ViewStyle;
-  contentContainerProps?: ViewStyle;
+  contentContainerStyle?: StyleProp<ViewStyle>;
+  contentContainerProps?: StyleProp<ViewStyle>;
   text1Style?: TextStyle;
   text1NumberOfLines?: number;
   text1Props?: TextStyle;
