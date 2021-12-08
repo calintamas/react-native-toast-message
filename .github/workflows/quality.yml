@@ -1,9 +1,9 @@
-name: Run linter
+name: Run code quality checks
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  lint:
+  quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,5 +35,5 @@ jobs:
           yarn add react@17.0.2
           yarn add react-native@0.64.2
 
-      - name: Run eslint
-        run: yarn lint
+      - name: Run code quality checks
+        run: yarn quality

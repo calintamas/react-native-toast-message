@@ -22,7 +22,8 @@
     "lint": "./node_modules/.bin/eslint --fix",
     "lint-staged": "./node_modules/.bin/lint-staged",
     "test": "./node_modules/.bin/jest",
-    "yalc:push": "yarn build && yalc publish --push"
+    "yalc:push": "yarn build && yalc publish --push",
+    "quality": "yarn lint && tsc --noEmit"
   },
   "author": "Calin Tamas <calintamas2@gmail.com>",
   "license": "MIT",
