@@ -9,6 +9,22 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.0]
+
+### Fixed
+
+- After a Toast is shown within a Modal, the main instance outside of Modal doesn't work anymore ([#293](https://github.com/calintamas/react-native-toast-message/pull/293))
+- A previously set timer is not cleared when `autoHide` changes from `true` to `false`. This can make a newly shown Toast auto hide (even if it was shown with `autoHide: false`) ([#294](https://github.com/calintamas/react-native-toast-message/pull/294))
+
+  Big thanks go to [jstheoriginal](https://github.com/jstheoriginal) for all the work on fixing two issues above 🙌.
+
+- Flexbox not working for setting Toast width or alignment ([3400f00](https://github.com/calintamas/react-native-toast-message/commit/3400f0074116f5acb37ca2eb696ea50b0c669ddc))
+
+### Changed
+
+- `BaseToastProps` style types allows passing an array of styles now `style={[styles.one, styles.two]}` ([#243](https://github.com/calintamas/react-native-toast-message/pull/243) was ported to v2)
+- Peer deps no longer require a min version ([e91ed21](https://github.com/calintamas/react-native-toast-message/commit/e91ed21d277d7348b674834765147be752b6abfb))
+
 ## [2.0.2]
 
 ### Fixed
