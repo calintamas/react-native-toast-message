@@ -77,9 +77,6 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onPress = initialOptions.onPress,
         props = initialOptions.props
       } = params;
-      // TODO: validate input
-      // TODO: use a queue when Toast is already visible
-      setIsVisible(true);
       setData({
         text1,
         text2
@@ -99,6 +96,9 @@ export function useToast({ defaultOptions }: UseToastParams) {
           props
         }) as Required<ToastOptions>
       );
+      // TODO: validate input
+      // TODO: use a queue when Toast is already visible
+      setIsVisible(true);
       onShow();
     },
     [initialOptions, log]
@@ -106,10 +106,14 @@ export function useToast({ defaultOptions }: UseToastParams) {
 
   React.useEffect(() => {
     const { autoHide } = options;
-    if (isVisible && autoHide) {
-      startTimer();
+    if (isVisible) {
+      if (autoHide) {
+        startTimer();
+      } else {
+        clearTimer();
+      }
     }
-  }, [isVisible, options, startTimer]);
+  }, [isVisible, options, startTimer, clearTimer]);
 
   return {
     isVisible,
