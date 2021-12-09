@@ -58,10 +58,7 @@ describe('test Toast component', () => {
           <Modal visible={isVisible}>
             <Text>Inside modal</Text>
             <Button title='Hide modal' onPress={() => setIsVisible(false)} />
-            <Toast
-              onShow={onShowInsideModal}
-              onHide={onHideInsideModal}
-            />
+            <Toast onShow={onShowInsideModal} onHide={onHideInsideModal} />
           </Modal>
         </>
       );
@@ -147,5 +144,103 @@ describe('test Toast component', () => {
       });
     });
     expect(onShow).not.toHaveBeenCalled();
+  });
+
+  it('when autoHide: true, the Toast only hides when timer reaches visibilityTime', () => {
+    jest.useFakeTimers();
+    const onShow = jest.fn();
+    const onHide = jest.fn();
+    const visibilityTime = 1500;
+
+    render(
+      <Toast
+        onShow={onShow}
+        onHide={onHide}
+        autoHide={true}
+        visibilityTime={visibilityTime}
+      />
+    );
+
+    act(() => {
+      Toast.show({
+        text1: 'I am auto hiding, by default'
+      });
+    });
+    expect(onShow).toHaveBeenCalled();
+
+    // Advance time by 1/4 visibilityTime
+    // Toast should not hide yet
+    jest.advanceTimersByTime(visibilityTime / 4);
+    expect(onHide).not.toHaveBeenCalled();
+
+    // Do it again 1/4 visibilityTime
+    // Toast should still be visible
+    jest.advanceTimersByTime(visibilityTime / 4);
+    expect(onHide).not.toHaveBeenCalled();
+
+    // Advance time by the remaining 1/2 visibilityTime
+    act(() => {
+      jest.advanceTimersByTime(visibilityTime / 2);
+    });
+    // Now the Toast should hide
+    expect(onHide).toHaveBeenCalled();
+
+    jest.useRealTimers();
+  });
+
+  it('clears previous autoHide: true timer when a new Toast is presented with autoHide: false', () => {
+    jest.useFakeTimers();
+
+    const onShow = jest.fn();
+    const onHide = jest.fn();
+    const visibilityTime = 1500;
+
+    render(
+      <Toast
+        onShow={onShow}
+        onHide={onHide}
+        autoHide={true}
+        visibilityTime={visibilityTime}
+      />
+    );
+
+    act(() => {
+      Toast.show({
+        text1: 'I am auto hiding, by default'
+      });
+    });
+    expect(onShow).toHaveBeenCalled();
+
+    // Advance by 1/2 visibilityTime
+    // Toast should not hide
+    jest.advanceTimersByTime(visibilityTime / 2);
+    expect(onHide).not.toHaveBeenCalled();
+
+    // Now, show another Toast, before the previous one has the chance to hide
+    act(() => {
+      Toast.show({
+        text1: 'I am NOT auto hiding',
+        autoHide: false
+      });
+    });
+
+    // Advance time to the end of visibilityTime
+    act(() => {
+      jest.advanceTimersByTime(visibilityTime / 2);
+    });
+
+    // The new Toast should NOT hide
+    // (the previous timer should have been cleared before reaching the end)
+    expect(onHide).not.toHaveBeenCalled();
+
+    // And even go beyond visibilityTime
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+
+    // The new Toast should still not hide
+    expect(onHide).not.toHaveBeenCalled();
+
+    jest.useRealTimers();
   });
 });
