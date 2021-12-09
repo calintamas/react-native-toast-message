@@ -16,7 +16,7 @@ Headers are one of:
 - After a Toast is shown within a Modal, the main instance outside of Modal doesn't work anymore ([#293](https://github.com/calintamas/react-native-toast-message/pull/293))
 - A previously set timer is not cleared when `autoHide` changes from `true` to `false`. This can make a newly shown Toast auto hide (even if it was shown with `autoHide: false`) ([#294](https://github.com/calintamas/react-native-toast-message/pull/294))
 
-  Big thanks go to [jstheoriginal](https://github.com/jstheoriginal) for all the work on fixing two issues above 🙌.
+  Big thanks go to [jstheoriginal](https://github.com/jstheoriginal) for all the work on fixing the two issues above 🙌.
 
 - Flexbox not working for setting Toast width or alignment ([3400f00](https://github.com/calintamas/react-native-toast-message/commit/3400f0074116f5acb37ca2eb696ea50b0c669ddc))
 
