@@ -33,3 +33,9 @@ Animated toast message component for React Native.
 ## License
 
 MIT
+
+## Support
+
+Not a requirement in any way, but if this package helped you (or your company) and you feel like supporting my future work:
+
+<a href="https://buymeacoffee.com/calintamas"><img src="https://user-images.githubusercontent.com/9104454/143683074-69dc6a53-3e54-4a2c-8dcf-c1e27448a2f4.png" alt="Buy me a coffee" width="150px" /></a>
