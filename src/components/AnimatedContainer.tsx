@@ -125,6 +125,9 @@ export function AnimatedContainer({
       testID={getTestId('AnimatedContainer')}
       onLayout={computeViewDimensions}
       style={[styles.base, styles[position], animationStyles]}
+      // This container View is never the target of touch events but its subviews can be.
+      // By doing this, tapping buttons behind the Toast is allowed
+      pointerEvents='box-none'
       {...panResponder.panHandlers}>
       {children}
     </Animated.View>
