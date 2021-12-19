@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.1]
+
+### Fixed
+
+- Tapping a View / Button behind the Toast is not possible ([b9d191e](https://github.com/calintamas/react-native-toast-message/commit/b9d191e1dcc4d331fd5159ca9aabd54d7d0ecb97)) (fixes [#282](https://github.com/calintamas/react-native-toast-message/issues/282))
+
 ## [2.1.0]
 
 ### Fixed
