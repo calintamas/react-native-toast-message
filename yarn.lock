@@ -2156,22 +2156,22 @@ eslint-config-airbnb@^18.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-backpacker-react-ts@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react-ts/-/eslint-config-backpacker-react-ts-0.2.0.tgz#d2eff4d79c14c0ccfe2da9d18c67b2e582fce7ce"
-  integrity sha512-E5cgkVwztzSNL85mOxAnlq1UrD8rDnTgEGifOCkZ6G/gpx2Jrnrq8z6LAQ6l9NXbYakCg2ZSoRNKry8X+VZ1bA==
+eslint-config-backpacker-react-ts@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react-ts/-/eslint-config-backpacker-react-ts-0.3.0.tgz#44ae79110d1d016efb8b74604b1f7146df03c8db"
+  integrity sha512-9fxhcJpAJi1gqgyE2ogXSAwjdKuO5KUm7GRq/OR2VEaCJT+Rvh81r2eXOsfv68MKuvmoWnvxaTXXFml0LPS2jQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.31.0"
     "@typescript-eslint/parser" "^4.31.0"
     eslint "^7.32.0"
     eslint-config-airbnb-typescript "^14.0.0"
-    eslint-config-backpacker-react "^0.7.0"
+    eslint-config-backpacker-react "^0.9.0"
     eslint-config-prettier "^8.3.0"
 
-eslint-config-backpacker-react@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react/-/eslint-config-backpacker-react-0.7.0.tgz#3e84e9f814ac4fa7c49c498c221a065db353ad05"
-  integrity sha512-z3PGZx4cekbD8peTgNx7r8D5OND6pF+l74Mvi8X/Z2h6+MGSdgBnMmXmTr/y8jKoeTlFk743E6ylU1fYeH9a4A==
+eslint-config-backpacker-react@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-backpacker-react/-/eslint-config-backpacker-react-0.9.0.tgz#b284d0e3f2f61d874b375cdc04f19455c1c353b9"
+  integrity sha512-QoLE1f/3pmseSSWq8gJdHZa/unottJsf80tu3MZ5YT8g26niv4AeE3iL9vPDl0mKk6GhfmBvNIU79Bavvsmy1A==
   dependencies:
     "@babel/core" "^7.14.0"
     "@babel/eslint-parser" "^7.13.14"
