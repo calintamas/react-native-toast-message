@@ -10,7 +10,7 @@ npm install --save react-native-toast-message
 
 ## Usage
 
-Render the `Toast` component in your app's entry file, as the **last child** in the `View` hierarchy (along with any other components that might be rendered there):
+Render the `Toast` component in your app's entry file, as the **LAST CHILD** in the `View` hierarchy (along with any other components that might be rendered there):
 
 ```js
 // App.jsx
