@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated } from 'react-native';
+import { Animated, Platform } from 'react-native';
 
 import { ToastPosition } from '../types';
 import { additiveInverseArray } from '../utils/array';
@@ -47,7 +47,7 @@ export function useSlideAnimation({
   const animate = React.useCallback((toValue: number) => {
     Animated.spring(animatedValue.current, {
       toValue,
-      useNativeDriver: true,
+      useNativeDriver: Platform.OS.select({ native: true, default: false }),
       friction: 8
     }).start();
   }, []);
