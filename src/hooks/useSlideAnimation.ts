@@ -34,6 +34,8 @@ export function translateYOutputRangeFor({
   return outputRange;
 }
 
+const useNativeDriver = Platform.select({ native: true, default: false });
+
 export function useSlideAnimation({
   position,
   height,
@@ -47,7 +49,7 @@ export function useSlideAnimation({
   const animate = React.useCallback((toValue: number) => {
     Animated.spring(animatedValue.current, {
       toValue,
-      useNativeDriver: Platform.OS.select({ native: true, default: false }),
+      useNativeDriver,
       friction: 8
     }).start();
   }, []);
