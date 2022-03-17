@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.2]
+
+### Fixed
+
+- Fixes `useNativeDriver` warning on web by [jpaas](https://github.com/jpaas) in [#334](https://github.com/calintamas/react-native-toast-message/pull/334)
+
 ## [2.1.1]
 
 ### Fixed
