@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.3]
+
+### Fixed
+
+- chore(deps): bump minimist from 1.2.5 to 1.2.6 by [dependabot](https://github.com/dependabot) in [#338](https://github.com/calintamas/react-native-toast-message/pull/338)
+
 ## [2.1.2]
 
 ### Fixed
