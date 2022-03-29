@@ -36,7 +36,7 @@ export function BaseToast({
         testID={getTestId('ContentContainer')}
         style={[styles.contentContainer, contentContainerStyle]}
         {...contentContainerProps}>
-        {text1 && text1.length > 0 && (
+        {text1 && text1.length > 0 ? (
           <Text
             testID={getTestId('Text1')}
             style={[styles.text1, text1Style]}
@@ -45,8 +45,8 @@ export function BaseToast({
             {...text1Props}>
             {text1}
           </Text>
-        )}
-        {text2 && text2?.length > 0 && (
+        ) : undefined}
+        {text2 && text2?.length > 0 ? (
           <Text
             testID={getTestId('Text2')}
             style={[styles.text2, text2Style]}
@@ -55,7 +55,7 @@ export function BaseToast({
             {...text2Props}>
             {text2}
           </Text>
-        )}
+        ) : undefined}
       </View>
       {renderTrailingIcon && renderTrailingIcon()}
     </Touchable>
