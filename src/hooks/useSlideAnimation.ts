@@ -54,7 +54,7 @@ export function useSlideAnimation({
     }).start();
   }, []);
 
-  const translateY = animatedValue.current.interpolate({
+  const translateY = React.useMemo(() => animatedValue.current.interpolate({
     inputRange: [0, 1],
     outputRange: translateYOutputRangeFor({
       position,
@@ -64,7 +64,7 @@ export function useSlideAnimation({
       keyboardHeight,
       keyboardOffset
     })
-  });
+  }), [position, height, topOffset, bottomOffset, keyboardHeight, keyboardOffset]);
 
   const opacity = animatedValue.current.interpolate({
     inputRange: [0, 0.7, 1],
