@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.5]
+
+### Fixed
+
+- chore(deps): bump ansi-regex from 4.1.0 to 4.1.1 by [dependabot](https://github.com/dependabot) in [#343](https://github.com/calintamas/react-native-toast-message/pull/343)
+
 ## [2.1.4]
 
 ### Fixed
