@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.4]
+
+### Fixed
+
+- fix: delay after keyboard is dismissed by [rcb4t2](https://github.com/rcb4t2) in [#342](https://github.com/calintamas/react-native-toast-message/pull/342)
+
 ## [2.1.3]
 
 ### Fixed
