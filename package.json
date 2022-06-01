@@ -37,7 +37,7 @@
     "eslint-config-backpacker-react-ts": "^0.3.0",
     "husky": "^7.0.2",
     "import-sort-style-module": "^6.0.0",
-    "jest": "^27.1.1",
+    "jest": "^28.1.0",
     "lint-staged": "^12.1.2",
     "metro-react-native-babel-preset": "^0.69.0",
     "prettier": "^2.4.1",
