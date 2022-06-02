@@ -35,7 +35,7 @@
     "@types/jest": "^27.0.1",
     "@types/react-native": "^0.67.3",
     "eslint-config-backpacker-react-ts": "^0.3.0",
-    "husky": "^7.0.2",
+    "husky": "^8.0.1",
     "import-sort-style-module": "^6.0.0",
     "jest": "^27.1.1",
     "lint-staged": "^13.0.0",
