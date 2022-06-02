@@ -38,7 +38,7 @@
     "husky": "^7.0.2",
     "import-sort-style-module": "^6.0.0",
     "jest": "^27.1.1",
-    "lint-staged": "^12.1.2",
+    "lint-staged": "^13.0.0",
     "metro-react-native-babel-preset": "^0.71.0",
     "prettier": "^2.4.1",
     "prettier-plugin-import-sort": "^0.0.7",
