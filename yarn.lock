@@ -1003,6 +1003,13 @@
   dependencies:
     "@sinclair/typebox" "^0.23.3"
 
+"@jest/schemas@^28.1.3":
+  version "28.1.3"
+  resolved "https://registry.yarnpkg.com/@jest/schemas/-/schemas-28.1.3.tgz#ad8b86a66f11f33619e3d7e1dcddd7f2d40ff905"
+  integrity sha512-/l/VWsdt/aBXgjshLWOFyFt3IVdYypu5y2Wn2rOO1un6nkqIn8SLXzgIMYXFyYsRWDyF5EthmKJMIdJvk08grg==
+  dependencies:
+    "@sinclair/typebox" "^0.24.1"
+
 "@jest/source-map@^28.0.2":
   version "28.0.2"
   resolved "https://registry.yarnpkg.com/@jest/source-map/-/source-map-28.0.2.tgz#914546f4410b67b1d42c262a1da7e0406b52dc90"
@@ -1131,6 +1138,11 @@
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.23.5.tgz#93f7b9f4e3285a7a9ade7557d9a8d36809cbc47d"
   integrity sha512-AFBVi/iT4g20DHoujvMH1aEDn8fGJh4xsRGCP6d8RpLPMqsNPvW01Jcn0QysXTsg++/xj25NmJsGyH9xug/wKg==
 
+"@sinclair/typebox@^0.24.1":
+  version "0.24.22"
+  resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.22.tgz#0da18e6e75701d6609c7c68fe18002bb1f47345f"
+  integrity sha512-JsBe3cOFpNZ6yjBYnXKhcENWy5qZE3PQZwExQ5ksA/h8qp4bwwxFmy07A6bC2R6qv6+RF3SfrbQTskTwYNTXUQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.3.tgz#3802ddd21a50a949b6721ddd72da36e67e7f1b2d"
@@ -1165,12 +1177,12 @@
     "@babel/runtime" "^7.12.5"
     react-error-boundary "^3.1.0"
 
-"@testing-library/react-native@^9.0.0":
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-9.1.0.tgz#500698b4ae5ade98211cdea0ffd97d823c61c3ac"
-  integrity sha512-YBCSOIMYlh8gI0VG7ExRe80hNpfhC+i7j0cvpwiopUYtbpft8bMJXO35A4zEk7BkiWXEq6bYZ7VDJR3muSLhyQ==
+"@testing-library/react-native@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-11.0.0.tgz#604cd14a42331ce01f2b3695aeb9abf73940183b"
+  integrity sha512-2WZF8P8YYXO5Ka1yzj3TZUg4x6noKU5RuCpx4oAhKBkxkVbrRl1pMCvRIozdTPSiru4rNBmAi074ZJjm2OED5g==
   dependencies:
-    pretty-format "^27.0.0"
+    pretty-format "^28.1.3"
 
 "@types/babel__core@^7.1.14":
   version "7.1.16"
@@ -4064,12 +4076,12 @@ pretty-format@^27.0.0, pretty-format@^27.3.1, pretty-format@^27.5.1:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
-pretty-format@^28.1.0:
-  version "28.1.0"
-  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-28.1.0.tgz#8f5836c6a0dfdb834730577ec18029052191af55"
-  integrity sha512-79Z4wWOYCdvQkEoEuSlBhHJqWeZ8D8YRPiPctJFCtvuaClGpiwiQYSCUOE6IEKUbbFukKOTFIUAXE8N4EQTo1Q==
+pretty-format@^28.1.0, pretty-format@^28.1.3:
+  version "28.1.3"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-28.1.3.tgz#c9fba8cedf99ce50963a11b27d982a9ae90970d5"
+  integrity sha512-8gFb/To0OmxHR9+ZTb14Df2vNxdGCX8g1xWGUTqUw5TiZvcQf5sHKObd5UcPyLLyowNwDAMTF3XWOG1B6mxl1Q==
   dependencies:
-    "@jest/schemas" "^28.0.2"
+    "@jest/schemas" "^28.1.3"
     ansi-regex "^5.0.1"
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
