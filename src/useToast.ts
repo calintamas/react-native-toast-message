@@ -13,6 +13,8 @@ export const DEFAULT_DATA: ToastData = {
 
 export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   type: 'success',
+  showNextToastAfter: 250,
+  forceOverride: false,
   position: 'top',
   autoHide: true,
   visibilityTime: 4000,
@@ -59,49 +61,77 @@ export function useToast({ defaultOptions }: UseToastParams) {
     options.onHide();
   }, [clearTimer, log, options]);
 
+  const showNextToaster = React.useCallback((params: ToastShowParams) => {
+      const {
+          text1 = DEFAULT_DATA.text1,
+          text2 = DEFAULT_DATA.text2,
+          type = initialOptions.type,
+          position = initialOptions.position,
+          autoHide = initialOptions.autoHide,
+          visibilityTime = initialOptions.visibilityTime,
+          topOffset = initialOptions.topOffset,
+          bottomOffset = initialOptions.bottomOffset,
+          keyboardOffset = initialOptions.keyboardOffset,
+          onShow = initialOptions.onShow,
+          onHide = initialOptions.onHide,
+          onPress = initialOptions.onPress,
+          props = initialOptions.props
+      } = params;
+
+      setData({
+          text1,
+          text2
+      });
+      setOptions(
+          mergeIfDefined(initialOptions, {
+              type,
+              position,
+              autoHide,
+              visibilityTime,
+              topOffset,
+              bottomOffset,
+              keyboardOffset,
+              onShow,
+              onHide,
+              onPress,
+              props
+          }) as Required<ToastOptions>
+      );
+
+  }, [initialOptions])
+
   const show = React.useCallback(
     (params: ToastShowParams) => {
       log(`Showing with params: ${JSON.stringify(params)}`);
       const {
-        text1 = DEFAULT_DATA.text1,
-        text2 = DEFAULT_DATA.text2,
-        type = initialOptions.type,
-        position = initialOptions.position,
-        autoHide = initialOptions.autoHide,
-        visibilityTime = initialOptions.visibilityTime,
-        topOffset = initialOptions.topOffset,
-        bottomOffset = initialOptions.bottomOffset,
-        keyboardOffset = initialOptions.keyboardOffset,
+        forceOverride = initialOptions.forceOverride,
+        showNextToastAfter = initialOptions.showNextToastAfter,
         onShow = initialOptions.onShow,
-        onHide = initialOptions.onHide,
-        onPress = initialOptions.onPress,
-        props = initialOptions.props
       } = params;
-      setData({
-        text1,
-        text2
-      });
-      setOptions(
-        mergeIfDefined(initialOptions, {
-          type,
-          position,
-          autoHide,
-          visibilityTime,
-          topOffset,
-          bottomOffset,
-          keyboardOffset,
-          onShow,
-          onHide,
-          onPress,
-          props
-        }) as Required<ToastOptions>
-      );
+
       // TODO: validate input
       // TODO: use a queue when Toast is already visible
-      setIsVisible(true);
-      onShow();
+
+        if (forceOverride) {
+            if (isVisible) {
+                hide();
+                setTimeout(() => {
+                    showNextToaster(params);
+                    setIsVisible(true);
+                    onShow();
+                }, showNextToastAfter)
+            } else {
+                showNextToaster(params);
+                setIsVisible(true);
+                onShow();
+            }
+        } else {
+            showNextToaster(params);
+            setIsVisible(true);
+            onShow();
+        }
     },
-    [initialOptions, log]
+    [hide, initialOptions.forceOverride, initialOptions.onShow, initialOptions.showNextToastAfter, isVisible, log, showNextToaster]
   );
 
   React.useEffect(() => {
