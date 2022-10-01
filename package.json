@@ -39,7 +39,7 @@
     "import-sort-style-module": "^6.0.0",
     "jest": "^28.1.0",
     "lint-staged": "^13.0.0",
-    "metro-react-native-babel-preset": "^0.71.0",
+    "metro-react-native-babel-preset": "^0.72.3",
     "prettier": "^2.4.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react-test-renderer": "^17.0.2",
