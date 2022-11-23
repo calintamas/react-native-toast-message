@@ -25,13 +25,13 @@ export type ToastOptions = {
    */
   position?: ToastPosition;
   /**
-   * When `true`, the visible Toast automatically hides after a certain number of seconds,
+   * When `true`, the visible Toast automatically hides after a certain number of milliseconds,
    * specified by the `visibilityTime` prop.
    * Default value: `true`
    */
   autoHide?: boolean;
   /**
-   * Number of seconds after which Toast automatically hides.
+   * Number of milliseconds after which Toast automatically hides.
    * Has effect only in conjunction with `autoHide` prop set to `true`.
    * Default value: `4000`
    */
