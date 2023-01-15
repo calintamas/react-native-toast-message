@@ -18,6 +18,7 @@ export type AnimatedContainerProps = {
   isVisible: boolean;
   position: ToastPosition;
   topOffset: number;
+  swipeable: boolean;
   bottomOffset: number;
   keyboardOffset: number;
   onHide: () => void;
@@ -74,7 +75,8 @@ export function AnimatedContainer({
   bottomOffset,
   keyboardOffset,
   onHide,
-  onRestorePosition = noop
+  onRestorePosition = noop,
+  swipeable
 }: AnimatedContainerProps) {
   const { log } = useLogger();
 
@@ -112,7 +114,8 @@ export function AnimatedContainer({
     animatedValue,
     computeNewAnimatedValueForGesture,
     onDismiss,
-    onRestore
+    onRestore,
+    disable: !swipeable
   });
 
   React.useLayoutEffect(() => {

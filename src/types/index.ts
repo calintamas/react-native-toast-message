@@ -45,6 +45,11 @@ export type ToastOptions = {
    */
   visibilityTime?: number;
   /**
+   * When `true`, the Toast can be dismissed by a swipe gesture, specified by the `swipeable` prop.
+   * Default value: `true`
+   */
+  swipeable?: boolean;
+  /**
    * Offset from the top of the screen (in px).
    * Has effect only when `position` is `top`
    * Default value: `40`
