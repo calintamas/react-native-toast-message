@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.6]
+
+### Fixed
+
+- Inline docs for `visibilityTime`. The value is in milliseconds, not seconds; by [johnbillion](https://github.com/johnbillion) in [#429](https://github.com/calintamas/react-native-toast-message/pull/429)
+
 ## [2.1.5]
 
 ### Fixed
