@@ -10,7 +10,12 @@ import {
 
 export type ReactChildren = React.ReactNode;
 
-export type ToastType = string;
+export type ToastType = 'success' | 'error' | 'info';
+export enum ToastTypes {
+  success = 'success',
+  error = 'error',
+  info = 'info'
+}
 export type ToastPosition = 'top' | 'bottom';
 
 export type ToastOptions = {
