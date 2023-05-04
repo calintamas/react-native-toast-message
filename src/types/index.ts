@@ -10,7 +10,8 @@ import {
 
 export type ReactChildren = React.ReactNode;
 
-export type ToastType = string;
+type BaseToastType = 'success' | 'error' | 'info';
+export type ToastType = BaseToastType | Omit<string, BaseToastType>;
 export type ToastPosition = 'top' | 'bottom';
 
 export type ToastOptions = {
