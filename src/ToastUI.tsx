@@ -63,19 +63,23 @@ function renderComponent({
   });
 }
 
-export function ToastUI(props: ToastUIProps) {
-  const { isVisible, options, hide } = props;
-  const { position, topOffset, bottomOffset, keyboardOffset } = options;
+export function ToastUI(props) {
+    const { isVisible, options, hide } = props;
+    const { position, topOffset, bottomOffset, keyboardOffset } = options;
 
-  return (
-    <AnimatedContainer
-      isVisible={isVisible}
-      position={position}
-      topOffset={topOffset}
-      bottomOffset={bottomOffset}
-      keyboardOffset={keyboardOffset}
-      onHide={hide}>
-      {renderComponent(props)}
-    </AnimatedContainer>
-  );
+    // 2023.05.23 / pjk
+    const [isVisibleToast, setIsVisibleToast] = useState(false);
+    useEffect(() => {
+        if (isVisible) {
+            setIsVisibleToast(true);
+        } else {
+            setTimeout(() => {
+                setIsVisibleToast(false);
+            }, 100);
+        }
+    }, [isVisible]);
+
+    return (<AnimatedContainer isVisible={isVisible} position={position} topOffset={topOffset} bottomOffset={bottomOffset} keyboardOffset={keyboardOffset} onHide={hide}>
+      {isVisibleToast && renderComponent(props)}
+    </AnimatedContainer>);
 }
