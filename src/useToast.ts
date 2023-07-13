@@ -8,7 +8,9 @@ import { mergeIfDefined } from './utils/obj';
 
 export const DEFAULT_DATA: ToastData = {
   text1: undefined,
-  text2: undefined
+  text2: undefined,
+  text1Style: undefined,
+  text2Style: undefined
 };
 
 export const DEFAULT_OPTIONS: Required<ToastOptions> = {
@@ -65,6 +67,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
       const {
         text1 = DEFAULT_DATA.text1,
         text2 = DEFAULT_DATA.text2,
+        text1Style = DEFAULT_DATA.text1Style,
+        text2Style = DEFAULT_DATA.text2Style,
         type = initialOptions.type,
         position = initialOptions.position,
         autoHide = initialOptions.autoHide,
@@ -79,7 +83,9 @@ export function useToast({ defaultOptions }: UseToastParams) {
       } = params;
       setData({
         text1,
-        text2
+        text2,
+        text1Style,
+        text2Style
       });
       setOptions(
         mergeIfDefined(initialOptions, {

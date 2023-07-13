@@ -77,6 +77,8 @@ export type ToastOptions = {
 export type ToastData = {
   text1?: string;
   text2?: string;
+  text1Style?: StyleProp<TextStyle>;
+  text2Style?: StyleProp<TextStyle>;
 };
 
 export type ToastShowParams = ToastData & ToastOptions;
@@ -108,6 +110,8 @@ export type ToastConfigParams<Props> = {
   isVisible: boolean;
   text1?: string;
   text2?: string;
+  text1Style?: StyleProp<TextStyle>;
+  text2Style?: StyleProp<TextStyle>;
   show: (params: ToastShowParams) => void;
   hide: (params: ToastHideParams) => void;
   onPress: () => void;
