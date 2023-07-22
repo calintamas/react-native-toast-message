@@ -50,7 +50,7 @@ function renderComponent({
     );
   }
 
-  return ToastComponent({
+  return isVisible ? ToastComponent({
     position,
     type,
     isVisible,
@@ -60,7 +60,7 @@ function renderComponent({
     hide,
     onPress,
     props
-  });
+  }) : null;
 }
 
 export function ToastUI(props: ToastUIProps) {
