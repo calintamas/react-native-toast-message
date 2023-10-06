@@ -59,7 +59,7 @@ function renderComponent({
     show,
     hide,
     onPress,
-    props
+    ...props
   });
 }
 
