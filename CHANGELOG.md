@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.7]
+
+### Fixed
+
+- chore(deps): bump @babel/traverse from 7.18.2 to 7.23.2 [#489](https://github.com/calintamas/react-native-toast-message/pull/489)
+
 ## [2.1.6]
 
 ### Fixed
