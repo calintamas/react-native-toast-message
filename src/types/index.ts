@@ -20,6 +20,18 @@ export type ToastOptions = {
    */
   type?: ToastType;
   /**
+   * Use it when need to force hide current toaster and show next with animation.
+   * Use for overshow toast
+   * Default value: '250' ms
+   */
+  showNextToastAfter?: number;
+  /**
+   * Use it when need to force hide current toaster and show next with animation.
+   * When `true`, the visible Toast force hides and shows a next after showNextToastAfter ms Toast with next props.
+   * Default value: 'false'
+   */
+  forceOverride?: boolean;
+  /**
    * Toast position.
    * Default value: `top`
    */
