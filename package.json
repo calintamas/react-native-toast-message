@@ -60,5 +60,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md}": "yarn prettier",
     "*.{js,jsx,ts,tsx}": "yarn lint"
+  },
+  "dependencies": {
+    "react-native-safe-area-context": "^4.7.4"
   }
 }
