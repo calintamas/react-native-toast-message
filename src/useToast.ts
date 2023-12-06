@@ -5,6 +5,7 @@ import { useTimeout } from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
 import { noop } from './utils/func';
 import { mergeIfDefined } from './utils/obj';
+import {initialWindowMetrics} from 'react-native-safe-area-context';
 
 export const DEFAULT_DATA: ToastData = {
   text1: undefined,
@@ -16,8 +17,8 @@ export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   position: 'top',
   autoHide: true,
   visibilityTime: 4000,
-  topOffset: 40,
-  bottomOffset: 40,
+  topOffset: initialWindowMetrics?.insets.top ?? 40,
+  bottomOffset: initialWindowMetrics?.insets.bottom ?? 40,
   keyboardOffset: 10,
   onShow: noop,
   onHide: noop,

@@ -48,7 +48,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-safe-area-context": "^4.7.4"
   },
   "importSort": {
     ".js, .jsx, .ts, .tsx": {
