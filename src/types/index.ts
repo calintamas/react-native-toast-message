@@ -20,6 +20,14 @@ export type ToastOptions = {
    */
   type?: ToastType;
   /**
+   * Style for the header text in the Toast (text1).
+   */
+  text1Style?: StyleProp<TextStyle>;
+  /**
+   * Style for the inner message text in the Toast (text2).
+   */
+  text2Style?: StyleProp<TextStyle>;
+  /**
    * Toast position.
    * Default value: `top`
    */
@@ -77,8 +85,6 @@ export type ToastOptions = {
 export type ToastData = {
   text1?: string;
   text2?: string;
-  text1Style?: StyleProp<TextStyle>;
-  text2Style?: StyleProp<TextStyle>;
 };
 
 export type ToastShowParams = ToastData & ToastOptions;
