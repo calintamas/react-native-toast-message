@@ -119,6 +119,8 @@ describe('test useToast hook', () => {
     const options: ToastOptions = {
       type: 'info',
       position: 'bottom',
+      text1Style: null,
+      text2Style: null,
       autoHide: false,
       visibilityTime: 20,
       topOffset: 120,
