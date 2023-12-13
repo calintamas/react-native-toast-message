@@ -9,11 +9,17 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.9]
+
+### Added
+
+- feat: add text1Style and text2Style to ToastOptions [#479](https://github.com/calintamas/react-native-toast-message/pull/479)
+
 ## [2.1.8]
 
 ### Fixed
 
-- Type update: add 'success', 'error' and 'info' to ToastType (#510)(https://github.com/calintamas/react-native-toast-message/pull/510)
+- Type update: add 'success', 'error' and 'info' to ToastType [#510](https://github.com/calintamas/react-native-toast-message/pull/510)
 
 ## [2.1.7]
 
