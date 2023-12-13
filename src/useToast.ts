@@ -13,6 +13,8 @@ export const DEFAULT_DATA: ToastData = {
 
 export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   type: 'success',
+  text1Style: null,
+  text2Style: null,
   position: 'top',
   autoHide: true,
   visibilityTime: 4000,
@@ -66,6 +68,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
         text1 = DEFAULT_DATA.text1,
         text2 = DEFAULT_DATA.text2,
         type = initialOptions.type,
+        text1Style = initialOptions.text1Style,
+        text2Style = initialOptions.text2Style,
         position = initialOptions.position,
         autoHide = initialOptions.autoHide,
         visibilityTime = initialOptions.visibilityTime,
@@ -84,6 +88,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
       setOptions(
         mergeIfDefined(initialOptions, {
           type,
+          text1Style,
+          text2Style,
           position,
           autoHide,
           visibilityTime,

@@ -36,7 +36,7 @@ function renderComponent({
   hide
 }: ToastUIProps) {
   const { text1, text2 } = data;
-  const { type, onPress, position, props } = options;
+  const { type, onPress, text1Style, text2Style, position, props } = options;
 
   const toastConfig = {
     ...defaultToastConfig,
@@ -56,6 +56,8 @@ function renderComponent({
     isVisible,
     text1,
     text2,
+    text1Style,
+    text2Style,
     show,
     hide,
     onPress,
