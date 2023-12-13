@@ -11,7 +11,7 @@ export const DEFAULT_DATA: ToastData = {
   text2: undefined
 };
 
-export const DEFAULT_OPTIONS: Required<ToastOptions> = {
+export const DEFAULT_OPTIONS: ToastOptions = {
   type: 'success',
   text1Style: null,
   text2Style: null,
@@ -40,9 +40,9 @@ export function useToast({ defaultOptions }: UseToastParams) {
   const initialOptions = mergeIfDefined(
     DEFAULT_OPTIONS,
     defaultOptions
-  ) as Required<ToastOptions>;
+  ) as ToastOptions;
   const [options, setOptions] =
-    React.useState<Required<ToastOptions>>(initialOptions);
+    React.useState<ToastOptions>(initialOptions);
 
   const onAutoHide = React.useCallback(() => {
     log('Auto hiding');
@@ -100,7 +100,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onHide,
           onPress,
           props
-        }) as Required<ToastOptions>
+        }) as ToastOptions
       );
       // TODO: validate input
       // TODO: use a queue when Toast is already visible

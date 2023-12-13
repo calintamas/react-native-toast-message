@@ -13,7 +13,7 @@ export type ReactChildren = React.ReactNode;
 export type ToastType = 'success' | 'error' | 'info' | (string & {});
 export type ToastPosition = 'top' | 'bottom';
 
-export type ToastOptions = {
+type ToastOptionsBase = {
   /**
    * Toast type.
    * Default value: `success`
@@ -63,6 +63,11 @@ export type ToastOptions = {
    */
   keyboardOffset?: number;
   /**
+   * z-index of the animated container for the toasts
+   * Default value: undefined
+   */
+  containerZIndex?: number;
+  /**
    * Called when Toast is shown
    */
   onShow?: () => void;
@@ -87,7 +92,9 @@ export type ToastData = {
   text2?: string;
 };
 
-export type ToastShowParams = ToastData & ToastOptions;
+export type ToastOptions = Required<Omit<ToastOptionsBase, "containerZIndex">> & Pick<ToastOptionsBase, "containerZIndex">
+
+export type ToastShowParams = ToastData & Partial<ToastOptions>;
 
 export type ToastHideParams = void;
 
@@ -182,6 +189,11 @@ export type ToastProps = {
    * Default value: `10`
    */
   keyboardOffset?: number;
+  /**
+   * z-index of the animated container for the toasts
+   * Default value: undefined
+   */
+   containerZIndex?: number;
   /**
    * Called when any Toast is shown
    */

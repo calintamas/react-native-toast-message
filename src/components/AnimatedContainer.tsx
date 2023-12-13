@@ -18,6 +18,7 @@ export type AnimatedContainerProps = {
   isVisible: boolean;
   position: ToastPosition;
   topOffset: number;
+  containerZIndex?: number;
   bottomOffset: number;
   keyboardOffset: number;
   onHide: () => void;
@@ -74,6 +75,7 @@ export function AnimatedContainer({
   bottomOffset,
   keyboardOffset,
   onHide,
+  containerZIndex,
   onRestorePosition = noop
 }: AnimatedContainerProps) {
   const { log } = useLogger();
@@ -124,7 +126,7 @@ export function AnimatedContainer({
     <Animated.View
       testID={getTestId('AnimatedContainer')}
       onLayout={computeViewDimensions}
-      style={[styles.base, styles[position], animationStyles]}
+      style={[styles.base, styles[position], animationStyles, typeof containerZIndex === "number" ? { zIndex: containerZIndex } : {}]}
       // This container View is never the target of touch events but its subviews can be.
       // By doing this, tapping buttons behind the Toast is allowed
       pointerEvents='box-none'
