@@ -9,7 +9,7 @@ The `Toast` API consists of:
 
 ### `show(options = {})`
 
-To show a Toast, call the `show()` method andd pass the `options` that suit your needs. Everything is optional, unless specified otherwise:
+To show a Toast, call the `show()` method and pass the `options` that suit your needs. Everything is optional, unless specified otherwise:
 
 ```js
 import Toast from 'react-native-toast-message'
