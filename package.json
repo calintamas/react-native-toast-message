@@ -5,7 +5,9 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "/lib"
+    "/lib",
+    "ios",
+    "*.podspec"
   ],
   "repository": {
     "type": "git",
@@ -16,7 +18,7 @@
     "toast"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "bob build && husky install",
     "build": "rm -rf ./lib && tsc",
     "prettier": "./node_modules/.bin/prettier --write",
     "lint": "./node_modules/.bin/eslint --fix",
@@ -59,8 +61,5 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md}": "yarn prettier",
     "*.{js,jsx,ts,tsx}": "yarn lint"
-  },
-  "dependencies": {
-    "react-native-safe-area-context": "^4.7.4"
   }
 }
