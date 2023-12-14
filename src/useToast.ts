@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { useLogger } from './contexts';
-import { useTimeout } from './hooks';
+import {useSafeArea, useTimeout} from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
 import { noop } from './utils/func';
 import { mergeIfDefined } from './utils/obj';
-import {initialWindowMetrics} from 'react-native-safe-area-context';
 
 export const DEFAULT_DATA: ToastData = {
   text1: undefined,
@@ -17,8 +16,8 @@ export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   position: 'top',
   autoHide: true,
   visibilityTime: 4000,
-  topOffset: initialWindowMetrics?.insets.top ?? 40,
-  bottomOffset: initialWindowMetrics?.insets.bottom ?? 40,
+  topOffset: 40,
+  bottomOffset: 40,
   keyboardOffset: 10,
   onShow: noop,
   onHide: noop,
@@ -35,6 +34,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [data, setData] = React.useState<ToastData>(DEFAULT_DATA);
+  const {safeAreaInsets} = useSafeArea()
 
   const initialOptions = mergeIfDefined(
     DEFAULT_OPTIONS,
@@ -63,6 +63,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
   const show = React.useCallback(
     (params: ToastShowParams) => {
       log(`Showing with params: ${JSON.stringify(params)}`);
+      const topOffset = safeAreaInsets && safeAreaInsets.top > 0 ? safeAreaInsets.top : initialOptions.topOffset
+      const bottomOffset = safeAreaInsets && safeAreaInsets.bottom > 0 ? safeAreaInsets.bottom : initialOptions.bottomOffset
       const {
         text1 = DEFAULT_DATA.text1,
         text2 = DEFAULT_DATA.text2,
@@ -70,8 +72,6 @@ export function useToast({ defaultOptions }: UseToastParams) {
         position = initialOptions.position,
         autoHide = initialOptions.autoHide,
         visibilityTime = initialOptions.visibilityTime,
-        topOffset = initialOptions.topOffset,
-        bottomOffset = initialOptions.bottomOffset,
         keyboardOffset = initialOptions.keyboardOffset,
         onShow = initialOptions.onShow,
         onHide = initialOptions.onHide,
