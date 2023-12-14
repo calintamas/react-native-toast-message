@@ -9,6 +9,12 @@ Headers are one of:
 
 - `Added`, `Changed`, `Removed`, `Fixed` or `Breaking`.
 
+## [2.1.10]
+
+### Fixed
+
+- Toast showing again when dragging after it was dismissed [#488](https://github.com/calintamas/react-native-toast-message/pull/488)
+
 ## [2.1.9]
 
 ### Added
