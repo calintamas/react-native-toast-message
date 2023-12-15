@@ -20,7 +20,7 @@ Animated toast message component for React Native.
 
 ## Documentation
 
-> This is the documentation for `react-native-toast-message@v2`, which has a similar API to v1, but contains a few important changes. [Read the complete changelog](./CHANGELOG.md#200).
+> This is the documentation for `react-native-toast-message@v2`, which has a similar API to v1, but contains a few important changes. [Read the complete changelog](https://github.com/calintamas/react-native-toast-message/releases/tag/v2.0.0).
 
 - [Quick start](./docs/quick-start.md)
 - [API](./docs/api.md)
