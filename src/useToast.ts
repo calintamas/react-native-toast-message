@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useLogger } from './contexts';
-import {useSafeArea, useTimeout} from './hooks';
+import { useSafeArea, useTimeout } from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
 import { noop } from './utils/func';
 import { mergeIfDefined } from './utils/obj';
