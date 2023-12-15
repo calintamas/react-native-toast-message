@@ -17,6 +17,7 @@ export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   text2Style: null,
   position: 'top',
   autoHide: true,
+  swipeable: true,
   visibilityTime: 4000,
   topOffset: 40,
   bottomOffset: 40,
@@ -79,6 +80,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onShow = initialOptions.onShow,
         onHide = initialOptions.onHide,
         onPress = initialOptions.onPress,
+        swipeable = initialOptions.swipeable,
         props = initialOptions.props
       } = params;
       setData({
@@ -99,6 +101,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onShow,
           onHide,
           onPress,
+          swipeable,
           props
         }) as Required<ToastOptions>
       );

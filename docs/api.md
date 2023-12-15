@@ -59,6 +59,7 @@ The following set of `props` can be passed to the `Toast` component instance to 
 | `position`       | Default Toast position                                                                                                            | `top` or `bottom`                      | `top`         |
 | `visibilityTime` | Number of milliseconds after which Toast automatically hides. Has effect only in conjunction with `autoHide` prop set to `true`   | `number`                               | `4000`        |
 | `autoHide`       | When `true`, the visible Toast automatically hides after a certain number of milliseconds, specified by the `visibilityTime` prop | `boolean`                              | `true`        |
+| `swipeable`      | When `true`, the Toast can be swiped to dismiss                                                                                   | `boolean`                              | `true`        |
 | `topOffset`      | Offset from the top of the screen (in px). Has effect only when `position` is `top`                                               | `number`                               | `40`          |
 | `bottomOffset`   | Offset from the bottom of the screen (in px). Has effect only when `position` is `bottom`                                         | `number`                               | `40`          |
 | `keyboardOffset` | Offset from the Keyboard (in px). Has effect only when `position` is `bottom` and Keyboard is visible (iOS only)                  | `number`                               | `10`          |
