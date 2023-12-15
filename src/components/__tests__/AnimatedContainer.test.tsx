@@ -26,6 +26,7 @@ const setup = (props?: Omit<Partial<AnimatedContainerProps>, 'children'>) => {
   const defaultProps: Omit<AnimatedContainerProps, 'children'> = {
     isVisible: false,
     position: 'top',
+    swipeable: true,
     topOffset: 40,
     bottomOffset: 40,
     keyboardOffset: 10,

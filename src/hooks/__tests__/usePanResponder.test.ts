@@ -7,7 +7,7 @@ import { mockGestureValues } from '../../__helpers__/PanResponder';
 import { usePanResponder } from '../usePanResponder';
 import { shouldSetPanResponder } from '..';
 
-const setup = ({ newAnimatedValueForGesture = 0 } = {}) => {
+const setup = ({ newAnimatedValueForGesture = 0, disable = false } = {}) => {
   const animatedValue = {
     current: new Animated.Value(0)
   };
@@ -22,7 +22,8 @@ const setup = ({ newAnimatedValueForGesture = 0 } = {}) => {
       animatedValue,
       computeNewAnimatedValueForGesture,
       onDismiss,
-      onRestore
+      onRestore,
+      disable
     })
   );
   return {
@@ -56,6 +57,23 @@ describe('test usePanResponder hook', () => {
     });
     result.current.onRelease({} as GestureResponderEvent, mockGestureValues);
     expect(computeNewAnimatedValueForGesture).toBeCalledWith(mockGestureValues);
+  });
+
+  it('should NOT compute new animated value on move/release, if disable: true', () => {
+    const { result, computeNewAnimatedValueForGesture } = setup({
+      newAnimatedValueForGesture: 1,
+      disable: true
+    });
+
+    result.current.onMove({} as GestureResponderEvent, mockGestureValues);
+    expect(computeNewAnimatedValueForGesture).not.toBeCalledWith(
+      mockGestureValues
+    );
+
+    result.current.onRelease({} as GestureResponderEvent, mockGestureValues);
+    expect(computeNewAnimatedValueForGesture).not.toBeCalledWith(
+      mockGestureValues
+    );
   });
 
   it('calls onDismiss when swipe gesture value is below dismiss threshold', () => {
