@@ -185,21 +185,3 @@ export type ToastProps = {
    */
   onPress?: () => void;
 };
-
-export type TSafeArea = {
-  top: number
-  bottom: number
-  left: number
-  right: number
-}
-
-export type TNativeModulesSafeArea = {
-  SafeAreaInsetsModule: {
-    getSafeAreaInsets(p: (error: Error, result: TSafeArea) => void): Promise<{
-      top: number;
-      bottom: number;
-      left: number;
-      right: number
-    }>;
-  };
-}
