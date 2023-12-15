@@ -6,6 +6,7 @@
 yarn add react-native-toast-message
 # or
 npm install --save react-native-toast-message
+cd ios && pod install # for iOS
 ```
 
 ## Usage
