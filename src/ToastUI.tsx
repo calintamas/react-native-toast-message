@@ -67,7 +67,7 @@ function renderComponent({
 
 export function ToastUI(props: ToastUIProps) {
   const { isVisible, options, hide } = props;
-  const { position, topOffset, bottomOffset, keyboardOffset, swipeable } = options;
+  const { position, topOffset, bottomOffset, keyboardOffset, swipeable, translateYFactor, animationProps } = options;
 
   return (
     <AnimatedContainer
@@ -77,6 +77,8 @@ export function ToastUI(props: ToastUIProps) {
       bottomOffset={bottomOffset}
       keyboardOffset={keyboardOffset}
       swipeable={swipeable}
+      translateYFactor={translateYFactor}
+      animationProps={animationProps}
       onHide={hide}>
       {renderComponent(props)}
     </AnimatedContainer>

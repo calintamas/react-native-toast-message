@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animated, Platform } from 'react-native';
 
-import { ToastPosition } from '../types';
+import { SpringAnimationProps, ToastPosition } from '../types';
 import { additiveInverseArray } from '../utils/array';
 import { useKeyboard } from './useKeyboard';
 
@@ -11,6 +11,7 @@ type UseSlideAnimationParams = {
   topOffset: number;
   bottomOffset: number;
   keyboardOffset: number;
+  animationProps?: SpringAnimationProps
 };
 
 export function translateYOutputRangeFor({
@@ -41,18 +42,20 @@ export function useSlideAnimation({
   height,
   topOffset,
   bottomOffset,
-  keyboardOffset
+  keyboardOffset,
+  animationProps
 }: UseSlideAnimationParams) {
   const animatedValue = React.useRef(new Animated.Value(0));
   const { keyboardHeight } = useKeyboard();
 
   const animate = React.useCallback((toValue: number) => {
     Animated.spring(animatedValue.current, {
+      ...animationProps,
       toValue,
       useNativeDriver,
-      friction: 8
+      friction: animationProps?.friction ? animationProps.friction: 8
     }).start();
-  }, []);
+  }, [animationProps]);
 
   const translateY = React.useMemo(() => animatedValue.current.interpolate({
     inputRange: [0, 1],

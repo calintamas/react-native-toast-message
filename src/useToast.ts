@@ -11,7 +11,7 @@ export const DEFAULT_DATA: ToastData = {
   text2: undefined
 };
 
-export const DEFAULT_OPTIONS: Required<ToastOptions> = {
+export const DEFAULT_OPTIONS: ToastOptions = {
   type: 'success',
   text1Style: null,
   text2Style: null,
@@ -81,6 +81,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onHide = initialOptions.onHide,
         onPress = initialOptions.onPress,
         swipeable = initialOptions.swipeable,
+        translateYFactor = initialOptions.translateYFactor,
+        animationProps = initialOptions.animationProps,
         props = initialOptions.props
       } = params;
       setData({
@@ -102,12 +104,14 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onHide,
           onPress,
           swipeable,
+          translateYFactor,
+          animationProps,
           props
         }) as Required<ToastOptions>
       );
       // TODO: validate input
       // TODO: use a queue when Toast is already visible
-      setIsVisible(true);
+      setIsVisible(true); // Sets isVisible to true which is returned below and displays the modal
       onShow();
     },
     [initialOptions, log]

@@ -86,8 +86,10 @@ export function Toast(props: ToastProps) {
     }
   }, []);
 
+  const { enableLogs } = props
+
   return (
-    <LoggerProvider enableLogs={false}>
+    <LoggerProvider enableLogs={!!enableLogs}>
       <ToastRoot ref={setRef} {...props} />
     </LoggerProvider>
   );

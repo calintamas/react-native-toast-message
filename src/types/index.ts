@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Animated,
   StyleProp,
   TextProps,
   TextStyle,
@@ -85,7 +86,23 @@ export type ToastOptions = {
    * on the Toast instance) that uses the `props` parameter
    */
   props?: any;
+  
+  // CUSTOM ROOT OPTIONS
+
+  /**
+   * Toasts moves from outside the screen (top/bottom) and moves inside the view.
+   * This is achieved by calculating the height of the screen initially.
+   * It works well for default Toast reveals, but moving a full height Toast will result in a very aggresive and quick animation that we may want to avoid by reducing the initial calculated screen height so the content of the Toast will start transitioning closer to the center of the screen.
+   * We can achieve this by adding a division factor for the height.
+   */
+  translateYFactor?: number;
+  /**
+   * Optionally pass spring animation props. Note that 'useNativeDriver' and 'toValue' props are handled by Toast and are best omitted.
+   */
+  animationProps?: SpringAnimationProps
 };
+
+export type SpringAnimationProps =  Omit<Parameters<typeof Animated.spring>[1], 'useNativeDriver'| 'toValue'>
 
 export type ToastData = {
   text1?: string;
@@ -199,4 +216,10 @@ export type ToastProps = {
    * Called on any Toast press
    */
   onPress?: () => void;
+
+  // CUSTOM ROOT OPTIONS
+  /**
+   * Add the option to enable console logs
+   */
+  enableLogs?: boolean
 };

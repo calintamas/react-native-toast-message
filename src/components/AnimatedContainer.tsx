@@ -7,7 +7,7 @@ import {
   useSlideAnimation,
   useViewDimensions
 } from '../hooks';
-import { ReactChildren, ToastPosition } from '../types';
+import { ReactChildren, SpringAnimationProps, ToastPosition } from '../types';
 import { noop } from '../utils/func';
 import { bound } from '../utils/number';
 import { getTestId } from '../utils/test-id';
@@ -21,6 +21,8 @@ export type AnimatedContainerProps = {
   swipeable: boolean;
   bottomOffset: number;
   keyboardOffset: number;
+  translateYFactor?: number;
+  animationProps?: SpringAnimationProps
   onHide: () => void;
   onRestorePosition?: () => void;
 };
@@ -76,18 +78,23 @@ export function AnimatedContainer({
   keyboardOffset,
   onHide,
   onRestorePosition = noop,
-  swipeable
+  swipeable,
+  translateYFactor,
+  animationProps
 }: AnimatedContainerProps) {
   const { log } = useLogger();
 
   const { computeViewDimensions, height } = useViewDimensions();
 
+  const animationHeight = translateYFactor ? height / translateYFactor : height;
+
   const { animatedValue, animate, animationStyles } = useSlideAnimation({
     position,
-    height,
+    height: animationHeight,
     topOffset,
     bottomOffset,
-    keyboardOffset
+    keyboardOffset,
+    animationProps
   });
 
   const onDismiss = React.useCallback(() => {
