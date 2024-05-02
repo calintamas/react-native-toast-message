@@ -1,6 +1,6 @@
 # Quick start
 
-## Install
+## Install React Native Project
 
 ```sh
 yarn add react-native-toast-message
@@ -8,6 +8,26 @@ yarn add react-native-toast-message
 npm install --save react-native-toast-message
 cd ios && pod install # for iOS
 ```
+
+## Install Expo Project
+```sh
+npx expo install react-native-toast-message
+```
+
+## Rebuild the project
+Rebuild the project
+```sh
+# expo projects
+npx expo run:android
+npx expo run:ios
+
+# non-expo projects
+npx react-native run-android
+npx react-native run-ios
+```
+
+## Expo
+- ❌ This library can't be used in the "Expo Go" app because it [requires custom native code](https://docs.expo.dev/workflow/customizing/).
 
 ## Usage
 
