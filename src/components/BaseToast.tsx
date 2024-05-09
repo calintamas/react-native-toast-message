@@ -1,16 +1,15 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 import { BaseToastProps } from '../types';
 import { getTestId } from '../utils/test-id';
 import { styles } from './BaseToast.styles';
-import { Touchable } from './Touchable';
 
 export function BaseToast({
   text1,
   text2,
   onPress,
-  activeOpacity,
+  activeOpacity = 1,
   style,
   touchableContainerProps,
   contentContainerStyle,
@@ -25,7 +24,7 @@ export function BaseToast({
   renderTrailingIcon
 }: BaseToastProps) {
   return (
-    <Touchable
+    <TouchableOpacity
       testID={getTestId('TouchableContainer')}
       onPress={onPress}
       activeOpacity={activeOpacity}
@@ -58,6 +57,6 @@ export function BaseToast({
         )}
       </View>
       {renderTrailingIcon && renderTrailingIcon()}
-    </Touchable>
+    </TouchableOpacity>
   );
 }
