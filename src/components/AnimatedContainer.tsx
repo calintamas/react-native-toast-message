@@ -123,8 +123,9 @@ export function AnimatedContainer({
     animate(newAnimationValue);
   }, [animate, isVisible]);
 
+  if (!isVisible) return (<></>);
+  
   return (
-    isVisible ? 
     <Animated.View
       testID={getTestId('AnimatedContainer')}
       onLayout={computeViewDimensions}
@@ -134,7 +135,6 @@ export function AnimatedContainer({
       pointerEvents={isVisible ? 'box-none' : 'none'}
       {...panResponder.panHandlers}>
       {children}
-    </Animated.View> :
-    null
+    </Animated.View>
   );
 }
