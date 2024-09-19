@@ -34,7 +34,10 @@ export function translateYOutputRangeFor({
   return outputRange;
 }
 
-const useNativeDriver = Platform.select({ native: true, default: false });
+const useNativeDriver = Platform.select({
+  ios: true,
+  default: false
+});
 
 export function useSlideAnimation({
   position,
