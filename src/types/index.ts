@@ -164,6 +164,11 @@ export type ToastProps = {
    */
   visibilityTime?: number;
   /**
+   * When `true`, the Toast can be dismissed by a swipe gesture, specified by the `swipeable` prop.
+   * Default value: `true`
+   */
+  swipeable?: boolean;
+  /**
    * When `true`, the visible Toast automatically hides after a certain number of milliseconds,
    * specified by the `visibilityTime` prop.
    * Default value: `true`
