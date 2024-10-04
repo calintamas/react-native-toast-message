@@ -54,7 +54,7 @@ export function animatedValueFor(
   position: ToastPosition,
   damping: number
 ) {
-  const boundValue = (val) => bound(val, 0, 2);
+  const boundValue = (val: number) => bound(val, 0, 2);
     const { dy, numberActiveTouches } = gesture;
 
     switch (position) {
