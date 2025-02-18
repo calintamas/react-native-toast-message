@@ -68,6 +68,12 @@ export type ToastOptions = {
    */
   keyboardOffset?: number;
   /**
+   * When `true` offset calculation use KeyboardHeight in position calculation. 
+   * If you put <Toast /> inside a keyboard aware component and position is 'bootom', you should set this to `false`.
+   * Default value: true 
+   */
+  avoidKeyboard?: boolean;
+  /**
    * Called when Toast is shown
    */
   onShow?: () => void;
@@ -192,6 +198,12 @@ export type ToastProps = {
    * Default value: `10`
    */
   keyboardOffset?: number;
+  /**
+   * When `true` offset calculation use KeyboardHeight in position calculation. 
+   * If you put <Toast /> inside a keyboard aware component and position is 'bootom', you should set this to `false`.
+   * Default value: true 
+   */
+  avoidKeyboard?: boolean;
   /**
    * Called when any Toast is shown
    */

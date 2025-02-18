@@ -11,6 +11,7 @@ type UseSlideAnimationParams = {
   topOffset: number;
   bottomOffset: number;
   keyboardOffset: number;
+  avoidKeyboard: boolean;
 };
 
 export function translateYOutputRangeFor({
@@ -19,13 +20,14 @@ export function translateYOutputRangeFor({
   topOffset,
   bottomOffset,
   keyboardHeight,
-  keyboardOffset
+  keyboardOffset,
+  avoidKeyboard
 }: UseSlideAnimationParams & {
   keyboardHeight: number;
 }) {
   const offset = position === 'bottom' ? bottomOffset : topOffset;
   const keyboardAwareOffset =
-    position === 'bottom' ? keyboardHeight + keyboardOffset : 0;
+    position === 'bottom' && avoidKeyboard ? keyboardHeight + keyboardOffset : 0;
 
   const range = [-(height * 2), Math.max(offset, keyboardAwareOffset)];
   const outputRange =
@@ -44,7 +46,8 @@ export function useSlideAnimation({
   height,
   topOffset,
   bottomOffset,
-  keyboardOffset
+  keyboardOffset,
+  avoidKeyboard
 }: UseSlideAnimationParams) {
   const animatedValue = React.useRef(new Animated.Value(0));
   const { keyboardHeight } = useKeyboard();
@@ -65,9 +68,10 @@ export function useSlideAnimation({
       topOffset,
       bottomOffset,
       keyboardHeight,
-      keyboardOffset
+      keyboardOffset,
+      avoidKeyboard
     })
-  }), [position, height, topOffset, bottomOffset, keyboardHeight, keyboardOffset]);
+  }), [position, height, topOffset, bottomOffset, keyboardHeight, keyboardOffset, avoidKeyboard]);
 
   const opacity = animatedValue.current.interpolate({
     inputRange: [0, 0.7, 1],

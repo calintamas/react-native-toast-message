@@ -21,6 +21,7 @@ export type AnimatedContainerProps = {
   swipeable: boolean;
   bottomOffset: number;
   keyboardOffset: number;
+  avoidKeyboard: boolean;
   onHide: () => void;
   onRestorePosition?: () => void;
 };
@@ -74,6 +75,7 @@ export function AnimatedContainer({
   topOffset,
   bottomOffset,
   keyboardOffset,
+  avoidKeyboard,
   onHide,
   onRestorePosition = noop,
   swipeable
@@ -87,7 +89,8 @@ export function AnimatedContainer({
     height,
     topOffset,
     bottomOffset,
-    keyboardOffset
+    keyboardOffset,
+    avoidKeyboard
   });
 
   const onDismiss = React.useCallback(() => {
