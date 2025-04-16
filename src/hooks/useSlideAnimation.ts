@@ -55,7 +55,7 @@ export function useSlideAnimation({
   const animate = React.useCallback((toValue: number) => {
     Animated.spring(animatedValue.current, {
       toValue,
-      useNativeDriver,
+      useNativeDriver: true,
       friction: 8
     }).start();
   }, []);
