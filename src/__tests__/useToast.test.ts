@@ -125,6 +125,7 @@ describe('test useToast hook', () => {
       autoHide: false,
       visibilityTime: 20,
       topOffset: 120,
+      avoidKeyboard: true,
       bottomOffset: 130,
       keyboardOffset: 5,
       onShow: jest.fn(),

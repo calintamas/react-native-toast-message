@@ -8,10 +8,11 @@ import {
   useSlideAnimation
 } from '../useSlideAnimation';
 
-const defaultOffsets = {
+const defaultParams = {
   topOffset: 40,
   bottomOffset: 60,
-  keyboardOffset: 5
+  keyboardOffset: 5,
+  avoidKeyboard: true
 };
 
 const setup = () => {
@@ -19,7 +20,7 @@ const setup = () => {
     useSlideAnimation({
       position: 'top',
       height: 20,
-      ...defaultOffsets
+      ...defaultParams
     })
   );
   return {
@@ -57,7 +58,7 @@ describe('test translateYOutputRangeFor function', () => {
         position: 'top',
         height: 20,
         keyboardHeight: 0,
-        ...defaultOffsets
+        ...defaultParams
       })
     ).toEqual([-40, 40]);
   });
@@ -68,7 +69,7 @@ describe('test translateYOutputRangeFor function', () => {
         position: 'bottom',
         height: 20,
         keyboardHeight: 0,
-        ...defaultOffsets
+        ...defaultParams
       })
     ).toEqual([40, -60]);
   });
@@ -79,7 +80,7 @@ describe('test translateYOutputRangeFor function', () => {
         position: 'bottom',
         height: 20,
         keyboardHeight: 400,
-        ...defaultOffsets
+        ...defaultParams
       })
     ).toEqual([40, -405]);
   });
