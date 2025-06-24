@@ -36,8 +36,8 @@ export type UsePanResponderParams = {
   ) => number;
   onDismiss: () => void;
   onRestore: () => void;
-  onPanStart: () => void;
-  onPanEnd: () => void;
+  onStart: () => void;
+  onEnd: () => void;
   disable?: boolean;
 };
 
@@ -46,19 +46,26 @@ export function usePanResponder({
   computeNewAnimatedValueForGesture,
   onDismiss,
   onRestore,
-  onPanStart,
-  onPanEnd,
+  onStart,
+  onEnd,
   disable
 }: UsePanResponderParams) {
+  const onGrant = React.useCallback(() => {
+      if (disable) return;
+      onStart();
+    },
+    [onStart, disable]
+  );
+
   const onMove = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
       if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
-      onPanStart();
+
       animatedValue.current?.setValue(newAnimatedValue);
     },
-    [animatedValue, computeNewAnimatedValueForGesture, onPanStart, disable]
+    [animatedValue, computeNewAnimatedValueForGesture, disable]
   );
 
   const onRelease = React.useCallback(
@@ -66,30 +73,33 @@ export function usePanResponder({
       if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
-      onPanEnd();
+      onEnd();
       if (shouldDismissView(newAnimatedValue, gesture)) {
         onDismiss();
       } else {
         onRestore();
       }
     },
-    [computeNewAnimatedValueForGesture, onPanEnd, onDismiss, onRestore, disable]
+    [computeNewAnimatedValueForGesture, onEnd, onDismiss, onRestore, disable]
   );
 
   const panResponder = React.useMemo(
     () =>
       PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderGrant: onGrant,
         onMoveShouldSetPanResponder: shouldSetPanResponder,
         onMoveShouldSetPanResponderCapture: shouldSetPanResponder,
         onPanResponderMove: onMove,
         onPanResponderRelease: onRelease
       }),
-    [onMove, onRelease]
+    [onMove, onRelease, onGrant]
   );
 
   return {
     panResponder,
     onMove,
-    onRelease
+    onRelease,
+    onGrant,
   };
 }

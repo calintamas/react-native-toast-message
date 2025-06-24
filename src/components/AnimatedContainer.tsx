@@ -94,12 +94,12 @@ export function AnimatedContainer({
     avoidKeyboard
   });
 
-  const onPanStart = React.useCallback(() => {
+  const onStart = React.useCallback(() => {
     log('Swipe, pan start');
     panning.current = true;
   }, [log, panning]);
 
-  const onPanEnd = React.useCallback(() => {
+  const onEnd = React.useCallback(() => {
     log('Swipe, pan end');
     panning.current = false;
   }, [log, panning]);
@@ -129,8 +129,8 @@ export function AnimatedContainer({
     computeNewAnimatedValueForGesture,
     onDismiss,
     onRestore,
-    onPanStart,
-    onPanEnd,
+    onStart,
+    onEnd,
     disable: !swipeable
   });
 
