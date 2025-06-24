@@ -11,12 +11,8 @@ const setup = (props?: Omit<LoggerProviderProps, 'children'>) => {
   const wrapper = ({ children }: { children: ReactChildren }) => (
     <LoggerProvider {...props}>{children}</LoggerProvider>
   );
-  const utils = renderHook(useLogger, {
-    wrapper
-  });
-  return {
-    ...utils
-  };
+  const utils = renderHook(useLogger, { wrapper });
+  return { ...utils };
 };
 
 describe('test Logger context', () => {

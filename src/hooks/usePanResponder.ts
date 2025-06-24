@@ -36,6 +36,8 @@ export type UsePanResponderParams = {
   ) => number;
   onDismiss: () => void;
   onRestore: () => void;
+  onPanStart: () => void;
+  onPanEnd: () => void;
   disable?: boolean;
 };
 
@@ -44,34 +46,34 @@ export function usePanResponder({
   computeNewAnimatedValueForGesture,
   onDismiss,
   onRestore,
+  onPanStart,
+  onPanEnd,
   disable
 }: UsePanResponderParams) {
   const onMove = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
-      if (disable) {
-        return;
-      }
+      if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
+      onPanStart();
       animatedValue.current?.setValue(newAnimatedValue);
     },
-    [animatedValue, computeNewAnimatedValueForGesture, disable]
+    [animatedValue, computeNewAnimatedValueForGesture, onPanStart, disable]
   );
 
   const onRelease = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
-      if (disable) {
-        return;
-      }
+      if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
+      onPanEnd();
       if (shouldDismissView(newAnimatedValue, gesture)) {
         onDismiss();
       } else {
         onRestore();
       }
     },
-    [computeNewAnimatedValueForGesture, onDismiss, onRestore, disable]
+    [computeNewAnimatedValueForGesture, onPanEnd, onDismiss, onRestore, disable]
   );
 
   const panResponder = React.useMemo(

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LoggerProvider } from './contexts';
+import { LoggerProvider, GestureProvider } from './contexts';
 import { ToastUI } from './ToastUI';
 import {
   ToastHideParams,
@@ -88,7 +88,9 @@ export function Toast(props: ToastProps) {
 
   return (
     <LoggerProvider enableLogs={false}>
-      <ToastRoot ref={setRef} {...props} />
+      <GestureProvider>
+        <ToastRoot ref={setRef} {...props} />
+      </GestureProvider>
     </LoggerProvider>
   );
 }
