@@ -131,7 +131,7 @@ export function AnimatedContainer({
     onRestore,
     onStart,
     onEnd,
-    disable: !swipeable
+    disable: !swipeable && !isVisible,
   });
 
   React.useLayoutEffect(() => {
