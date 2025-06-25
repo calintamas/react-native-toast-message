@@ -94,6 +94,8 @@ export function AnimatedContainer({
     avoidKeyboard
   });
 
+  const disable = React.useMemo(() => !swipeable || !isVisible, [swipeable, isVisible]);
+
   const onStart = React.useCallback(() => {
     log('Swipe, pan start');
     panning.current = true;
@@ -131,7 +133,7 @@ export function AnimatedContainer({
     onRestore,
     onStart,
     onEnd,
-    disable: !swipeable && !isVisible,
+    disable,
   });
 
   React.useLayoutEffect(() => {
