@@ -30,6 +30,7 @@ const setup = (props?: Omit<Partial<AnimatedContainerProps>, 'children'>) => {
     topOffset: 40,
     bottomOffset: 40,
     keyboardOffset: 10,
+    avoidKeyboard: true,
     onHide
   };
 

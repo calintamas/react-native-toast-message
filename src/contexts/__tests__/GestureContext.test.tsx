@@ -24,7 +24,9 @@ describe('GestureContext', () => {
 
   it('allows updating the panning ref value', () => {
     const { result } = setup();
-    act(() => (result.current.panning.current = true));
+    act(() => {
+      result.current.panning.current = true
+    });
     expect(result.current.panning.current).toBe(true);
   });
 });

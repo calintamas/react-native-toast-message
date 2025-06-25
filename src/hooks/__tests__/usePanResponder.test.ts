@@ -16,6 +16,8 @@ const setup = ({ newAnimatedValueForGesture = 0, disable = false } = {}) => {
   );
   const onDismiss = jest.fn();
   const onRestore = jest.fn();
+  const onStart = jest.fn();
+  const onEnd = jest.fn();
 
   const utils = renderHook(() =>
     usePanResponder({
@@ -23,6 +25,8 @@ const setup = ({ newAnimatedValueForGesture = 0, disable = false } = {}) => {
       computeNewAnimatedValueForGesture,
       onDismiss,
       onRestore,
+      onStart,
+      onEnd,
       disable
     })
   );
@@ -39,6 +43,7 @@ describe('test usePanResponder hook', () => {
   it('returns defaults', () => {
     const { result } = setup();
     expect(result.current.panResponder.panHandlers).toBeDefined();
+    expect(result.current.onGrant).toBeDefined();
     expect(result.current.onMove).toBeDefined();
     expect(result.current.onRelease).toBeDefined();
   });
