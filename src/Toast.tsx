@@ -66,7 +66,7 @@ function removeOldRef(oldRef: ToastRef | null) {
   refs = refs.filter((r) => r.current !== oldRef);
 }
 
-export function Toast(props: ToastProps) {
+export function Toast(props: ToastProps): React.ReactElement {
   const toastRef = React.useRef<ToastRef | null>(null);
 
   /*
