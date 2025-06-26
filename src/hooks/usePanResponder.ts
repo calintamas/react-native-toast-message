@@ -6,7 +6,11 @@ import {
   PanResponderGestureState
 } from 'react-native';
 
-export function shouldSetPanResponder(
+export function startShouldSetPanResponder() {
+  return true;
+}
+
+export function moveShouldSetPanResponder(
   _event: GestureResponderEvent,
   gesture: PanResponderGestureState
 ) {
@@ -86,10 +90,10 @@ export function usePanResponder({
   const panResponder = React.useMemo(
     () =>
       PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
+        onStartShouldSetPanResponder: startShouldSetPanResponder,
         onPanResponderGrant: onGrant,
-        onMoveShouldSetPanResponder: shouldSetPanResponder,
-        onMoveShouldSetPanResponderCapture: shouldSetPanResponder,
+        onMoveShouldSetPanResponder: moveShouldSetPanResponder,
+        onMoveShouldSetPanResponderCapture: moveShouldSetPanResponder,
         onPanResponderMove: onMove,
         onPanResponderRelease: onRelease
       }),

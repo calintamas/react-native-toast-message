@@ -84,7 +84,7 @@ describe('test Toast component', () => {
     // Show the Modal
     const showModalButton = utils.queryByText('Show modal');
     expect(showModalButton).toBeTruthy();
-    fireEvent.press(showModalButton);
+    fireEvent.press(showModalButton as any);
     await waitFor(() => {
       expect(utils.queryByText('Inside modal')).toBeTruthy();
     });
@@ -104,7 +104,7 @@ describe('test Toast component', () => {
     // Hide modal
     const hideModalButton = utils.queryByText('Hide modal');
     expect(hideModalButton).toBeTruthy();
-    fireEvent.press(hideModalButton);
+    fireEvent.press(hideModalButton as any);
     await waitFor(() => {
       expect(utils.queryByText('Inside modal')).toBeFalsy();
     });

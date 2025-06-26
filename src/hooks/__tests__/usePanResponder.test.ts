@@ -5,7 +5,7 @@ import { Animated, GestureResponderEvent } from 'react-native';
 
 import { mockGestureValues } from '../../__helpers__/PanResponder';
 import { usePanResponder } from '../usePanResponder';
-import { shouldSetPanResponder } from '..';
+import { moveShouldSetPanResponder, startShouldSetPanResponder } from '..';
 
 const setup = ({ newAnimatedValueForGesture = 0, disable = false } = {}) => {
   const animatedValue = {
@@ -52,6 +52,7 @@ describe('test usePanResponder hook', () => {
     const { result, computeNewAnimatedValueForGesture } = setup({
       newAnimatedValueForGesture: 1
     });
+    result.current.onGrant();
     result.current.onMove({} as GestureResponderEvent, mockGestureValues);
     expect(computeNewAnimatedValueForGesture).toBeCalledWith(mockGestureValues);
   });
@@ -70,6 +71,7 @@ describe('test usePanResponder hook', () => {
       disable: true
     });
 
+    result.current.onGrant();
     result.current.onMove({} as GestureResponderEvent, mockGestureValues);
     expect(computeNewAnimatedValueForGesture).not.toBeCalledWith(
       mockGestureValues
@@ -115,13 +117,17 @@ describe('test usePanResponder hook', () => {
 });
 
 describe('test shouldSetPanResponder function', () => {
+  it('is set pan start always true', () => {
+    expect(startShouldSetPanResponder()).toBe(true);
+  });
+
   it('is set when dx > offset', () => {
     const gesture = {
       ...mockGestureValues,
       dx: 2.1,
       dy: 0
     };
-    expect(shouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
+    expect(moveShouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
       true
     );
   });
@@ -132,7 +138,7 @@ describe('test shouldSetPanResponder function', () => {
       dx: 0,
       dy: 2.1
     };
-    expect(shouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
+    expect(moveShouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
       true
     );
   });
@@ -143,7 +149,7 @@ describe('test shouldSetPanResponder function', () => {
       dx: 2,
       dy: 0
     };
-    expect(shouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
+    expect(moveShouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
       false
     );
   });
@@ -154,7 +160,7 @@ describe('test shouldSetPanResponder function', () => {
       dx: 0,
       dy: 2
     };
-    expect(shouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
+    expect(moveShouldSetPanResponder({} as GestureResponderEvent, gesture)).toBe(
       false
     );
   });

@@ -8,15 +8,16 @@ export type GestureContextType = {
 
 export type GestureProviderProps = {
   children: ReactChildren;
+  panning?: boolean;
 };
 
 const GestureContext = React.createContext<GestureContextType>({
   panning: { current: false }
 });
 
-function GestureProvider({ children }: GestureProviderProps) {
-  const panning = React.useRef(false);
-  const value = { panning };
+function GestureProvider({ children, panning = false }: GestureProviderProps) {
+  const panningRef = React.useRef(panning);
+  const value = { panning: panningRef };
   return (
     <GestureContext.Provider value={value}>{children}</GestureContext.Provider>
   );

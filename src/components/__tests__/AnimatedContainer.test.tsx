@@ -96,6 +96,7 @@ describe('test AnimatedContainer component', () => {
       moveY: 100,
       dy: 10
     };
+    panHandler?.props.onResponderGrant();
     panHandler?.props.onResponderMove(undefined, gesture);
     panHandler?.props.onResponderRelease(undefined, gesture);
     expect(onRestorePosition).toHaveBeenCalled();
@@ -120,6 +121,7 @@ describe('test AnimatedContainer component', () => {
       moveY: 5,
       dy: -78
     };
+    panHandler?.props.onResponderGrant();
     panHandler?.props.onResponderMove(undefined, gesture);
     panHandler?.props.onResponderRelease(undefined, gesture);
     expect(onHide).toHaveBeenCalled();

@@ -24,12 +24,16 @@ export function mockPanResponder() {
     .spyOn(PanResponder, 'create')
     .mockImplementation(
       ({
+        onStartShouldSetPanResponder,
+        onPanResponderGrant,
         onMoveShouldSetPanResponder,
         onMoveShouldSetPanResponderCapture,
         onPanResponderMove,
         onPanResponderRelease
       }: PanResponderCallbacks) => ({
         panHandlers: {
+          onStartShouldSetResponder: onStartShouldSetPanResponder,
+          onResponderGrant: onPanResponderGrant,
           onMoveShouldSetResponder: onMoveShouldSetPanResponder,
           onMoveShouldSetResponderCapture: onMoveShouldSetPanResponderCapture,
           onResponderMove: onPanResponderMove,
