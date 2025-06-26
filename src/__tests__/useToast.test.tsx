@@ -176,7 +176,7 @@ describe('test useToast hook', () => {
     expect(onHide).toHaveBeenCalled();
   });
 
-  it('automatically hides when autoHide: true and panning.current: true', () => {
+  it('does not hide when autoHide is true but user is panning', () => {
     jest.useFakeTimers();
     const { result } = setup(true);
     const onHide = jest.fn();
