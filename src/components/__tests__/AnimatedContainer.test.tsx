@@ -30,6 +30,7 @@ const setup = (props?: Omit<Partial<AnimatedContainerProps>, 'children'>) => {
     topOffset: 40,
     bottomOffset: 40,
     keyboardOffset: 10,
+    avoidKeyboard: true,
     onHide
   };
 
@@ -95,6 +96,7 @@ describe('test AnimatedContainer component', () => {
       moveY: 100,
       dy: 10
     };
+    panHandler?.props.onResponderGrant();
     panHandler?.props.onResponderMove(undefined, gesture);
     panHandler?.props.onResponderRelease(undefined, gesture);
     expect(onRestorePosition).toHaveBeenCalled();
@@ -119,6 +121,7 @@ describe('test AnimatedContainer component', () => {
       moveY: 5,
       dy: -78
     };
+    panHandler?.props.onResponderGrant();
     panHandler?.props.onResponderMove(undefined, gesture);
     panHandler?.props.onResponderRelease(undefined, gesture);
     expect(onHide).toHaveBeenCalled();

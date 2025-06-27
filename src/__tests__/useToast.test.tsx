@@ -1,20 +1,29 @@
 /* eslint-env jest */
 
 import { act, renderHook } from '@testing-library/react-hooks';
+import React from 'react';
 
 import { ToastOptions } from '../types';
 import { DEFAULT_DATA, DEFAULT_OPTIONS, useToast } from '../useToast';
+import { GestureProvider } from '../contexts';
 
-const setup = () => {
+const setupGestureWrapper = (panning: boolean) => {
+  return ({ children }: { children: React.ReactNode }) => (
+    <GestureProvider panning={panning}>{children}</GestureProvider>
+  );
+};
+
+const setup = (panning = false) => {
+  const wrapper = setupGestureWrapper(panning)
   const utils = renderHook(() =>
-    useToast({
-      defaultOptions: DEFAULT_OPTIONS
-    })
+    useToast({ defaultOptions: DEFAULT_OPTIONS }),
+    { wrapper }
   );
   return {
     ...utils
   };
 };
+
 
 describe('test useToast hook', () => {
   it('returns defaults', () => {
@@ -166,6 +175,29 @@ describe('test useToast hook', () => {
     expect(result.current.isVisible).toBe(false);
     expect(onHide).toHaveBeenCalled();
   });
+
+  it('does not hide when autoHide is true but user is panning', () => {
+    jest.useFakeTimers();
+    const { result } = setup(true);
+    const onHide = jest.fn();
+    act(() => {
+      result.current.show({
+        text1: 'test',
+        autoHide: true,
+        onHide
+      });
+    });
+
+    expect(result.current.isVisible).toBe(true);
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(result.current.isVisible).toBe(true);
+    expect(onHide).not.toHaveBeenCalled();
+  });
+
 
   it('shows using only text2', () => {
     const { result } = setup();

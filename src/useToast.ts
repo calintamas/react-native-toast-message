@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useLogger } from './contexts';
+import { useLogger, useGesture } from './contexts';
 import { useTimeout } from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
 import { noop } from './utils/func';
@@ -35,6 +35,7 @@ export type UseToastParams = {
 
 export function useToast({ defaultOptions }: UseToastParams) {
   const { log } = useLogger();
+  const { panning } = useGesture();
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [data, setData] = React.useState<ToastData>(DEFAULT_DATA);
@@ -47,10 +48,14 @@ export function useToast({ defaultOptions }: UseToastParams) {
     React.useState<Required<ToastOptions>>(initialOptions);
 
   const onAutoHide = React.useCallback(() => {
-    log('Auto hiding');
-    setIsVisible(false);
-    options.onHide();
-  }, [log, options]);
+    if (panning.current) {
+      log('Auto hiding was blocked due to panning');
+    } else {
+      log('Auto hiding');
+      setIsVisible(false);
+      options.onHide();
+    }
+  }, [log, options, panning]);
   const { startTimer, clearTimer } = useTimeout(
     onAutoHide,
     options.visibilityTime

@@ -7,7 +7,7 @@ import { act } from 'react-test-renderer';
 import { useViewDimensions } from '../useViewDimensions';
 import { UseViewDimensionsParams } from '..';
 
-const setup = (offsets: UseViewDimensionsParams) => {
+const setup = (offsets?: UseViewDimensionsParams) => {
   const layoutChangeEventMock = {
     nativeEvent: {
       layout: {

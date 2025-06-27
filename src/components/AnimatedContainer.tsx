@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animated, Dimensions, PanResponderGestureState } from 'react-native';
 
-import { useLogger } from '../contexts';
+import { useLogger, useGesture } from '../contexts';
 import {
   usePanResponder,
   useSlideAnimation,
@@ -81,6 +81,7 @@ export function AnimatedContainer({
   swipeable
 }: AnimatedContainerProps) {
   const { log } = useLogger();
+  const { panning } = useGesture();
 
   const { computeViewDimensions, height } = useViewDimensions();
 
@@ -92,6 +93,18 @@ export function AnimatedContainer({
     keyboardOffset,
     avoidKeyboard
   });
+
+  const disable = !swipeable || !isVisible;
+
+  const onStart = React.useCallback(() => {
+    log('Swipe, pan start');
+    panning.current = true;
+  }, [log, panning]);
+
+  const onEnd = React.useCallback(() => {
+    log('Swipe, pan end');
+    panning.current = false;
+  }, [log, panning]);
 
   const onDismiss = React.useCallback(() => {
     log('Swipe, dismissing');
@@ -118,7 +131,9 @@ export function AnimatedContainer({
     computeNewAnimatedValueForGesture,
     onDismiss,
     onRestore,
-    disable: !swipeable
+    onStart,
+    onEnd,
+    disable,
   });
 
   React.useLayoutEffect(() => {
@@ -133,7 +148,7 @@ export function AnimatedContainer({
       style={[styles.base, styles[position], animationStyles]}
       // This container View is never the target of touch events but its subviews can be.
       // By doing this, tapping buttons behind the Toast is allowed
-      pointerEvents={isVisible ? 'box-none' : 'none'}
+      pointerEvents='box-none'
       {...panResponder.panHandlers}>
       {children}
     </Animated.View>

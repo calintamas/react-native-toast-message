@@ -7,14 +7,14 @@ import { Button, Modal, Text } from 'react-native';
 import { Toast } from '../Toast';
 
 /*
-  The Modal component is automatically mocked by RN and apparently contains a bug which makes the Modal 
+  The Modal component is automatically mocked by RN and apparently contains a bug which makes the Modal
   (and its children) to always be visible in the test tree.
 
   This fixes the issue:
  */
 jest.mock('react-native/Libraries/Modal/Modal', () => {
   const ActualModal = jest.requireActual('react-native/Libraries/Modal/Modal');
-  return (props) => <ActualModal {...props} />;
+  return (props: any) => <ActualModal {...props} />;
 });
 
 jest.mock('react-native/Libraries/LogBox/LogBox');
@@ -84,7 +84,7 @@ describe('test Toast component', () => {
     // Show the Modal
     const showModalButton = utils.queryByText('Show modal');
     expect(showModalButton).toBeTruthy();
-    fireEvent.press(showModalButton);
+    fireEvent.press(showModalButton as any);
     await waitFor(() => {
       expect(utils.queryByText('Inside modal')).toBeTruthy();
     });
@@ -104,7 +104,7 @@ describe('test Toast component', () => {
     // Hide modal
     const hideModalButton = utils.queryByText('Hide modal');
     expect(hideModalButton).toBeTruthy();
-    fireEvent.press(hideModalButton);
+    fireEvent.press(hideModalButton as any);
     await waitFor(() => {
       expect(utils.queryByText('Inside modal')).toBeFalsy();
     });

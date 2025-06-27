@@ -6,7 +6,11 @@ import {
   PanResponderGestureState
 } from 'react-native';
 
-export function shouldSetPanResponder(
+export function startShouldSetPanResponder() {
+  return true;
+}
+
+export function moveShouldSetPanResponder(
   _event: GestureResponderEvent,
   gesture: PanResponderGestureState
 ) {
@@ -36,6 +40,8 @@ export type UsePanResponderParams = {
   ) => number;
   onDismiss: () => void;
   onRestore: () => void;
+  onStart: () => void;
+  onEnd: () => void;
   disable?: boolean;
 };
 
@@ -44,15 +50,23 @@ export function usePanResponder({
   computeNewAnimatedValueForGesture,
   onDismiss,
   onRestore,
+  onStart,
+  onEnd,
   disable
 }: UsePanResponderParams) {
+  const onGrant = React.useCallback(() => {
+      if (disable) return;
+      onStart();
+    },
+    [onStart, disable]
+  );
+
   const onMove = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
-      if (disable) {
-        return;
-      }
+      if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
+
       animatedValue.current?.setValue(newAnimatedValue);
     },
     [animatedValue, computeNewAnimatedValueForGesture, disable]
@@ -60,34 +74,36 @@ export function usePanResponder({
 
   const onRelease = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
-      if (disable) {
-        return;
-      }
+      if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
+      onEnd();
       if (shouldDismissView(newAnimatedValue, gesture)) {
         onDismiss();
       } else {
         onRestore();
       }
     },
-    [computeNewAnimatedValueForGesture, onDismiss, onRestore, disable]
+    [computeNewAnimatedValueForGesture, onEnd, onDismiss, onRestore, disable]
   );
 
   const panResponder = React.useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponder: shouldSetPanResponder,
-        onMoveShouldSetPanResponderCapture: shouldSetPanResponder,
+        onStartShouldSetPanResponder: startShouldSetPanResponder,
+        onPanResponderGrant: onGrant,
+        onMoveShouldSetPanResponder: moveShouldSetPanResponder,
+        onMoveShouldSetPanResponderCapture: moveShouldSetPanResponder,
         onPanResponderMove: onMove,
         onPanResponderRelease: onRelease
       }),
-    [onMove, onRelease]
+    [onMove, onRelease, onGrant]
   );
 
   return {
     panResponder,
+    onGrant,
     onMove,
-    onRelease
+    onRelease,
   };
 }
