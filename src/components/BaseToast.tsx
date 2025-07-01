@@ -22,7 +22,7 @@ export function BaseToast({
   text2Props,
   renderLeadingIcon,
   renderTrailingIcon
-}: BaseToastProps) {
+}: BaseToastProps): React.ReactElement {
   return (
     <TouchableOpacity
       testID={getTestId('TouchableContainer')}
