@@ -6,7 +6,8 @@ import {
   ToastHideParams,
   ToastProps,
   ToastRef,
-  ToastShowParams
+  ToastShowParams,
+  ToastType
 } from './types';
 import { useToast } from './useToast';
 
@@ -121,7 +122,7 @@ function getRef() {
   return activeRef.current;
 }
 
-Toast.show = (params: ToastShowParams) => {
+Toast.show = <T extends ToastType = ToastType>(params: ToastShowParams<T>) => {
   getRef()?.show(params);
 };
 

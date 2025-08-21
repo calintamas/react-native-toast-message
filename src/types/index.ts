@@ -10,15 +10,14 @@ import {
 
 export type ReactChildren = React.ReactNode;
 
-export type ToastType = 'success' | 'error' | 'info' | (string & {});
 export type ToastPosition = 'top' | 'bottom';
 
-export type ToastOptions = {
+export type ToastOptions<T extends ToastType = ToastType> = {
   /**
    * Toast type.
    * Default value: `success`
    */
-  type?: ToastType;
+  type?: T;
   /**
    * Style for the header text in the Toast (text1).
    */
@@ -85,20 +84,41 @@ export type ToastOptions = {
    * Called on Toast press
    */
   onPress?: () => void;
-  /**
-   * Any custom props passed to the specified Toast type.
-   * Has effect only when there is a custom Toast type (configured via the `config` prop
-   * on the Toast instance) that uses the `props` parameter
-   */
-  props?: any;
-};
+} & (keyof CustomToastParamTypes extends never
+  ? { props?: any }
+  : T extends keyof CustomToastParamTypes
+  ? Required<CustomToastParamTypes>[T] extends never
+    ? { props?: any }
+    : undefined extends CustomToastParamTypes[T]
+    ? {
+        /**
+         * Any custom props passed to the specified Toast type.
+         * Has effect only when there is a custom Toast type (configured via the `config` prop
+         * on the Toast instance) that uses the `props` parameter
+         */
+        props?: CustomToastParamTypes[T];
+      }
+    : {
+        /**
+         * Any custom props passed to the specified Toast type.
+         * Has effect only when there is a custom Toast type (configured via the `config` prop
+         * on the Toast instance) that uses the `props` parameter
+         */
+        props: CustomToastParamTypes[T];
+      }
+  : { props?: any });
 
 export type ToastData = {
   text1?: string;
   text2?: string;
 };
 
-export type ToastShowParams = ToastData & ToastOptions;
+export type ToastShow = <T extends ToastType = ToastType>(
+  params: ToastShowParams<T>
+) => void;
+
+export type ToastShowParams<T extends ToastType = ToastType> = ToastData &
+  ToastOptions<T>;
 
 export type ToastHideParams = void;
 
@@ -135,12 +155,33 @@ export type ToastConfigParams<Props> = {
   props: Props;
 };
 
+/**
+ * This interface is here to allow for types customization via declaration merging when using custom toast types.
+ * See [the docs](https://github.com/calintamas/react-native-toast-message/blob/main/docs/custom-layouts.md) for usage examples.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface CustomToastParamTypes {}
+
+export interface BuiltinToastParamsTypes {
+  success?: never;
+  error?: never;
+  info?: never;
+}
+
+export type ToastType = keyof (BuiltinToastParamsTypes & CustomToastParamTypes);
+
 export type ToastConfig = {
-  [key: string]: (params: ToastConfigParams<any>) => React.ReactNode;
-};
+  [key in keyof BuiltinToastParamsTypes]?: (
+    params: ToastConfigParams<BuiltinToastParamsTypes[key]>
+  ) => React.ReactNode;
+} & {
+  [key in keyof CustomToastParamTypes]-?: (
+    params: ToastConfigParams<CustomToastParamTypes[key]>
+  ) => React.ReactNode;
+} & Record<string, (params: ToastConfigParams<any>) => React.ReactNode>;
 
 export type ToastRef = {
-  show: (params: ToastShowParams) => void;
+  show: ToastShow;
   hide: (params: ToastHideParams) => void;
 };
 
@@ -148,11 +189,19 @@ export type ToastRef = {
  * `props` that can be set on the Toast instance.
  * They act as defaults for all Toasts that are shown.
  */
-export type ToastProps = {
-  /**
-   * Layout configuration for custom Toast types
-   */
-  config?: ToastConfig;
+export type ToastProps = (keyof CustomToastParamTypes extends never
+  ? {
+      /**
+       * Layout configuration for custom Toast types
+       */
+      config?: ToastConfig;
+    }
+  : {
+      /**
+       * Layout configuration for custom Toast types
+       */
+      config: ToastConfig;
+    }) & {
   /**
    * Toast type.
    * Default value: `success`
