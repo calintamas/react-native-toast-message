@@ -91,6 +91,7 @@ export type ToastOptions = {
    * on the Toast instance) that uses the `props` parameter
    */
   props?: any;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export type ToastData = {
@@ -216,4 +217,5 @@ export type ToastProps = {
    * Called on any Toast press
    */
   onPress?: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
 };
