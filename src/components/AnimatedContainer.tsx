@@ -1,5 +1,5 @@
-import React from 'react';
-import { Animated, Dimensions, PanResponderGestureState } from 'react-native';
+import React, { useEffect } from 'react';
+import { Animated, Dimensions, PanResponderGestureState, StyleProp, ViewStyle } from 'react-native';
 
 import { useLogger, useGesture } from '../contexts';
 import {
@@ -24,6 +24,7 @@ export type AnimatedContainerProps = {
   avoidKeyboard: boolean;
   onHide: () => void;
   onRestorePosition?: () => void;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -78,7 +79,8 @@ export function AnimatedContainer({
   avoidKeyboard,
   onHide,
   onRestorePosition = noop,
-  swipeable
+  swipeable,
+  containerStyle
 }: AnimatedContainerProps) {
   const { log } = useLogger();
   const { panning } = useGesture();
@@ -136,6 +138,8 @@ export function AnimatedContainer({
     disable,
   });
 
+  useEffect(()  => {   console.log("CUSTOM TOAST LIBRARY LOADED");}, []); 
+
   React.useLayoutEffect(() => {
     const newAnimationValue = isVisible ? 1 : 0;
     animate(newAnimationValue);
@@ -145,7 +149,7 @@ export function AnimatedContainer({
     <Animated.View
       testID={getTestId('AnimatedContainer')}
       onLayout={computeViewDimensions}
-      style={[styles.base, styles[position], animationStyles]}
+      style={[styles.base, styles[position], animationStyles, containerStyle]}
       // This container View is never the target of touch events but its subviews can be.
       // By doing this, tapping buttons behind the Toast is allowed
       pointerEvents='box-none'

@@ -26,7 +26,8 @@ export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   onShow: noop,
   onHide: noop,
   onPress: noop,
-  props: {}
+  props: {},
+  containerStyle: null,
 };
 
 export type UseToastParams = {
@@ -88,7 +89,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onHide = initialOptions.onHide,
         onPress = initialOptions.onPress,
         swipeable = initialOptions.swipeable,
-        props = initialOptions.props
+        props = initialOptions.props,
+        containerStyle = initialOptions.containerStyle,
       } = params;
       setData({
         text1,
@@ -110,7 +112,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onHide,
           onPress,
           swipeable,
-          props
+          props,
+          containerStyle,
         }) as Required<ToastOptions>
       );
       // TODO: validate input
