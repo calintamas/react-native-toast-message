@@ -116,7 +116,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
       // TODO: validate input
       // TODO: use a queue when Toast is already visible
       setIsVisible(true);
-      onShow();
+      onShow(params);
     },
     [initialOptions, log]
   );
