@@ -1,8 +1,9 @@
 import React from 'react';
 import { Animated, Platform } from 'react-native';
 
-import { ToastPosition } from '../types';
+import { ToastAnimationConfig, ToastPosition } from '../types';
 import { additiveInverseArray } from '../utils/array';
+import { resolveAnimationConfig } from '../utils/animationConfig';
 import { useKeyboard } from './useKeyboard';
 
 type UseSlideAnimationParams = {
@@ -12,6 +13,7 @@ type UseSlideAnimationParams = {
   bottomOffset: number;
   keyboardOffset: number;
   avoidKeyboard: boolean;
+  animationConfig?: ToastAnimationConfig;
 };
 
 export function translateYOutputRangeFor({
@@ -47,18 +49,34 @@ export function useSlideAnimation({
   topOffset,
   bottomOffset,
   keyboardOffset,
-  avoidKeyboard
+  avoidKeyboard,
+  animationConfig
 }: UseSlideAnimationParams) {
   const animatedValue = React.useRef(new Animated.Value(0));
   const { keyboardHeight } = useKeyboard();
 
   const animate = React.useCallback((toValue: number) => {
-    Animated.spring(animatedValue.current, {
-      toValue,
-      useNativeDriver,
-      friction: 8
-    }).start();
-  }, []);
+    const resolved = resolveAnimationConfig(
+      animationConfig,
+      toValue === 1 ? 'enter' : 'exit'
+    );
+
+    if (resolved.type === 'timing') {
+      const { type: _type, ...timingConfig } = resolved;
+      Animated.timing(animatedValue.current, {
+        ...timingConfig,
+        toValue,
+        useNativeDriver
+      }).start();
+    } else {
+      const { type: _type, ...springConfig } = resolved;
+      Animated.spring(animatedValue.current, {
+        ...springConfig,
+        toValue,
+        useNativeDriver
+      }).start();
+    }
+  }, [animationConfig]);
 
   const translateY = React.useMemo(() => animatedValue.current.interpolate({
     inputRange: [0, 1],

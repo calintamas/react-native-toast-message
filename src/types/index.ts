@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Animated,
   StyleProp,
   TextProps,
   TextStyle,
@@ -12,6 +13,25 @@ export type ReactChildren = React.ReactNode;
 
 export type ToastType = 'success' | 'error' | 'info' | (string & {});
 export type ToastPosition = 'top' | 'bottom';
+
+export type ToastSpringAnimationConfig = {
+  type: 'spring';
+} & Omit<Parameters<typeof Animated.spring>[1], 'useNativeDriver' | 'toValue'>;
+
+export type ToastTimingAnimationConfig = {
+  type: 'timing';
+} & Omit<Parameters<typeof Animated.timing>[1], 'useNativeDriver' | 'toValue'>;
+
+export type ToastSingleAnimationConfig =
+  | ToastSpringAnimationConfig
+  | ToastTimingAnimationConfig;
+
+export type ToastAnimationConfig =
+  | ToastSingleAnimationConfig
+  | {
+      enter?: ToastSingleAnimationConfig;
+      exit?: ToastSingleAnimationConfig;
+    };
 
 export type ToastOptions = {
   /**
@@ -91,6 +111,15 @@ export type ToastOptions = {
    * on the Toast instance) that uses the `props` parameter
    */
   props?: any;
+  /**
+   * Configures the enter/exit animation.
+   *
+   * Pass a single `{ type: 'spring' | 'timing', ...config }` to use the same animation
+   * for both phases, or `{ enter, exit }` to configure them separately.
+   *
+   * Default: `{ type: 'spring', friction: 8 }`
+   */
+  animationConfig?: ToastAnimationConfig;
 };
 
 export type ToastData = {
@@ -216,4 +245,11 @@ export type ToastProps = {
    * Called on any Toast press
    */
   onPress?: () => void;
+  /**
+   * Default enter/exit animation configuration applied to every Toast.
+   * Can be overridden per-call via `Toast.show({ animationConfig })`.
+   *
+   * Default: `{ type: 'spring', friction: 8 }`
+   */
+  animationConfig?: ToastAnimationConfig;
 };

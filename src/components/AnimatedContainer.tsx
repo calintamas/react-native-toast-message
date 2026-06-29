@@ -7,7 +7,7 @@ import {
   useSlideAnimation,
   useViewDimensions
 } from '../hooks';
-import { ReactChildren, ToastPosition } from '../types';
+import { ReactChildren, ToastAnimationConfig, ToastPosition } from '../types';
 import { noop } from '../utils/func';
 import { bound } from '../utils/number';
 import { getTestId } from '../utils/test-id';
@@ -22,6 +22,7 @@ export type AnimatedContainerProps = {
   bottomOffset: number;
   keyboardOffset: number;
   avoidKeyboard: boolean;
+  animationConfig?: ToastAnimationConfig;
   onHide: () => void;
   onRestorePosition?: () => void;
 };
@@ -76,6 +77,7 @@ export function AnimatedContainer({
   bottomOffset,
   keyboardOffset,
   avoidKeyboard,
+  animationConfig,
   onHide,
   onRestorePosition = noop,
   swipeable
@@ -91,7 +93,8 @@ export function AnimatedContainer({
     topOffset,
     bottomOffset,
     keyboardOffset,
-    avoidKeyboard
+    avoidKeyboard,
+    animationConfig
   });
 
   const disable = !swipeable || !isVisible;

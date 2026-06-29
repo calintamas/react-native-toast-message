@@ -37,6 +37,7 @@ The complete set of **options** is described below:
 | `onHide`         | Called when the Toast hides                                                                                                                                                                     | `() => void`      |               |
 | `onPress`        | Called on Toast press                                                                                                                                                                           | `() => void`      |               |
 | `props`          | Any custom props passed to the specified Toast type. Has effect only when there is a custom Toast type (configured via the `config` prop on the Toast instance) that uses the `props` parameter | `any`             |               |
+| `animationConfig` | Configures the enter/exit animation. See [Animation config](#animation-config) | `ToastAnimationConfig` | `{ type: 'spring', friction: 8 }` |
 
 ### `hide()`
 
@@ -66,6 +67,7 @@ The following set of `props` can be passed to the `Toast` component instance to 
 | `onShow`         | Called when any Toast is shown                                                                                                    | `() => void`                           |               |
 | `onHide`         | Called when any Toast hides                                                                                                       | `() => void`                           |               |
 | `onPress`        | Called on any Toast press                                                                                                         | `() => void`                           |               |
+| `animationConfig` | Default enter/exit animation config applied to every Toast. See [Animation config](#animation-config) | `ToastAnimationConfig` | `{ type: 'spring', friction: 8 }` |
 
 For example, to make sure all your Toasts are displayed at the bottom of the screen:
 
@@ -85,3 +87,37 @@ export function App(props) {
   );
 }
 ```
+
+## Animation config
+
+The enter and exit animations can be customized via the `animationConfig` option. It accepts either a single config (applied to both phases) or a pair `{ enter, exit }`.
+
+Each config has a `type` of `'spring'` or `'timing'` and forwards the rest of the props to `Animated.spring` or `Animated.timing` from React Native (`useNativeDriver` and `toValue` are managed internally).
+
+```js
+import Toast from 'react-native-toast-message';
+import { Easing } from 'react-native';
+
+// timing animation for both enter and exit
+Toast.show({
+  text1: 'Hello',
+  animationConfig: { type: 'timing', duration: 200 }
+});
+
+// different animations for enter and exit
+Toast.show({
+  text1: 'Hello',
+  animationConfig: {
+    enter: { type: 'timing', duration: 200, easing: Easing.out(Easing.cubic) },
+    exit: { type: 'timing', duration: 400, easing: Easing.in(Easing.cubic) }
+  }
+});
+
+// tune the default spring
+Toast.show({
+  text1: 'Hello',
+  animationConfig: { type: 'spring', friction: 6, tension: 40 }
+});
+```
+
+The default is `{ type: 'spring', friction: 8 }`, matching previous releases.

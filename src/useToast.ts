@@ -3,6 +3,7 @@ import React from 'react';
 import { useLogger, useGesture } from './contexts';
 import { useTimeout } from './hooks';
 import { ToastData, ToastOptions, ToastProps, ToastShowParams } from './types';
+import { DEFAULT_ANIMATION_CONFIG } from './utils/animationConfig';
 import { noop } from './utils/func';
 import { mergeIfDefined } from './utils/obj';
 
@@ -26,7 +27,8 @@ export const DEFAULT_OPTIONS: Required<ToastOptions> = {
   onShow: noop,
   onHide: noop,
   onPress: noop,
-  props: {}
+  props: {},
+  animationConfig: DEFAULT_ANIMATION_CONFIG
 };
 
 export type UseToastParams = {
@@ -88,7 +90,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
         onHide = initialOptions.onHide,
         onPress = initialOptions.onPress,
         swipeable = initialOptions.swipeable,
-        props = initialOptions.props
+        props = initialOptions.props,
+        animationConfig = initialOptions.animationConfig
       } = params;
       setData({
         text1,
@@ -110,7 +113,8 @@ export function useToast({ defaultOptions }: UseToastParams) {
           onHide,
           onPress,
           swipeable,
-          props
+          props,
+          animationConfig
         }) as Required<ToastOptions>
       );
       // TODO: validate input

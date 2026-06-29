@@ -142,7 +142,8 @@ describe('test useToast hook', () => {
       onPress: jest.fn(),
       props: {
         foo: 'bar'
-      }
+      },
+      animationConfig: { type: 'spring', friction: 8 }
     };
     act(() => {
       result.current.show({
