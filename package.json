@@ -18,6 +18,7 @@
   "scripts": {
     "prepare": "husky install",
     "setup": "./scripts/setup.sh",
+    "bump": "./scripts/bump.sh",
     "build": "rm -rf ./lib && tsc",
     "prettier": "./node_modules/.bin/prettier --write",
     "lint": "./node_modules/.bin/eslint --fix --cache",

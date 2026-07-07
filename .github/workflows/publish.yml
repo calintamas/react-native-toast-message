@@ -2,8 +2,8 @@ name: build
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   quality:
@@ -12,12 +12,16 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: quality
+    permissions:
+      id-token: write # required for npm trusted publishing (OIDC)
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
           cache: yarn
 
       - name: Install dependencies
@@ -26,7 +30,5 @@ jobs:
       - name: Build
         run: yarn build
 
-      - id: publish
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+      - name: Publish
+        run: npm publish
