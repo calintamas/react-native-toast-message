@@ -94,9 +94,9 @@ export type ToastOptions = {
    */
   avoidKeyboard?: boolean;
   /**
-   * Called when Toast is shown
+   * Called when Toast is shown, receives the show params
    */
-  onShow?: () => void;
+  onShow?: (params: ToastShowParams) => void;
   /**
    * Called when Toast hides
    */
@@ -234,9 +234,9 @@ export type ToastProps = {
    */
   avoidKeyboard?: boolean;
   /**
-   * Called when any Toast is shown
+   * Called when any Toast is shown, receives the show params
    */
-  onShow?: () => void;
+  onShow?: (params: ToastShowParams) => void;
   /**
    * Called when any Toast hides
    */
