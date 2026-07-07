@@ -6,58 +6,27 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restore yarn cache
-        uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn --prefer-offline
-
-      - name: Setup React Native environment
-        run: |
-          yarn add react@17.0.2
-          yarn add react-native@0.64.2
-
-      - name: Run tests
-        run: yarn test --coverage
+  quality:
+    uses: ./.github/workflows/quality.yml
 
   publish:
     runs-on: ubuntu-latest
-    needs: test
+    needs: quality
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version-file: .nvmrc
+          cache: yarn
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --frozen-lockfile --prefer-offline
 
       - name: Build
         run: yarn build
 
       - id: publish
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}

@@ -1,4 +1,4 @@
-name: Run code quality checks
+name: Run code quality checks and tests
 
 on:
   push:
@@ -7,39 +7,28 @@ on:
   pull_request:
     branches:
       - main
+  workflow_call:
 
 jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version-file: .nvmrc
+          cache: yarn
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Setup environment
+        run: ./scripts/setup.sh
 
-      - name: Restore yarn cache
-        uses: actions/cache@v4
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn --prefer-offline
-
-      - name: Setup React Native environment
-        run: |
-          yarn add react@17.0.2
-          yarn add react-native@0.64.2
-
-      - name: Run code quality checks
+      - name: Run code quality checks and tests
         run: yarn quality
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
