@@ -37,6 +37,19 @@ describe('test BaseToast component', () => {
     expect(queryByText('World')).not.toBe(null);
   });
 
+  it('prefixes internal ids with a custom testID', () => {
+    const { queryByTestId } = setup({
+      testID: 'Toast.success',
+      text1: 'Hello',
+      text2: 'World'
+    });
+
+    expect(queryByTestId('Toast.successTouchableContainer')).not.toBe(null);
+    expect(queryByTestId('Toast.successContentContainer')).not.toBe(null);
+    expect(queryByTestId('Toast.successText1')).not.toBe(null);
+    expect(queryByTestId('Toast.successText2')).not.toBe(null);
+  });
+
   it('renders only text1', () => {
     const { queryByTestId, queryByText } = setup({
       text1: 'Hello'

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { BaseToastProps } from '../types';
 import { getTestId } from '../utils/test-id';
 import { styles } from './BaseToast.styles';
 
 export function BaseToast({
+  testID = 'toast',
   text1,
   text2,
   onPress,
@@ -25,19 +26,19 @@ export function BaseToast({
 }: BaseToastProps): React.ReactElement {
   return (
     <TouchableOpacity
-      testID={getTestId('TouchableContainer')}
+      testID={getTestId('TouchableContainer', testID)}
       onPress={onPress}
       activeOpacity={activeOpacity}
       style={[styles.base, styles.leadingBorder, style]}
       {...touchableContainerProps}>
       {renderLeadingIcon && renderLeadingIcon()}
       <View
-        testID={getTestId('ContentContainer')}
+        testID={getTestId('ContentContainer', testID)}
         style={[styles.contentContainer, contentContainerStyle]}
         {...contentContainerProps}>
         {(text1?.length ?? 0) > 0 && (
           <Text
-            testID={getTestId('Text1')}
+            testID={getTestId('Text1', testID)}
             style={[styles.text1, text1Style]}
             numberOfLines={text1NumberOfLines}
             ellipsizeMode='tail'
@@ -47,7 +48,7 @@ export function BaseToast({
         )}
         {(text2?.length ?? 0) > 0 && (
           <Text
-            testID={getTestId('Text2')}
+            testID={getTestId('Text2', testID)}
             style={[styles.text2, text2Style]}
             numberOfLines={text2NumberOfLines}
             ellipsizeMode='tail'

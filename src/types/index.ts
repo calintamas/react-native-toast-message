@@ -132,6 +132,7 @@ export type ToastShowParams = ToastData & ToastOptions;
 export type ToastHideParams = void;
 
 export type BaseToastProps = {
+  testID?: string;
   text1?: string;
   text2?: string;
   onPress?: () => void;
