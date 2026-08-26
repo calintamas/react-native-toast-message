@@ -35,6 +35,8 @@ const setup = ({ newAnimatedValueForGesture = 0, disable = false } = {}) => {
     computeNewAnimatedValueForGesture,
     onDismiss,
     onRestore,
+    onStart,
+    onEnd,
     ...utils
   };
 };
@@ -113,6 +115,35 @@ describe('test usePanResponder hook', () => {
     result.current.onRelease({} as GestureResponderEvent, mockGestureValues);
     expect(computeNewAnimatedValueForGesture).toBeCalledWith(mockGestureValues);
     expect(onRestore).toHaveBeenCalled();
+  });
+
+  it('ends panning and restores when the responder is terminated', () => {
+    const {
+      result,
+      computeNewAnimatedValueForGesture,
+      onDismiss,
+      onRestore,
+      onStart,
+      onEnd
+    } = setup();
+
+    result.current.onGrant();
+    result.current.onTerminate();
+
+    expect(onStart).toHaveBeenCalled();
+    expect(onEnd).toHaveBeenCalled();
+    expect(onRestore).toHaveBeenCalled();
+    expect(onDismiss).not.toHaveBeenCalled();
+    expect(computeNewAnimatedValueForGesture).not.toHaveBeenCalled();
+  });
+
+  it('ends panning without restoring when a disabled responder is terminated', () => {
+    const { result, onEnd, onRestore } = setup({ disable: true });
+
+    result.current.onTerminate();
+
+    expect(onEnd).toHaveBeenCalled();
+    expect(onRestore).not.toHaveBeenCalled();
   });
 });
 

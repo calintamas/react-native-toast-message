@@ -126,6 +126,25 @@ describe('test AnimatedContainer component', () => {
     panHandler?.props.onResponderRelease(undefined, gesture);
     expect(onHide).toHaveBeenCalled();
   });
+
+  it('restores toast position when the responder is terminated', async () => {
+    mockPanResponder();
+    const onRestorePosition = jest.fn();
+    const { queryByTestId } = setup({
+      isVisible: true,
+      onRestorePosition
+    });
+    await waitFor(() =>
+      expect(queryByTestId('toastAnimatedContainer')).toHaveStyle({
+        ...defaultStyles,
+        opacity: 1
+      })
+    );
+    const panHandler = queryByTestId('toastAnimatedContainer');
+    panHandler?.props.onResponderGrant();
+    panHandler?.props.onResponderTerminate();
+    expect(onRestorePosition).toHaveBeenCalled();
+  });
 });
 
 jest.spyOn(Dimensions, 'get').mockImplementation(() => ({

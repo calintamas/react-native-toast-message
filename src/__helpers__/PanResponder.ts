@@ -29,7 +29,8 @@ export function mockPanResponder() {
         onMoveShouldSetPanResponder,
         onMoveShouldSetPanResponderCapture,
         onPanResponderMove,
-        onPanResponderRelease
+        onPanResponderRelease,
+        onPanResponderTerminate
       }: PanResponderCallbacks) => ({
         panHandlers: {
           onStartShouldSetResponder: onStartShouldSetPanResponder,
@@ -37,7 +38,8 @@ export function mockPanResponder() {
           onMoveShouldSetResponder: onMoveShouldSetPanResponder,
           onMoveShouldSetResponderCapture: onMoveShouldSetPanResponderCapture,
           onResponderMove: onPanResponderMove,
-          onResponderRelease: onPanResponderRelease
+          onResponderRelease: onPanResponderRelease,
+          onResponderTerminate: onPanResponderTerminate
         } as GestureResponderHandlers
       })
     );

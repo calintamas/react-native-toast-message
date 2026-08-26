@@ -87,6 +87,12 @@ export function usePanResponder({
     [computeNewAnimatedValueForGesture, onEnd, onDismiss, onRestore, disable]
   );
 
+  const onTerminate = React.useCallback(() => {
+    onEnd();
+    if (disable) return;
+    onRestore();
+  }, [onEnd, onRestore, disable]);
+
   const panResponder = React.useMemo(
     () =>
       PanResponder.create({
@@ -95,9 +101,10 @@ export function usePanResponder({
         onMoveShouldSetPanResponder: moveShouldSetPanResponder,
         onMoveShouldSetPanResponderCapture: moveShouldSetPanResponder,
         onPanResponderMove: onMove,
-        onPanResponderRelease: onRelease
+        onPanResponderRelease: onRelease,
+        onPanResponderTerminate: onTerminate
       }),
-    [onMove, onRelease, onGrant]
+    [onMove, onRelease, onTerminate, onGrant]
   );
 
   return {
@@ -105,5 +112,6 @@ export function usePanResponder({
     onGrant,
     onMove,
     onRelease,
+    onTerminate
   };
 }
