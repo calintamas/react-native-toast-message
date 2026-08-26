@@ -1,8 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet, ViewStyle } from 'react-native';
 
 export const HEIGHT = 60;
 export const WIDTH = 340;
 export const BORDER_RADIUS = 6;
+
+type ShadowStyle =
+  | { boxShadow: string }
+  | Pick<ViewStyle, 'shadowOffset' | 'shadowOpacity' | 'shadowRadius'>;
 
 export const styles = StyleSheet.create({
   base: {
@@ -10,9 +14,16 @@ export const styles = StyleSheet.create({
     height: HEIGHT,
     width: WIDTH,
     borderRadius: BORDER_RADIUS,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: BORDER_RADIUS,
+    ...Platform.select<ShadowStyle>({
+      web: {
+        boxShadow: `0px 0px ${BORDER_RADIUS}px rgba(0, 0, 0, 0.1)`
+      },
+      default: {
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.1,
+        shadowRadius: BORDER_RADIUS
+      }
+    }),
     elevation: 2,
     backgroundColor: '#FFF'
   },
