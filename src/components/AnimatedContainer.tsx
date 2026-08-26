@@ -3,6 +3,7 @@ import { Animated, Dimensions, PanResponderGestureState } from 'react-native';
 
 import { useLogger, useGesture } from '../contexts';
 import {
+  useIsomorphicLayoutEffect,
   usePanResponder,
   useSlideAnimation,
   useViewDimensions
@@ -139,7 +140,7 @@ export function AnimatedContainer({
     disable,
   });
 
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const newAnimationValue = isVisible ? 1 : 0;
     animate(newAnimationValue);
   }, [animate, isVisible]);
