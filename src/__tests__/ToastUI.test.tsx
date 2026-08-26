@@ -57,6 +57,25 @@ describe('test ToastUI component', () => {
     expect(queryByText('text2')).toBeDefined();
   });
 
+  it('passes visibilityTime to custom Toast layouts', () => {
+    const customToast = jest.fn(() => null);
+
+    setup({
+      options: {
+        ...DEFAULT_OPTIONS,
+        type: 'custom',
+        visibilityTime: 10000
+      },
+      config: {
+        custom: customToast
+      }
+    });
+
+    expect(customToast).toHaveBeenCalledWith(
+      expect.objectContaining({ visibilityTime: 10000 })
+    );
+  });
+
   it('throws when trying to render an undefined Toast type', () => {
     const type = 'mock';
     expect(() =>

@@ -154,6 +154,7 @@ export type ToastConfigParams<Props> = {
   position: ToastPosition;
   type: ToastType;
   isVisible: boolean;
+  visibilityTime: number;
   text1?: string;
   text2?: string;
   text1Style?: StyleProp<TextStyle>;
