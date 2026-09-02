@@ -99,6 +99,7 @@ export function useSlideAnimation({
   return {
     animatedValue,
     animate,
+    keyboardHeight,
     animationStyles: {
       opacity,
       transform: [

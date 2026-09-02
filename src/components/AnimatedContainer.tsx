@@ -88,15 +88,16 @@ export function AnimatedContainer({
 
   const { computeViewDimensions, height } = useViewDimensions();
 
-  const { animatedValue, animate, animationStyles } = useSlideAnimation({
-    position,
-    height,
-    topOffset,
-    bottomOffset,
-    keyboardOffset,
-    avoidKeyboard,
-    animationConfig
-  });
+  const { animatedValue, animate, animationStyles, keyboardHeight } =
+    useSlideAnimation({
+      position,
+      height,
+      topOffset,
+      bottomOffset,
+      keyboardOffset,
+      avoidKeyboard,
+      animationConfig
+    });
 
   const disable = !swipeable || !isVisible;
 
@@ -143,7 +144,10 @@ export function AnimatedContainer({
   useIsomorphicLayoutEffect(() => {
     const newAnimationValue = isVisible ? 1 : 0;
     animate(newAnimationValue);
-  }, [animate, isVisible]);
+    // `translateY` is rebuilt whenever the target position changes, but a
+    // rebuilt interpolation is never driven unless the animation runs again,
+    // so without these deps the container keeps the transform it came in with
+  }, [animate, isVisible, keyboardHeight, bottomOffset, topOffset]);
 
   return (
     <Animated.View

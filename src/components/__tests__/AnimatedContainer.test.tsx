@@ -3,6 +3,7 @@
 import { render, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import {
+  Animated,
   Dimensions,
   PanResponderGestureState,
   View,
@@ -75,6 +76,43 @@ describe('test AnimatedContainer component', () => {
       })
     );
     expect(queryByTestId('childView')).not.toBe(null);
+  });
+
+  it('animates again when the target position changes while visible', async () => {
+    const spring = jest.spyOn(Animated, 'spring');
+    const props: Omit<AnimatedContainerProps, 'children'> = {
+      isVisible: true,
+      position: 'bottom',
+      swipeable: true,
+      topOffset: 40,
+      bottomOffset: 40,
+      keyboardOffset: 10,
+      avoidKeyboard: true,
+      onHide: jest.fn()
+    };
+    const { rerender, queryByTestId } = render(
+      <AnimatedContainer {...props}>
+        <View testID='childView' />
+      </AnimatedContainer>
+    );
+
+    await waitFor(() =>
+      expect(queryByTestId('toastAnimatedContainer')).toHaveStyle({
+        opacity: 1
+      })
+    );
+
+    // `translateY` is rebuilt when the offset changes, but a rebuilt
+    // interpolation stays undriven unless the animation runs again
+    spring.mockClear();
+    rerender(
+      <AnimatedContainer {...props} bottomOffset={200}>
+        <View testID='childView' />
+      </AnimatedContainer>
+    );
+
+    expect(spring).toHaveBeenCalled();
+    spring.mockRestore();
   });
 
   it('restores toast position on pan (if gesture is higher than threshold)', async () => {
