@@ -74,10 +74,11 @@ export function usePanResponder({
 
   const onRelease = React.useCallback(
     (_event: GestureResponderEvent, gesture: PanResponderGestureState) => {
+      onEnd();
+
       if (disable) return;
 
       const newAnimatedValue = computeNewAnimatedValueForGesture(gesture);
-      onEnd();
       if (shouldDismissView(newAnimatedValue, gesture)) {
         onDismiss();
       } else {

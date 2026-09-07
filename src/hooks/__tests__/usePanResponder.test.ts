@@ -137,6 +137,16 @@ describe('test usePanResponder hook', () => {
     expect(computeNewAnimatedValueForGesture).not.toHaveBeenCalled();
   });
 
+  it('ends panning without dismissing or restoring when a disabled responder is released', () => {
+    const { result, onEnd, onDismiss, onRestore } = setup({ disable: true });
+
+    result.current.onRelease({} as GestureResponderEvent, mockGestureValues);
+
+    expect(onEnd).toHaveBeenCalled();
+    expect(onDismiss).not.toHaveBeenCalled();
+    expect(onRestore).not.toHaveBeenCalled();
+  });
+
   it('ends panning without restoring when a disabled responder is terminated', () => {
     const { result, onEnd, onRestore } = setup({ disable: true });
 
