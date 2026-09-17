@@ -1,7 +1,5 @@
 import { Platform, StyleSheet, ViewStyle } from 'react-native';
 
-export const HEIGHT = 60;
-export const WIDTH = 340;
 export const BORDER_RADIUS = 6;
 
 type ShadowStyle =
@@ -11,8 +9,6 @@ type ShadowStyle =
 export const styles = StyleSheet.create({
   base: {
     flexDirection: 'row',
-    height: HEIGHT,
-    width: WIDTH,
     borderRadius: BORDER_RADIUS,
     ...Platform.select<ShadowStyle>({
       web: {
