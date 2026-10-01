@@ -86,3 +86,33 @@ Toast.show({
 ```
 
 All the available props on `BaseToast`, `SuccessToast`, `ErrorToast` or `InfoToast` components can be found here: [BaseToastProps](../src/types/index.ts#L86-L103).
+
+## Backdrop
+
+Use `renderBackdrop` on the `<Toast />` instance to render a decorative layer behind the Toast:
+
+```tsx
+import { View } from 'react-native';
+import Toast from 'react-native-toast-message';
+
+<Toast
+  renderBackdrop={({ type }) => (
+    <View
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor:
+          type === 'error' ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+      }}
+    />
+  )}
+/>;
+```
+
+The callback receives `type`, `position`, `isVisible`, and the custom `props` passed to `Toast.show()`. Return `null` to omit the backdrop for a particular Toast type. This is an instance prop; it cannot be overridden through `Toast.show()`.
+
+The library provides a container with the same width and measured height as the Toast container, aligned with the Toast's resting position. Use `width: '100%'` and `height: '100%'` to fill it. Include any desired padding in your custom Toast layout to extend the backdrop's area.
+
+The backdrop follows `topOffset`, `bottomOffset`, and keyboard avoidance, but stays in place and keeps its opacity while the Toast is dragged or restored. It fades in and out using the enter/exit `animationConfig`, independently of the swipe animation. `isVisible` indicates the requested visibility, not animation completion; returning `null` when it becomes `false` skips the exit fade.
+
+The backdrop does not receive touch events, so controls underneath remain interactive. When `renderBackdrop` is omitted, Toast behavior is unchanged.

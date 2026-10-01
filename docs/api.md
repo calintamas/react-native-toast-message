@@ -56,6 +56,7 @@ The following set of `props` can be passed to the `Toast` component instance to 
 | prop             | description                                                                                                                       | type                                   | default value |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------- |
 | `config`         | Layout configuration for custom Toast types                                                                                       | [`ToastConfig`](../src/types/index.ts) |               |
+| `renderBackdrop` | Renders a fixed, non-interactive layer behind the Toast. See [Backdrop](./custom-layouts.md#backdrop) | `(params: ToastBackdropParams) => React.ReactNode` | |
 | `type`           | Default Toast type                                                                                                                | `string`                               | `success`     |
 | `position`       | Default Toast position                                                                                                            | `top` or `bottom`                      | `top`         |
 | `visibilityTime` | Number of milliseconds after which Toast automatically hides. Has effect only in conjunction with `autoHide` prop set to `true`   | `number`                               | `4000`        |

@@ -9,6 +9,7 @@ import {
   ToastData,
   ToastHideParams,
   ToastOptions,
+  ToastProps,
   ToastShowParams
 } from './types';
 
@@ -19,6 +20,7 @@ export type ToastUIProps = {
   show: (params: ToastShowParams) => void;
   hide: (params: ToastHideParams) => void;
   config?: ToastConfig;
+  renderBackdrop?: ToastProps['renderBackdrop'];
 };
 
 const defaultToastConfig: ToastConfig = {
@@ -75,7 +77,7 @@ function renderComponent({
 }
 
 export function ToastUI(props: ToastUIProps) {
-  const { isVisible, options, hide } = props;
+  const { isVisible, options, hide, renderBackdrop } = props;
   const {
     position,
     topOffset,
@@ -96,7 +98,13 @@ export function ToastUI(props: ToastUIProps) {
       avoidKeyboard={avoidKeyboard}
       swipeable={swipeable}
       animationConfig={animationConfig}
-      onHide={hide}>
+      onHide={hide}
+      backdrop={renderBackdrop?.({
+        position,
+        type: options.type,
+        isVisible,
+        props: options.props
+      })}>
       {renderComponent(props)}
     </AnimatedContainer>
   );
