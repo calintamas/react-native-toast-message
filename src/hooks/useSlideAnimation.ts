@@ -1,9 +1,9 @@
 import React from 'react';
-import { Animated, Platform } from 'react-native';
+import { Animated } from 'react-native';
 
 import { ToastAnimationConfig, ToastPosition } from '../types';
+import { createAnimation } from '../utils/animationConfig';
 import { additiveInverseArray } from '../utils/array';
-import { resolveAnimationConfig } from '../utils/animationConfig';
 import { useKeyboard } from './useKeyboard';
 
 type UseSlideAnimationParams = {
@@ -29,7 +29,9 @@ export function translateYOutputRangeFor({
 }) {
   const offset = position === 'bottom' ? bottomOffset : topOffset;
   const keyboardAwareOffset =
-    position === 'bottom' && avoidKeyboard ? keyboardHeight + keyboardOffset : 0;
+    position === 'bottom' && avoidKeyboard
+      ? keyboardHeight + keyboardOffset
+      : 0;
 
   const range = [-(height * 2), Math.max(offset, keyboardAwareOffset)];
   const outputRange =
@@ -37,11 +39,6 @@ export function translateYOutputRangeFor({
 
   return outputRange;
 }
-
-const useNativeDriver = Platform.select({
-  ios: true,
-  default: false
-});
 
 export function useSlideAnimation({
   position,
@@ -55,32 +52,28 @@ export function useSlideAnimation({
   const animatedValue = React.useRef(new Animated.Value(0));
   const { keyboardHeight } = useKeyboard();
 
-  const animate = React.useCallback((toValue: number) => {
-    const resolved = resolveAnimationConfig(
-      animationConfig,
-      toValue === 1 ? 'enter' : 'exit'
-    );
+  const animate = React.useCallback(
+    (toValue: number) => {
+      createAnimation(animatedValue.current, toValue, animationConfig).start();
+    },
+    [animationConfig]
+  );
 
-    if (resolved.type === 'timing') {
-      const { type: _type, ...timingConfig } = resolved;
-      Animated.timing(animatedValue.current, {
-        ...timingConfig,
-        toValue,
-        useNativeDriver
-      }).start();
-    } else {
-      const { type: _type, ...springConfig } = resolved;
-      Animated.spring(animatedValue.current, {
-        ...springConfig,
-        toValue,
-        useNativeDriver
-      }).start();
-    }
-  }, [animationConfig]);
-
-  const translateY = React.useMemo(() => animatedValue.current.interpolate({
-    inputRange: [0, 1],
-    outputRange: translateYOutputRangeFor({
+  const translateY = React.useMemo(
+    () =>
+      animatedValue.current.interpolate({
+        inputRange: [0, 1],
+        outputRange: translateYOutputRangeFor({
+          position,
+          height,
+          topOffset,
+          bottomOffset,
+          keyboardHeight,
+          keyboardOffset,
+          avoidKeyboard
+        })
+      }),
+    [
       position,
       height,
       topOffset,
@@ -88,8 +81,8 @@ export function useSlideAnimation({
       keyboardHeight,
       keyboardOffset,
       avoidKeyboard
-    })
-  }), [position, height, topOffset, bottomOffset, keyboardHeight, keyboardOffset, avoidKeyboard]);
+    ]
+  );
 
   const opacity = animatedValue.current.interpolate({
     inputRange: [0, 0.7, 1],

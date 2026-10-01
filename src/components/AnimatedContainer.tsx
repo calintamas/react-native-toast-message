@@ -1,21 +1,24 @@
 import React from 'react';
 import { Animated, Dimensions, PanResponderGestureState } from 'react-native';
 
-import { useLogger, useGesture } from '../contexts';
+import { useGesture, useLogger } from '../contexts';
 import {
   useIsomorphicLayoutEffect,
   usePanResponder,
   useSlideAnimation,
   useViewDimensions
 } from '../hooks';
+import { translateYOutputRangeFor } from '../hooks/useSlideAnimation';
 import { ReactChildren, ToastAnimationConfig, ToastPosition } from '../types';
 import { noop } from '../utils/func';
 import { bound } from '../utils/number';
 import { getTestId } from '../utils/test-id';
 import { styles } from './AnimatedContainer.styles';
+import { Backdrop } from './Backdrop';
 
 export type AnimatedContainerProps = {
   children: ReactChildren;
+  backdrop?: ReactChildren;
   isVisible: boolean;
   position: ToastPosition;
   topOffset: number;
@@ -72,6 +75,7 @@ export function animatedValueFor(
 
 export function AnimatedContainer({
   children,
+  backdrop,
   isVisible,
   position,
   topOffset,
@@ -138,7 +142,7 @@ export function AnimatedContainer({
     onRestore,
     onStart,
     onEnd,
-    disable,
+    disable
   });
 
   useIsomorphicLayoutEffect(() => {
@@ -149,16 +153,38 @@ export function AnimatedContainer({
     // so without these deps the container keeps the transform it came in with
   }, [animate, isVisible, keyboardHeight, bottomOffset, topOffset]);
 
+  const backdropOffset = translateYOutputRangeFor({
+    position,
+    height,
+    topOffset,
+    bottomOffset,
+    keyboardHeight,
+    keyboardOffset,
+    avoidKeyboard
+  })[1];
+
   return (
-    <Animated.View
-      testID={getTestId('AnimatedContainer')}
-      onLayout={computeViewDimensions}
-      style={[styles.base, styles[position], animationStyles]}
-      // This container View is never the target of touch events but its subviews can be.
-      // By doing this, tapping buttons behind the Toast is allowed
-      pointerEvents='box-none'
-      {...panResponder.panHandlers}>
-      {children}
-    </Animated.View>
+    <>
+      {backdrop != null && height > 0 && (
+        <Backdrop
+          isVisible={isVisible}
+          position={position}
+          height={height}
+          offset={backdropOffset}
+          animationConfig={animationConfig}>
+          {backdrop}
+        </Backdrop>
+      )}
+      <Animated.View
+        testID={getTestId('AnimatedContainer')}
+        onLayout={computeViewDimensions}
+        style={[styles.base, styles[position], animationStyles]}
+        // This container View is never the target of touch events but its subviews can be.
+        // By doing this, tapping buttons behind the Toast is allowed
+        pointerEvents='box-none'
+        {...panResponder.panHandlers}>
+        {children}
+      </Animated.View>
+    </>
   );
 }

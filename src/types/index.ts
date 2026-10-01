@@ -175,11 +175,24 @@ export type ToastRef = {
   hide: (params: ToastHideParams) => void;
 };
 
+/** Parameters for a non-interactive layer behind the Toast. */
+export type ToastBackdropParams = Pick<
+  ToastConfigParams<any>,
+  'position' | 'type' | 'isVisible' | 'props'
+>;
+
 /**
  * `props` that can be set on the Toast instance.
  * They act as defaults for all Toasts that are shown.
  */
 export type ToastProps = {
+  /**
+   * Renders a non-interactive layer behind the Toast at its resting position.
+   * Matches the Toast container's dimensions and offsets, including keyboard avoidance.
+   * Fades with animationConfig on show/hide; stays fixed during swipes and restores.
+   * Only configurable on the Toast instance, not through Toast.show().
+   */
+  renderBackdrop?: (params: ToastBackdropParams) => React.ReactNode;
   /**
    * Layout configuration for custom Toast types
    */
