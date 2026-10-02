@@ -12,7 +12,7 @@ import { useToast } from './useToast';
 
 const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
   const { config, ...defaultOptions } = props;
-  const { show, hide, isVisible, options, data } = useToast({
+  const { show, hide, isVisible, options, data, onRestorePosition } = useToast({
     defaultOptions
   });
 
@@ -36,6 +36,7 @@ const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
       hide={hide}
       show={show}
       config={config}
+      onRestorePosition={onRestorePosition}
     />
   );
 });

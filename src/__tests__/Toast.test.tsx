@@ -4,6 +4,10 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import { Button, Modal, Text } from 'react-native';
 
+import {
+  mockGestureValues,
+  mockPanResponder
+} from '../__helpers__/PanResponder';
 import { Toast } from '../Toast';
 
 /*
@@ -241,6 +245,53 @@ describe('test Toast component', () => {
     // The new Toast should still not hide
     expect(onHide).not.toHaveBeenCalled();
 
+    jest.useRealTimers();
+  });
+
+  it('hides after the user releases a Toast that was held past visibilityTime', () => {
+    jest.useFakeTimers();
+    mockPanResponder();
+
+    const onHide = jest.fn();
+    const visibilityTime = 1500;
+
+    const { getByTestId } = render(
+      <Toast onHide={onHide} autoHide={true} visibilityTime={visibilityTime} />
+    );
+
+    act(() => {
+      Toast.show({
+        text1: 'Touch and hold me'
+      });
+    });
+
+    // Touch the Toast and keep holding it past visibilityTime
+    const container = getByTestId('toastAnimatedContainer');
+    act(() => {
+      container.props.onResponderGrant();
+    });
+    act(() => {
+      jest.advanceTimersByTime(visibilityTime);
+    });
+    // Auto hiding is blocked while the user is holding the Toast
+    expect(onHide).not.toHaveBeenCalled();
+
+    // Release the Toast without swiping it away
+    act(() => {
+      container.props.onResponderRelease(undefined, {
+        ...mockGestureValues,
+        moveY: 100,
+        dy: 10
+      });
+    });
+    act(() => {
+      jest.advanceTimersByTime(visibilityTime);
+    });
+
+    // The Toast should hide again once the user lets go of it
+    expect(onHide).toHaveBeenCalledTimes(1);
+
+    jest.restoreAllMocks();
     jest.useRealTimers();
   });
 });
