@@ -19,6 +19,7 @@ export type ToastUIProps = {
   show: (params: ToastShowParams) => void;
   hide: (params: ToastHideParams) => void;
   config?: ToastConfig;
+  onRestorePosition?: () => void;
 };
 
 const defaultToastConfig: ToastConfig = {
@@ -75,7 +76,7 @@ function renderComponent({
 }
 
 export function ToastUI(props: ToastUIProps) {
-  const { isVisible, options, hide } = props;
+  const { isVisible, options, hide, onRestorePosition } = props;
   const {
     position,
     topOffset,
@@ -96,7 +97,8 @@ export function ToastUI(props: ToastUIProps) {
       avoidKeyboard={avoidKeyboard}
       swipeable={swipeable}
       animationConfig={animationConfig}
-      onHide={hide}>
+      onHide={hide}
+      onRestorePosition={onRestorePosition}>
       {renderComponent(props)}
     </AnimatedContainer>
   );

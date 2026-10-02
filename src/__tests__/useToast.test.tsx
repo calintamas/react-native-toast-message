@@ -5,7 +5,7 @@ import React from 'react';
 
 import { ToastOptions } from '../types';
 import { DEFAULT_DATA, DEFAULT_OPTIONS, useToast } from '../useToast';
-import { GestureProvider } from '../contexts';
+import { GestureProvider, useGesture } from '../contexts';
 
 const setupGestureWrapper = (panning: boolean) => {
   return ({ children }: { children: React.ReactNode }) => (
@@ -197,6 +197,74 @@ describe('test useToast hook', () => {
 
     expect(result.current.isVisible).toBe(true);
     expect(onHide).not.toHaveBeenCalled();
+  });
+
+  it('restarts the autoHide timer on restore when panning blocked auto hiding', () => {
+    jest.useFakeTimers();
+    const { result } = renderHook(
+      () => ({
+        toast: useToast({ defaultOptions: DEFAULT_OPTIONS }),
+        gesture: useGesture()
+      }),
+      { wrapper: setupGestureWrapper(true) }
+    );
+    const onHide = jest.fn();
+    act(() => {
+      result.current.toast.show({
+        text1: 'test',
+        autoHide: true,
+        visibilityTime: 1000,
+        onHide
+      });
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    expect(result.current.toast.isVisible).toBe(true);
+
+    // The user releases the Toast and it's restored to its position
+    result.current.gesture.panning.current = false;
+    act(() => {
+      result.current.toast.onRestorePosition();
+    });
+    act(() => {
+      jest.advanceTimersByTime(999);
+    });
+    expect(onHide).not.toHaveBeenCalled();
+
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
+    expect(result.current.toast.isVisible).toBe(false);
+    expect(onHide).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not restart the autoHide timer on restore when auto hiding was not blocked', () => {
+    jest.useFakeTimers();
+    const { result } = setup();
+    const onHide = jest.fn();
+    act(() => {
+      result.current.show({
+        text1: 'test',
+        autoHide: true,
+        visibilityTime: 1000,
+        onHide
+      });
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    act(() => {
+      result.current.onRestorePosition();
+    });
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+
+    expect(result.current.isVisible).toBe(false);
+    expect(onHide).toHaveBeenCalledTimes(1);
   });
 
 

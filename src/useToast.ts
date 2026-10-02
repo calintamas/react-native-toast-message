@@ -49,9 +49,14 @@ export function useToast({ defaultOptions }: UseToastParams) {
   const [options, setOptions] =
     React.useState<Required<ToastOptions>>(initialOptions);
 
+  // Set when the timer runs out while the user is holding the Toast,
+  // so it can be restarted once the Toast is released
+  const autoHideBlocked = React.useRef(false);
+
   const onAutoHide = React.useCallback(() => {
     if (panning.current) {
       log('Auto hiding was blocked due to panning');
+      autoHideBlocked.current = true;
     } else {
       log('Auto hiding');
       setIsVisible(false);
@@ -119,11 +124,20 @@ export function useToast({ defaultOptions }: UseToastParams) {
       );
       // TODO: validate input
       // TODO: use a queue when Toast is already visible
+      autoHideBlocked.current = false;
       setIsVisible(true);
       onShow(params);
     },
     [initialOptions, log]
   );
+
+  const onRestorePosition = React.useCallback(() => {
+    if (autoHideBlocked.current) {
+      log('Restarting auto hide timer after panning');
+      autoHideBlocked.current = false;
+      startTimer();
+    }
+  }, [log, startTimer]);
 
   React.useEffect(() => {
     const { autoHide } = options;
@@ -141,6 +155,7 @@ export function useToast({ defaultOptions }: UseToastParams) {
     data,
     options,
     show,
-    hide
+    hide,
+    onRestorePosition
   };
 }
