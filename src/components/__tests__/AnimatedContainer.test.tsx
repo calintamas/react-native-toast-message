@@ -1,10 +1,11 @@
 /* eslint-env jest */
 
-import { render, waitFor } from '@testing-library/react-native';
+import { act, render, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import {
   Animated,
   Dimensions,
+  Keyboard,
   PanResponderGestureState,
   View,
   ViewStyle
@@ -15,6 +16,7 @@ import {
   mockPanResponder
 } from '../../__helpers__/PanResponder';
 import { ToastPosition } from '../../types';
+import * as platform from '../../utils/platform';
 import {
   AnimatedContainer,
   AnimatedContainerProps,
@@ -182,6 +184,70 @@ describe('test AnimatedContainer component', () => {
     panHandler?.props.onResponderGrant();
     panHandler?.props.onResponderTerminate();
     expect(onRestorePosition).toHaveBeenCalled();
+  });
+});
+
+describe('test AnimatedContainer keyboard avoidance on Android', () => {
+  let isAndroid: jest.SpyInstance;
+
+  beforeEach(() => {
+    isAndroid = jest.spyOn(platform, 'isAndroid').mockReturnValue(true);
+  });
+
+  afterEach(() => {
+    isAndroid.mockRestore();
+  });
+
+  it('pins a keyboard anchor to the bottom of the parent', () => {
+    const { queryByTestId } = setup({ position: 'bottom' });
+    expect(queryByTestId('toastKeyboardAnchor')).toHaveStyle({
+      position: 'absolute',
+      bottom: 0,
+      height: 0
+    });
+  });
+
+  it('renders no anchor for a Toast at the top', () => {
+    const { queryByTestId } = setup({ position: 'top' });
+    expect(queryByTestId('toastKeyboardAnchor')).toBe(null);
+  });
+
+  it('renders no anchor when avoidKeyboard is off', () => {
+    const { queryByTestId } = setup({
+      position: 'bottom',
+      avoidKeyboard: false
+    });
+    expect(queryByTestId('toastKeyboardAnchor')).toBe(null);
+  });
+
+  it('lifts the Toast by the part of its parent the keyboard covers', async () => {
+    const { getByTestId, queryByTestId } = setup({
+      isVisible: true,
+      position: 'bottom'
+    });
+    // The query returns the host view; its parent is the mocked View that
+    // the anchor ref points to
+    const anchor = getByTestId('toastKeyboardAnchor').parent?.instance as View;
+    jest
+      .spyOn(anchor, 'measureInWindow')
+      .mockImplementation((callback) => callback(0, 900, 0, 0));
+
+    act(() => {
+      Keyboard.emit('keyboardDidShow', { endCoordinates: { screenY: 600 } });
+    });
+
+    // 300 covered by the keyboard, plus the 10 keyboardOffset
+    await waitFor(() =>
+      expect(queryByTestId('toastAnimatedContainer')).toHaveStyle({
+        transform: [{ translateY: -310 }]
+      })
+    );
+  });
+
+  it('renders no anchor on iOS', () => {
+    isAndroid.mockReturnValue(false);
+    const { queryByTestId } = setup({ position: 'bottom' });
+    expect(queryByTestId('toastKeyboardAnchor')).toBe(null);
   });
 });
 

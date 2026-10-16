@@ -225,7 +225,7 @@ export type ToastProps = {
   bottomOffset?: number;
   /**
    * Offset from the Keyboard (in px)
-   * Has effect only when `position` is `bottom` and Keyboard is visible (iOS only)
+   * Has effect only when `position` is `bottom` and Keyboard is visible
    * Default value: `10`
    */
   keyboardOffset?: number;

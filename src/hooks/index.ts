@@ -4,3 +4,4 @@ export * from './useTimeout';
 export * from './usePanResponder';
 export * from './useKeyboard';
 export * from './useIsomorphicLayoutEffect';
+export * from './useKeyboardOverlap';

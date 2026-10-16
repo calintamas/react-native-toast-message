@@ -4,7 +4,6 @@ import { Animated, Platform } from 'react-native';
 import { ToastAnimationConfig, ToastPosition } from '../types';
 import { additiveInverseArray } from '../utils/array';
 import { resolveAnimationConfig } from '../utils/animationConfig';
-import { useKeyboard } from './useKeyboard';
 
 type UseSlideAnimationParams = {
   position: ToastPosition;
@@ -50,10 +49,12 @@ export function useSlideAnimation({
   bottomOffset,
   keyboardOffset,
   avoidKeyboard,
+  keyboardHeight,
   animationConfig
-}: UseSlideAnimationParams) {
+}: UseSlideAnimationParams & {
+  keyboardHeight: number;
+}) {
   const animatedValue = React.useRef(new Animated.Value(0));
-  const { keyboardHeight } = useKeyboard();
 
   const animate = React.useCallback((toValue: number) => {
     const resolved = resolveAnimationConfig(
@@ -99,7 +100,6 @@ export function useSlideAnimation({
   return {
     animatedValue,
     animate,
-    keyboardHeight,
     animationStyles: {
       opacity,
       transform: [

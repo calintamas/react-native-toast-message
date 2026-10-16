@@ -21,6 +21,7 @@ const setup = (animationConfig?: ToastAnimationConfig) => {
     useSlideAnimation({
       position: 'top',
       height: 20,
+      keyboardHeight: 0,
       animationConfig,
       ...defaultParams
     })

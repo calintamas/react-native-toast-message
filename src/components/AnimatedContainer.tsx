@@ -1,9 +1,16 @@
 import React from 'react';
-import { Animated, Dimensions, PanResponderGestureState } from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  PanResponderGestureState,
+  View
+} from 'react-native';
 
 import { useLogger, useGesture } from '../contexts';
 import {
   useIsomorphicLayoutEffect,
+  useKeyboard,
+  useKeyboardOverlap,
   usePanResponder,
   useSlideAnimation,
   useViewDimensions
@@ -11,6 +18,7 @@ import {
 import { ReactChildren, ToastAnimationConfig, ToastPosition } from '../types';
 import { noop } from '../utils/func';
 import { bound } from '../utils/number';
+import { isAndroid } from '../utils/platform';
 import { getTestId } from '../utils/test-id';
 import { styles } from './AnimatedContainer.styles';
 
@@ -88,16 +96,26 @@ export function AnimatedContainer({
 
   const { computeViewDimensions, height } = useViewDimensions();
 
-  const { animatedValue, animate, animationStyles, keyboardHeight } =
-    useSlideAnimation({
-      position,
-      height,
-      topOffset,
-      bottomOffset,
-      keyboardOffset,
-      avoidKeyboard,
-      animationConfig
-    });
+  // iOS reports the keyboard's height. Android needs it measured against
+  // the Toast's parent, see useKeyboardOverlap
+  const { keyboardHeight: iosKeyboardHeight } = useKeyboard();
+  const measureKeyboardOverlap =
+    isAndroid() && position === 'bottom' && avoidKeyboard;
+  const { keyboardOverlap, anchorRef, onAnchorLayout } = useKeyboardOverlap(
+    measureKeyboardOverlap
+  );
+  const keyboardHeight = isAndroid() ? keyboardOverlap : iosKeyboardHeight;
+
+  const { animatedValue, animate, animationStyles } = useSlideAnimation({
+    position,
+    height,
+    topOffset,
+    bottomOffset,
+    keyboardOffset,
+    avoidKeyboard,
+    keyboardHeight,
+    animationConfig
+  });
 
   const disable = !swipeable || !isVisible;
 
@@ -150,15 +168,28 @@ export function AnimatedContainer({
   }, [animate, isVisible, keyboardHeight, bottomOffset, topOffset]);
 
   return (
-    <Animated.View
-      testID={getTestId('AnimatedContainer')}
-      onLayout={computeViewDimensions}
-      style={[styles.base, styles[position], animationStyles]}
-      // This container View is never the target of touch events but its subviews can be.
-      // By doing this, tapping buttons behind the Toast is allowed
-      pointerEvents='box-none'
-      {...panResponder.panHandlers}>
-      {children}
-    </Animated.View>
+    <>
+      {measureKeyboardOverlap && (
+        <View
+          ref={anchorRef}
+          testID={getTestId('KeyboardAnchor')}
+          // Kept as a native view of its own, so it can be measured
+          collapsable={false}
+          pointerEvents='none'
+          onLayout={onAnchorLayout}
+          style={styles.keyboardAnchor}
+        />
+      )}
+      <Animated.View
+        testID={getTestId('AnimatedContainer')}
+        onLayout={computeViewDimensions}
+        style={[styles.base, styles[position], animationStyles]}
+        // This container View is never the target of touch events but its subviews can be.
+        // By doing this, tapping buttons behind the Toast is allowed
+        pointerEvents='box-none'
+        {...panResponder.panHandlers}>
+        {children}
+      </Animated.View>
+    </>
   );
 }
