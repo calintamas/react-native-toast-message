@@ -124,6 +124,37 @@ describe('test Toast component', () => {
     expect(onHideInsideModal).toHaveBeenCalledTimes(1);
   });
 
+  it('keeps using the last mounted Toast when an earlier Toast re-renders', () => {
+    const onShowFirst = jest.fn();
+    const onShowSecond = jest.fn();
+    let rerenderFirst = () => {};
+
+    const FirstToast = () => {
+      const [, setCount] = React.useState(0);
+      rerenderFirst = () => setCount((count) => count + 1);
+      return <Toast onShow={onShowFirst} />;
+    };
+
+    render(
+      <>
+        <FirstToast />
+        <Toast onShow={onShowSecond} />
+      </>
+    );
+
+    act(() => {
+      rerenderFirst();
+    });
+    act(() => {
+      Toast.show({
+        text1: 'test'
+      });
+    });
+
+    expect(onShowSecond).toHaveBeenCalledTimes(1);
+    expect(onShowFirst).not.toHaveBeenCalled();
+  });
+
   it(`doesn't show a Toast if there is no active ref`, () => {
     const onShow = jest.fn();
     const onHide = jest.fn();
