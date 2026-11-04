@@ -16,16 +16,19 @@ const ToastRoot = React.forwardRef((props: ToastProps, ref) => {
     defaultOptions
   });
 
-  // This must use useCallback to ensure the ref doesn't get set to null and then a new ref every render.
+  // `show` and `hide` change identity across renders, so the handle reads them from a ref.
+  const latest = React.useRef({ show, hide });
+  latest.current = { show, hide };
+
+  // The handle must stay the same for the life of the instance. If it changed, the ref would be set to null
+  // and then to a new value, and this instance would be re-registered as the most recent one.
   React.useImperativeHandle(
     ref,
-    React.useCallback(
-      () => ({
-        show,
-        hide
-      }),
-      [hide, show]
-    )
+    () => ({
+      show: (params: ToastShowParams) => latest.current.show(params),
+      hide: () => latest.current.hide()
+    }),
+    []
   );
 
   return (
